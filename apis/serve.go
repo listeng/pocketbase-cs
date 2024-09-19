@@ -194,8 +194,8 @@ func Serve(app core.App, config ServeConfig) (*http.Server, error) {
 		)
 
 		regular := color.New()
-		regular.Printf("├─ REST API: %s\n", color.CyanString("%s://%s/api/", schema, addr))
-		regular.Printf("└─ Admin UI: %s\n", color.CyanString("%s://%s/_/", schema, addr))
+		regular.Printf("├─ REST API: %s\n", color.CyanString("%s://%s"+BaseUrl+"/api/", schema, addr))
+		regular.Printf("└─ Admin UI: %s\n", color.CyanString("%s://%s"+BaseUrl+"/_/", schema, addr))
 	}
 
 	// WaitGroup to block until server.ShutDown() returns because Serve and similar methods exit immediately.
