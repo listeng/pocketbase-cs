@@ -153,8 +153,7 @@
 
 <div class="chart-wrapper" class:loading={isLoading}>
     <div class="total-logs entrance-right" class:hidden={isLoading}>
-        Found {totalLogs}
-        {totalLogs == 1 ? "log" : "logs"}
+        找到 {totalLogs} 条记录
     </div>
     {#if isLoading}
         <div class="chart-loader loader" transition:scale={{ duration: 150 }} />

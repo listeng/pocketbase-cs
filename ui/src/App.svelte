@@ -91,7 +91,7 @@
                     aria-label="Collections"
                     use:link
                     use:active={{ path: "/collections/?.*", className: "current-route" }}
-                    use:tooltip={{ text: "Collections", position: "right" }}
+                    use:tooltip={{ text: "数据集", position: "right" }}
                 >
                     <i class="ri-database-2-line" />
                 </a>
@@ -101,7 +101,7 @@
                     aria-label="Logs"
                     use:link
                     use:active={{ path: "/logs/?.*", className: "current-route" }}
-                    use:tooltip={{ text: "Logs", position: "right" }}
+                    use:tooltip={{ text: "日志", position: "right" }}
                 >
                     <i class="ri-line-chart-line" />
                 </a>
@@ -111,7 +111,7 @@
                     aria-label="Settings"
                     use:link
                     use:active={{ path: "/settings/?.*", className: "current-route" }}
-                    use:tooltip={{ text: "Settings", position: "right" }}
+                    use:tooltip={{ text: "设置", position: "right" }}
                 >
                     <i class="ri-tools-line" />
                 </a>
@@ -131,12 +131,12 @@
                 <Toggler class="dropdown dropdown-nowrap dropdown-upside dropdown-left">
                     <a href="/settings/admins" class="dropdown-item closable" role="menuitem" use:link>
                         <i class="ri-shield-user-line" aria-hidden="true" />
-                        <span class="txt">Manage admins</span>
+                        <span class="txt">配置管理员</span>
                     </a>
                     <hr />
                     <button type="button" class="dropdown-item closable" role="menuitem" on:click={logout}>
                         <i class="ri-logout-circle-line" aria-hidden="true" />
-                        <span class="txt">Logout</span>
+                        <span class="txt">登出</span>
                     </button>
                 </Toggler>
             </div>

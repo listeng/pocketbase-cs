@@ -260,7 +260,7 @@
                         <button
                             type="button"
                             class="btn btn-sm btn-circle btn-transparent btn-hint m-l-auto"
-                            use:tooltip={"Edit"}
+                            use:tooltip={"编辑"}
                             on:keydown|stopPropagation
                             on:click|stopPropagation={() => upsertPanel?.show(record.id)}
                         >
@@ -272,10 +272,10 @@
         {:else}
             {#if !isLoading}
                 <div class="list-item">
-                    <span class="txt txt-hint">No records found.</span>
+                    <span class="txt txt-hint">没有记录</span>
                     {#if filter?.length}
                         <button type="button" class="btn btn-hint btn-sm" on:click={() => (filter = "")}>
-                            <span class="txt">Clear filters</span>
+                            <span class="txt">清空过滤器</span>
                         </button>
                     {/if}
                 </div>

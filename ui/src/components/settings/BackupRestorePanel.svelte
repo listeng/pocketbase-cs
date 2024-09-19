@@ -72,7 +72,7 @@
     on:hide
 >
     <svelte:fragment slot="header">
-        <h4 class="popup-title txt-ellipsis">Restore <strong>{name}</strong></h4>
+        <h4 class="popup-title txt-ellipsis">恢复 <strong>{name}</strong></h4>
     </svelte:fragment>
 
     <div class="alert alert-danger">
@@ -80,43 +80,40 @@
             <i class="ri-alert-line" />
         </div>
         <div class="content">
-            <p class="txt-bold">Please proceed with caution and use it only with trusted backups!</p>
-
-            <p>Backup restore is experimental and works only on UNIX based systems.</p>
+            <p class="txt-bold">请谨慎操作，并仅在可信的备份上使用！</p>
+        
+            <p>备份恢复功能是实验性的，且仅适用于基于 UNIX 的系统。</p>
             <p>
-                The restore operation will attempt to replace your existing <code>pb_data</code> with the one from
-                the backup and will restart the application process.
+                恢复操作将尝试使用备份中的 <code>pb_data</code> 替换现有的，并重新启动应用程序进程。
             </p>
             <p>
-                This means that on success all of your data (including app settings, users, admins, etc.) will
-                be replaced with the ones from the backup.
+                这意味着，成功后，您所有的数据（包括应用设置、用户、管理员等）将会被备份中的数据替换。
             </p>
             <p>
-                Nothing will happen if the backup is invalid or incompatible (ex. missing
-                <code>data.db</code> file).
+                如果备份无效或不兼容（例如，缺少 <code>data.db</code> 文件），则不会发生任何事情。
             </p>
         </div>
     </div>
 
     <div class="content m-b-xs">
-        Type the backup name
+        输入备份名称
         <div class="label">
             <span class="txt">{name}</span>
             <CopyIcon value={name} />
         </div>
-        to confirm:
+        以确认:
     </div>
 
     <form id={formId} autocomplete="off" on:submit|preventDefault={submit}>
         <Field class="form-field required m-0" name="name" let:uniqueId>
-            <label for={uniqueId}>Backup name</label>
+            <label for={uniqueId}>备份名称</label>
             <input type="text" id={uniqueId} required bind:value={nameConfirm} />
         </Field>
     </form>
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={hide} disabled={isSubmitting}>
-            Cancel
+            取消
         </button>
         <button
             type="submit"
@@ -125,7 +122,7 @@
             class:btn-loading={isSubmitting}
             disabled={!canSubmit || isSubmitting}
         >
-            <span class="txt">Restore backup</span>
+            <span class="txt">恢复备份</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

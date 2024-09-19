@@ -118,7 +118,7 @@
 
 <div class="block m-b-25">
     <p class="txt-sm">
-        System fields:
+        系统字段:
         <code class="txt-sm">id</code> ,
         <code class="txt-sm">created</code> ,
         <code class="txt-sm">updated</code>

@@ -9,7 +9,7 @@
 </script>
 
 <Field class="form-field required" name="{key}.duration" let:uniqueId>
-    <label for={uniqueId}>{label} duration (in seconds)</label>
+    <label for={uniqueId}>{label}有效期限 (秒)</label>
     <input type="number" id={uniqueId} required bind:value={duration} />
     <div class="help-block">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -25,7 +25,7 @@
                 }
             }}
         >
-            Invalidate all previously issued tokens
+            使所有先前发放的令牌失效
         </span>
     </div>
 </Field>

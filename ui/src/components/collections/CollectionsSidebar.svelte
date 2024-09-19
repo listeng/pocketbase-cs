@@ -78,7 +78,7 @@
             </div>
             <input
                 type="text"
-                placeholder="Search collections..."
+                placeholder="搜索数据集..."
                 name="collections-search"
                 bind:value={searchTerm}
             />
@@ -93,7 +93,7 @@
         class:sidebar-content-compact={filtered.length > 20}
     >
         {#if pinnedCollections.length}
-            <div class="sidebar-title">Pinned</div>
+            <div class="sidebar-title">置顶</div>
             {#each pinnedCollections as collection (collection.id)}
                 <CollectionSidebarItem {collection} bind:pinnedIds />
             {/each}
@@ -101,7 +101,7 @@
 
         {#if unpinnedCollections.length}
             {#if pinnedCollections.length}
-                <div class="sidebar-title">Others</div>
+                <div class="sidebar-title">其他</div>
             {/if}
             {#each unpinnedCollections as collection (collection.id)}
                 <CollectionSidebarItem {collection} bind:pinnedIds />
@@ -109,7 +109,7 @@
         {/if}
 
         {#if normalizedSearch.length && !filtered.length}
-            <p class="txt-hint m-t-10 m-b-10 txt-center">No collections found.</p>
+            <p class="txt-hint m-t-10 m-b-10 txt-center">没有数据集</p>
         {/if}
     </div>
 
@@ -117,7 +117,7 @@
         <footer class="sidebar-footer">
             <button type="button" class="btn btn-block btn-outline" on:click={() => collectionPanel?.show()}>
                 <i class="ri-add-line" />
-                <span class="txt">New collection</span>
+                <span class="txt">新数据集</span>
             </button>
         </footer>
     {/if}

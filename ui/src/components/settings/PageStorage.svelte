@@ -10,7 +10,7 @@
     import SettingsSidebar from "@/components/settings/SettingsSidebar.svelte";
     import S3Fields from "@/components/settings/S3Fields.svelte";
 
-    $pageTitle = "Files storage";
+    $pageTitle = "文件存储";
 
     const testRequestKey = "s3_test_request";
 
@@ -86,7 +86,7 @@
 <PageWrapper>
     <header class="page-header">
         <nav class="breadcrumbs">
-            <div class="breadcrumb-item">Settings</div>
+            <div class="breadcrumb-item">设置</div>
             <div class="breadcrumb-item">{$pageTitle}</div>
         </nav>
     </header>
@@ -94,9 +94,9 @@
     <div class="wrapper">
         <form class="panel" autocomplete="off" on:submit|preventDefault={() => save()}>
             <div class="content txt-xl m-b-base">
-                <p>By default PocketBase uses the local file system to store uploaded files.</p>
+                <p>默认情况下，使用本地文件系统来存储上传的文件。</p>
                 <p>
-                    If you have limited disk space, you could optionally connect to an S3 compatible storage.
+                    如果您的磁盘空间有限，您可以选择连接到兼容 S3 的存储服务。
                 </p>
             </div>
 
@@ -104,7 +104,7 @@
                 <div class="loader" />
             {:else}
                 <S3Fields
-                    toggleLabel="Use S3 storage"
+                    toggleLabel="使用 S3 存储"
                     originalConfig={originalFormSettings.s3}
                     bind:config={formSettings.s3}
                     bind:isTesting
@@ -117,21 +117,20 @@
                                     <i class="ri-error-warning-line" />
                                 </div>
                                 <div class="content">
-                                    If you have existing uploaded files, you'll have to migrate them manually
-                                    from the
+                                    如果您有已上传的文件，您需要手动将它们从现有存储中迁移。从
                                     <strong>
                                         {originalFormSettings.s3?.enabled
-                                            ? "S3 storage"
-                                            : "local file system"}
+                                            ? "S3 存储"
+                                            : "本地文件系统"}
                                     </strong>
-                                    to the
+                                    到
                                     <strong
                                         >{formSettings.s3.enabled
-                                            ? "S3 storage"
-                                            : "local file system"}</strong
+                                            ? "S3 存储"
+                                            : "本地文件系统"}</strong
                                     >.
                                     <br />
-                                    There are numerous command line tools that can help you, such as:
+                                    有许多命令行工具可以帮助您，例如：
                                     <a
                                         href="https://github.com/rclone/rclone"
                                         target="_blank"
@@ -147,7 +146,7 @@
                                         class="txt-bold"
                                     >
                                         s5cmd
-                                    </a>, etc.
+                                    </a> 等等
                                 </div>
                             </div>
                             <div class="clearfix m-t-base" />
@@ -167,12 +166,12 @@
                                 use:tooltip={testError.data?.message}
                             >
                                 <i class="ri-error-warning-line txt-warning" />
-                                <span class="txt">Failed to establish S3 connection</span>
+                                <span class="txt">连接 S3 失败</span>
                             </div>
                         {:else}
                             <div class="label label-sm label-success entrance-right">
                                 <i class="ri-checkbox-circle-line txt-success" />
-                                <span class="txt">S3 connected successfully</span>
+                                <span class="txt">连接 S3 成功</span>
                             </div>
                         {/if}
                     {/if}
@@ -184,7 +183,7 @@
                             disabled={isSaving}
                             on:click={() => reset()}
                         >
-                            <span class="txt">Reset</span>
+                            <span class="txt">重置</span>
                         </button>
                     {/if}
 
@@ -195,7 +194,7 @@
                         disabled={!hasChanges || isSaving}
                         on:click={() => save()}
                     >
-                        <span class="txt">Save changes</span>
+                        <span class="txt">保存</span>
                     </button>
                 </div>
             {/if}

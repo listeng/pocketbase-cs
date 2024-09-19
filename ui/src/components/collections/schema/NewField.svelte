@@ -73,7 +73,7 @@
 
 <div tabindex="0" role="button" class="field-types-btn {classes}">
     <i class="ri-add-line" aria-hidden="true" />
-    <div class="txt">New field</div>
+    <div class="txt">新字段</div>
     <Toggler class="dropdown field-types-dropdown">
         {#each types as item}
             <button type="button" role="menuitem" class="dropdown-item" on:click={() => select(item.value)}>

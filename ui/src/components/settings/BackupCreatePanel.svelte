@@ -88,7 +88,7 @@
     on:hide
 >
     <svelte:fragment slot="header">
-        <h4 class="center txt-break">Initialize new backup</h4>
+        <h4 class="center txt-break">初始化新的备份</h4>
     </svelte:fragment>
 
     <div class="alert alert-info">
@@ -97,33 +97,31 @@
         </div>
         <div class="content">
             <p>
-                Please note that during the backup other concurrent write requests may fail since the
-                database will be temporary "locked" (this usually happens only during the ZIP generation).
+                请注意，在备份过程中，其他并发的写请求可能会失败，因为数据库会暂时“锁定”（这种情况通常只在生成 ZIP 文件时发生）。
             </p>
             <p class="txt-bold">
-                If you are using S3 storage for the collections file upload, you'll have to backup them
-                separately since they are not locally stored and will not be included in the final backup!
+                如果您使用 S3 存储来上传文件（在数据集中存在上传文件字段），您必须单独备份这些文件，因为它们不存储在本地，且不会包含在最终备份中！
             </p>
         </div>
     </div>
 
     <form id={formId} autocomplete="off" on:submit|preventDefault={submit}>
         <Field class="form-field m-0" name="name" let:uniqueId>
-            <label for={uniqueId}>Backup name</label>
+            <label for={uniqueId}>备份名称</label>
             <input
                 type="text"
                 id={uniqueId}
-                placeholder={"Leave empty to autogenerate"}
+                placeholder={"留空的话自动生成"}
                 pattern="^[a-z0-9_-]+\.zip$"
                 bind:value={name}
             />
-            <em class="help-block">Must be in the format [a-z0-9_-].zip</em>
+            <em class="help-block">格式为 [a-z0-9_-].zip</em>
         </Field>
     </form>
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={hide} disabled={isSubmitting}>
-            <span class="txt">Cancel</span>
+            <span class="txt">取消</span>
         </button>
         <button
             type="submit"
@@ -132,7 +130,7 @@
             class:btn-loading={isSubmitting}
             disabled={isSubmitting}
         >
-            <span class="txt">Start backup</span>
+            <span class="txt">开始备份</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

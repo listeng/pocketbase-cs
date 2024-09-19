@@ -4,7 +4,7 @@
     import tooltipAction from "@/actions/tooltip";
 
     export let value = "";
-    export let tooltip = "Copy";
+    export let tooltip = "复制";
     export let idleClasses = "ri-file-copy-line txt-sm link-hint";
     export let successClasses = "ri-check-line txt-sm txt-success";
     export let successDuration = 500; // ms

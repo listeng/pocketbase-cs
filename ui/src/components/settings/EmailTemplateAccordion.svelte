@@ -78,10 +78,10 @@
     </svelte:fragment>
 
     <Field class="form-field required" name="{key}.subject" let:uniqueId>
-        <label for={uniqueId}>Subject</label>
+        <label for={uniqueId}>主题</label>
         <input type="text" id={uniqueId} bind:value={config.subject} spellcheck="false" required />
         <div class="help-block">
-            Available placeholder parameters:
+            可用的占位符参数:
             <button
                 type="button"
                 class="label label-sm link-primary txt-mono"
@@ -100,10 +100,10 @@
     </Field>
 
     <Field class="form-field required" name="{key}.actionUrl" let:uniqueId>
-        <label for={uniqueId}>Action URL</label>
+        <label for={uniqueId}>跳转 URL</label>
         <input type="text" id={uniqueId} bind:value={config.actionUrl} spellcheck="false" required />
         <div class="help-block">
-            Available placeholder parameters:
+            可用的占位符参数:
             <button
                 type="button"
                 class="label label-sm link-primary txt-mono"
@@ -130,7 +130,7 @@
     </Field>
 
     <Field class="form-field m-0 required" name="{key}.body" let:uniqueId>
-        <label for={uniqueId}>Body (HTML)</label>
+        <label for={uniqueId}>内容 (HTML)</label>
 
         {#if editorComponent && !isEditorComponentLoading}
             <svelte:component this={editorComponent} id={uniqueId} language="html" bind:value={config.body} />
@@ -146,7 +146,7 @@
         {/if}
 
         <div class="help-block">
-            Available placeholder parameters:
+            可用的占位符参数:
             <button
                 type="button"
                 class="label label-sm link-primary txt-mono"

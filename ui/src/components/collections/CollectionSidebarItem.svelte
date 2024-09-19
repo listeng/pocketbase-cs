@@ -35,7 +35,7 @@
         class="btn btn-xs btn-circle btn-hint btn-transparent pin-collection"
         aria-label={"Pin collection"}
         aria-hidden="true"
-        use:tooltip={{ position: "right", text: (isPinned ? "Unpin" : "Pin") + " collection" }}
+        use:tooltip={{ position: "right", text: (isPinned ? "取消置顶" : "置顶") + "此数据集" }}
         on:click|preventDefault|stopPropagation={() => toggleCollectionPin(collection)}
     >
         {#if isPinned}

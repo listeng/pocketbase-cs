@@ -122,7 +122,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <OverlayPanel bind:this={logPanel} class="overlay-panel-lg log-panel" on:hide={onHide}>
     <svelte:fragment slot="header">
-        <h4>Request log</h4>
+        <h4>请求日志</h4>
     </svelte:fragment>
 
     {#if isLoading}
@@ -193,12 +193,12 @@
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={() => hide()}>
-            <span class="txt">Close</span>
+            <span class="txt">关闭</span>
         </button>
 
         <button type="button" class="btn btn-primary" disabled={isLoading} on:click={() => downloadJson()}>
             <i class="ri-download-line" />
-            <span class="txt">Download as JSON</span>
+            <span class="txt">下载 JSON 文件</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

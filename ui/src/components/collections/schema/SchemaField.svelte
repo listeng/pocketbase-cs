@@ -50,7 +50,7 @@
 
     $: hasErrors = !CommonHelper.isEmpty(CommonHelper.getNestedVal($errors, `schema.${key}`));
 
-    $: requiredLabel = customRequiredLabels[field?.type] || "Nonempty";
+    $: requiredLabel = customRequiredLabels[field?.type] || "非空";
 
     function remove() {
         if (!field.id) {
@@ -162,7 +162,7 @@
                 readonly={field.id && field.system}
                 spellcheck="false"
                 autofocus={!field.id}
-                placeholder="Field name"
+                placeholder="字段名称"
                 value={field.name}
                 on:input={(e) => {
                     const oldName = field.name;
@@ -183,7 +183,7 @@
                 type="button"
                 class="btn btn-sm btn-circle btn-warning btn-transparent options-trigger"
                 aria-label="Restore"
-                use:tooltip={"Restore"}
+                use:tooltip={"恢复"}
                 on:click={restore}
             >
                 <i class="ri-restart-line" />
@@ -219,7 +219,7 @@
                         <i
                             class="ri-information-line link-hint"
                             use:tooltip={{
-                                text: `Requires the field value NOT to be ${CommonHelper.zeroDefaultStr(
+                                text: `此字段的值不能为 ${CommonHelper.zeroDefaultStr(
                                     field,
                                 )}.`,
                             }}
@@ -234,7 +234,7 @@
                         <i
                             class="ri-information-line link-hint"
                             use:tooltip={{
-                                text: `Whether the field should be preferred in the Admin UI relation listings (default to auto).`,
+                                text: `该字段是否应在管理员界面的关联列表中被优先显示（默认为自动）`,
                             }}
                         />
                     </label>
@@ -261,7 +261,7 @@
                                         role="menuitem"
                                         on:click|preventDefault={duplicate}
                                     >
-                                        <span class="txt">Duplicate</span>
+                                        <span class="txt">复制</span>
                                     </button>
                                     <button
                                         type="button"
@@ -269,7 +269,7 @@
                                         role="menuitem"
                                         on:click|preventDefault={remove}
                                     >
-                                        <span class="txt">Remove</span>
+                                        <span class="txt">删除</span>
                                     </button>
                                 </Toggler>
                             </div>

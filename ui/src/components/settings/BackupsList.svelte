@@ -144,7 +144,7 @@
                             class:btn-loading={isDownloading[backup.key]}
                             disabled={isDeleting[backup.key] || isDownloading[backup.key]}
                             aria-label="Download"
-                            use:tooltip={"Download"}
+                            use:tooltip={"下载"}
                             on:click|preventDefault={() => download(backup.key)}
                         >
                             <i class="ri-download-line" />
@@ -154,7 +154,7 @@
                             class="btn btn-sm btn-circle btn-hint btn-transparent"
                             disabled={isDeleting[backup.key]}
                             aria-label="Restore"
-                            use:tooltip={"Restore"}
+                            use:tooltip={"恢复"}
                             on:click|preventDefault={() => restorePanel.show(backup.key)}
                         >
                             <i class="ri-restart-line" />
@@ -165,7 +165,7 @@
                             class:btn-loading={isDeleting[backup.key]}
                             disabled={isDeleting[backup.key]}
                             aria-label="Delete"
-                            use:tooltip={"Delete"}
+                            use:tooltip={"删除"}
                             on:click|preventDefault={() => deleteConfirm(backup.key)}
                         >
                             <i class="ri-delete-bin-7-line" />
@@ -174,7 +174,7 @@
                 </div>
             {:else}
                 <div class="list-item list-item-placeholder">
-                    <span class="txt">No backups yet.</span>
+                    <span class="txt">还没有备份</span>
                 </div>
             {/each}
         {/if}
@@ -189,10 +189,10 @@
         >
             {#if canBackup}
                 <i class="ri-play-circle-line" />
-                <span class="txt">Initialize new backup</span>
+                <span class="txt">初始化新的备份</span>
             {:else}
                 <span class="loader loader-sm" />
-                <span class="txt">Backup/restore operation is in process</span>
+                <span class="txt">备份或者还原操作正在进行</span>
             {/if}
         </button>
     </div>

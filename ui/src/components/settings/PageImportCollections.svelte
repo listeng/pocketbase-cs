@@ -10,7 +10,7 @@
     import SettingsSidebar from "@/components/settings/SettingsSidebar.svelte";
     import ImportPopup from "@/components/settings/ImportPopup.svelte";
 
-    $pageTitle = "Import collections";
+    $pageTitle = "导入数据集";
 
     let fileInput;
     let importPopup;
@@ -244,7 +244,7 @@
 <PageWrapper>
     <header class="page-header">
         <nav class="breadcrumbs">
-            <div class="breadcrumb-item">Settings</div>
+            <div class="breadcrumb-item">设置</div>
             <div class="breadcrumb-item">{$pageTitle}</div>
         </nav>
     </header>
@@ -268,7 +268,7 @@
 
                 <div class="content txt-xl m-b-base">
                     <p>
-                        Paste below the collections configuration you want to import or
+                        粘贴您想要导入的数据集配置，或者
                         <button
                             class="btn btn-outline btn-sm m-l-5"
                             class:btn-loading={isLoadingFile}
@@ -276,13 +276,13 @@
                                 fileInput.click();
                             }}
                         >
-                            <span class="txt">Load from JSON file</span>
+                            <span class="txt">从 JSON 文件加载</span>
                         </button>
                     </p>
                 </div>
 
                 <Field class="form-field {!isValid ? 'field-error' : ''}" name="collections" let:uniqueId>
-                    <label for={uniqueId} class="p-b-10">Collections</label>
+                    <label for={uniqueId} class="p-b-10">数据集</label>
                     <textarea
                         id={uniqueId}
                         class="code"
@@ -293,7 +293,7 @@
                     />
 
                     {#if !!schemas && !isValid}
-                        <div class="help-block help-block-error">Invalid collections configuration.</div>
+                        <div class="help-block help-block-error">无效的数据集配置</div>
                     {/if}
                 </Field>
 
@@ -305,7 +305,7 @@
                             bind:checked={mergeWithOldCollections}
                             disabled={!isValid}
                         />
-                        <label for={uniqueId}>Merge with the existing collections</label>
+                        <label for={uniqueId}>与存在的数据集合并</label>
                     </Field>
                 {/if}
 
@@ -328,19 +328,19 @@
                             <i class="ri-information-line" />
                         </div>
                         <div class="content">
-                            <string>Your collections configuration is already up-to-date!</string>
+                            <string>您的数据集配置已经是最新的！</string>
                         </div>
                     </div>
                 {/if}
 
                 {#if isValid && newCollections.length && hasChanges}
-                    <h5 class="section-title">Detected changes</h5>
+                    <h5 class="section-title">删除的修改</h5>
 
                     <div class="list">
                         {#if collectionsToDelete.length}
                             {#each collectionsToDelete as collection (collection.id)}
                                 <div class="list-item">
-                                    <span class="label label-danger list-label">Deleted</span>
+                                    <span class="label label-danger list-label">删除的</span>
                                     <div class="inline-flex flex-gap-5">
                                         <strong>{collection.name}</strong>
                                         {#if collection.id}
@@ -354,7 +354,7 @@
                         {#if collectionsToUpdate.length}
                             {#each collectionsToUpdate as pair (pair.old.id + pair.new.id)}
                                 <div class="list-item">
-                                    <span class="label label-warning list-label">Changed</span>
+                                    <span class="label label-warning list-label">修改的</span>
                                     <div class="inline-flex flex-gap-5">
                                         {#if pair.old.name !== pair.new.name}
                                             <strong class="txt-strikethrough txt-hint">
@@ -374,7 +374,7 @@
                         {#if collectionsToAdd.length}
                             {#each collectionsToAdd as collection (collection.id)}
                                 <div class="list-item">
-                                    <span class="label label-success list-label">Added</span>
+                                    <span class="label label-success list-label">增加的</span>
                                     <div class="inline-flex flex-gap-5">
                                         <strong>{collection.name}</strong>
                                         {#if collection.id}
@@ -394,9 +394,7 @@
                         </div>
                         <div class="content">
                             <string>
-                                Some of the imported collections share the same name and/or fields but are
-                                imported with different IDs. You can replace them in the import if you want
-                                to.
+                                一些导入的数据集具有相同的名称和/或字段，但它们是使用不同的 ID 导入的。您可以选择在导入时替换它们。
                             </string>
                         </div>
                         <button
@@ -404,7 +402,7 @@
                             class="btn btn-warning btn-sm btn-outline"
                             on:click={() => replaceIds()}
                         >
-                            <span class="txt">Replace with original ids</span>
+                            <span class="txt">替换原始的ID</span>
                         </button>
                     </div>
                 {/if}
@@ -412,7 +410,7 @@
                 <div class="flex m-t-base">
                     {#if !!schemas}
                         <button type="button" class="btn btn-transparent link-hint" on:click={() => clear()}>
-                            <span class="txt">Clear</span>
+                            <span class="txt">清除</span>
                         </button>
                     {/if}
                     <div class="flex-fill" />
@@ -422,7 +420,7 @@
                         disabled={!canImport}
                         on:click={review}
                     >
-                        <span class="txt">Review</span>
+                        <span class="txt">审阅</span>
                     </button>
                 </div>
             {/if}

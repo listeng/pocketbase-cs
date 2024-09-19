@@ -8,7 +8,7 @@
     import Field from "@/components/base/Field.svelte";
     import SettingsSidebar from "@/components/settings/SettingsSidebar.svelte";
 
-    $pageTitle = "Application settings";
+    $pageTitle = "应用设置";
 
     let originalFormSettings = {};
     let formSettings = {};
@@ -45,7 +45,7 @@
         try {
             const settings = await ApiClient.settings.update(CommonHelper.filterRedactedProps(formSettings));
             init(settings);
-            addSuccessToast("Successfully saved application settings.");
+            addSuccessToast("应用设置保存成功");
         } catch (err) {
             ApiClient.error(err);
         }
@@ -74,8 +74,8 @@
 <PageWrapper>
     <header class="page-header">
         <nav class="breadcrumbs">
-            <div class="breadcrumb-item">Settings</div>
-            <div class="breadcrumb-item">Application</div>
+            <div class="breadcrumb-item">设置</div>
+            <div class="breadcrumb-item">应用</div>
         </nav>
     </header>
 
@@ -87,7 +87,7 @@
                 <div class="grid">
                     <div class="col-lg-6">
                         <Field class="form-field required" name="meta.appName" let:uniqueId>
-                            <label for={uniqueId}>Application name</label>
+                            <label for={uniqueId}>应用名称</label>
                             <input
                                 type="text"
                                 id={uniqueId}
@@ -99,7 +99,7 @@
 
                     <div class="col-lg-6">
                         <Field class="form-field required" name="meta.appUrl" let:uniqueId>
-                            <label for={uniqueId}>Application URL</label>
+                            <label for={uniqueId}>应用 URL</label>
                             <input type="text" id={uniqueId} required bind:value={formSettings.meta.appUrl} />
                         </Field>
                     </div>
@@ -107,11 +107,11 @@
                     <Field class="form-field form-field-toggle" name="meta.hideControls" let:uniqueId>
                         <input type="checkbox" id={uniqueId} bind:checked={formSettings.meta.hideControls} />
                         <label for={uniqueId}>
-                            <span class="txt">Hide collection create and edit controls</span>
+                            <span class="txt">隐藏集合创建和编辑控件</span>
                             <i
                                 class="ri-information-line link-hint"
                                 use:tooltip={{
-                                    text: `This could prevent making accidental schema changes when in production environment.`,
+                                    text: `这可以防止在生产环境中意外进行架构更改`,
                                     position: "right",
                                 }}
                             />
@@ -128,7 +128,7 @@
                                 disabled={isSaving}
                                 on:click={() => reset()}
                             >
-                                <span class="txt">Cancel</span>
+                                <span class="txt">取消</span>
                             </button>
                         {/if}
                         <button
@@ -138,7 +138,7 @@
                             disabled={!hasChanges || isSaving}
                             on:click={() => save()}
                         >
-                            <span class="txt">Save changes</span>
+                            <span class="txt">保存</span>
                         </button>
                     </div>
                 </div>

@@ -45,7 +45,7 @@
 
             setErrors({});
 
-            addSuccessToast("Successfully updated provider settings.");
+            addSuccessToast("更新提供者设置成功");
 
             dispatch("submit", result);
 
@@ -81,11 +81,11 @@
         <div class="flex m-b-base">
             <Field class="form-field form-field-toggle m-b-0" name="{provider.key}.enabled" let:uniqueId>
                 <input type="checkbox" id={uniqueId} bind:checked={config.enabled} />
-                <label for={uniqueId}>Enable</label>
+                <label for={uniqueId}>激活</label>
             </Field>
 
             <button type="button" class="btn btn-sm btn-transparent btn-hint m-l-auto" on:click={clear}>
-                <span class="txt">Clear all fields</span>
+                <span class="txt">清空所有字段</span>
             </button>
         </div>
 
@@ -121,7 +121,7 @@
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={hide} disabled={isSubmitting}>
-            Close
+            关闭
         </button>
         <button
             type="submit"
@@ -130,7 +130,7 @@
             class:btn-loading={isSubmitting}
             disabled={!hasChanges || isSubmitting}
         >
-            <span class="txt">Save changes</span>
+            <span class="txt">保存</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

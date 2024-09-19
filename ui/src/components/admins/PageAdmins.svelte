@@ -14,7 +14,7 @@
     import SettingsSidebar from "@/components/settings/SettingsSidebar.svelte";
     import AdminUpsertPanel from "@/components/admins/AdminUpsertPanel.svelte";
 
-    $pageTitle = "Admins";
+    $pageTitle = "管理员";
 
     const queryParams = new URLSearchParams($querystring);
 
@@ -73,7 +73,7 @@
 <PageWrapper>
     <header class="page-header">
         <nav class="breadcrumbs">
-            <div class="breadcrumb-item">Settings</div>
+            <div class="breadcrumb-item">设置</div>
             <div class="breadcrumb-item">{$pageTitle}</div>
         </nav>
 
@@ -84,14 +84,14 @@
         <div class="btns-group">
             <button type="button" class="btn btn-expanded" on:click={() => adminUpsertPanel?.show()}>
                 <i class="ri-add-line" />
-                <span class="txt">New admin</span>
+                <span class="txt">创建新管理员</span>
             </button>
         </div>
     </header>
 
     <Searchbar
         value={filter}
-        placeholder={"Search term or filter like email='test@example.com'"}
+        placeholder={"搜索关键字或者使用过滤器，比如： email='test@example.com'"}
         extraAutocompleteKeys={["email"]}
         on:submit={(e) => (filter = e.detail)}
     />
@@ -214,7 +214,7 @@
     </Scroller>
 
     <svelte:fragment slot="footer">
-        <div class="m-r-auto txt-sm txt-hint">Total found: {admins.length}</div>
+        <div class="m-r-auto txt-sm txt-hint">找到: {admins.length} 条</div>
     </svelte:fragment>
 </PageWrapper>
 

@@ -11,6 +11,7 @@
     let email = queryParams.get("demoEmail") || "";
     let password = queryParams.get("demoPassword") || "";
     let isLoading = false;
+    let isSSOLoading = false;
     let ssoCfg = null;
     let showSSOLoginButton = false;
 
@@ -51,8 +52,8 @@
                 ssoCfg = cfg;
 
                 const ps = getUrlParams(cleanUrl(window.location.href).url);
-                console.log(ps)
                 if (ps['iscas'] == 1 && ps['ticket']) {
+                    isSSOLoading = true;
                     validUserinfo(ps['ticket'])
                 }
             }
@@ -137,7 +138,12 @@
 </script>
 
 <FullPage>
-    <form class="block" on:submit|preventDefault={login}>
+    {#if isSSOLoading}
+    <div class="content txt-center m-b-base">
+        <h4>正在登录……</h4>
+    </div>
+    {:else}
+    <form class="block" on:submit|preventDefault={login} >
         <div class="content txt-center m-b-base">
             <h4>管理员登录</h4>
         </div>
@@ -178,4 +184,5 @@
         </button>
         {/if}
     </form>
+    {/if}
 </FullPage>

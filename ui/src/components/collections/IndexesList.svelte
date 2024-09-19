@@ -25,7 +25,7 @@
 </script>
 
 <div class="section-title">
-    Unique constraints and indexes ({collection?.indexes?.length || 0})
+    唯一约束和索引 ({collection?.indexes?.length || 0})
 </div>
 <div class="indexes-list">
     {#each collection?.indexes || [] as rawIndex, i}
@@ -37,7 +37,7 @@
             on:click={() => upsertPanel?.show(rawIndex, i)}
         >
             {#if parsed.unique}
-                <strong>Unique:</strong>
+                <strong>唯一:</strong>
             {/if}
             <span class="txt">
                 {parsed.columns?.map((c) => c.name).join(", ")}
@@ -50,7 +50,7 @@
         on:click={() => upsertPanel?.show()}
     >
         <span class="txt">+</span>
-        <span class="txt">New index</span>
+        <span class="txt">新的索引</span>
     </button>
 </div>
 

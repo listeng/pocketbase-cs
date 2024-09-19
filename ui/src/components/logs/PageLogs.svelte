@@ -13,7 +13,7 @@
     import LogsSettingsPanel from "@/components/logs/LogsSettingsPanel.svelte";
     import LogsLevelsInfo from "@/components/logs/LogsLevelsInfo.svelte";
 
-    $pageTitle = "Logs";
+    $pageTitle = "日志";
 
     const LOG_QUERY_KEY = "logId";
     const ADMIN_REQUESTS_QUERY_KEY = "adminRequests";
@@ -69,7 +69,7 @@
                 type="button"
                 aria-label="Logs settings"
                 class="btn btn-transparent btn-circle"
-                use:tooltip={{ text: "Logs settings", position: "right" }}
+                use:tooltip={{ text: "日志设置", position: "right" }}
                 on:click={() => logsSettingsPanel?.show()}
             >
                 <i class="ri-settings-4-line" />
@@ -82,14 +82,14 @@
             <div class="inline-flex">
                 <Field class="form-field form-field-toggle m-0" let:uniqueId>
                     <input type="checkbox" id={uniqueId} bind:checked={withAdminLogs} />
-                    <label for={uniqueId}>Include requests by admins</label>
+                    <label for={uniqueId}>包含管理员的请求</label>
                 </Field>
             </div>
         </header>
 
         <Searchbar
             value={filter}
-            placeholder="Search term or filter like `level > 0 && data.auth = 'guest'`"
+            placeholder="搜索关键字或者使用过滤器，比如： `level > 0 && data.auth = 'guest'`"
             extraAutocompleteKeys={["level", "message", "data."]}
             on:submit={(e) => (filter = e.detail)}
         />

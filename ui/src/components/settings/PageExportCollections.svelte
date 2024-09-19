@@ -7,7 +7,7 @@
     import Field from "@/components/base/Field.svelte";
     import SettingsSidebar from "@/components/settings/SettingsSidebar.svelte";
 
-    $pageTitle = "Export collections";
+    $pageTitle = "导出数据集";
 
     const uniqueId = "export_" + CommonHelper.randomString(5);
 
@@ -94,7 +94,7 @@
 <PageWrapper>
     <header class="page-header">
         <nav class="breadcrumbs">
-            <div class="breadcrumb-item">Settings</div>
+            <div class="breadcrumb-item">设置</div>
             <div class="breadcrumb-item">{$pageTitle}</div>
         </nav>
     </header>
@@ -106,8 +106,7 @@
             {:else}
                 <div class="content txt-xl m-b-base">
                     <p>
-                        Below you'll find your current collections configuration that you could import in
-                        another PocketBase environment.
+                        下面是您当前的数据集配置，您可以将其导入到另一个环境中。
                     </p>
                 </div>
 
@@ -122,7 +121,7 @@
                                     checked={areAllSelected}
                                     on:change={() => toggleSelectAll()}
                                 />
-                                <label for={uniqueId}>Select all</label>
+                                <label for={uniqueId}>选择所有</label>
                             </Field>
                         </div>
                         {#each collections as collection (collection.id)}
@@ -164,7 +163,7 @@
                             disabled={!totalBulkSelected}
                             on:click={() => copy()}
                         >
-                            <span class="txt">Copy</span>
+                            <span class="txt">复制</span>
                         </button>
 
                         <pre class="code-wrapper">{@html schema}</pre>
@@ -180,7 +179,7 @@
                         on:click={() => download()}
                     >
                         <i class="ri-download-line" />
-                        <span class="txt">Download as JSON</span>
+                        <span class="txt">下载 JSON 文件</span>
                     </button>
                 </div>
             {/if}

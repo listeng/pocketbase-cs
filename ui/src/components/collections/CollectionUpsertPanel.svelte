@@ -26,9 +26,9 @@
     const TYPE_VIEW = "view";
 
     const collectionTypes = {};
-    collectionTypes[TYPE_BASE] = "Base";
-    collectionTypes[TYPE_VIEW] = "View";
-    collectionTypes[TYPE_AUTH] = "Auth";
+    collectionTypes[TYPE_BASE] = "基础";
+    collectionTypes[TYPE_VIEW] = "视图";
+    collectionTypes[TYPE_AUTH] = "用户";
 
     const dispatch = createEventDispatcher();
 
@@ -284,7 +284,7 @@
 >
     <svelte:fragment slot="header">
         <h4 class="upsert-panel-title">
-            {!collection.id ? "New collection" : "Edit collection"}
+            {!collection.id ? "创建数据集" : "编辑数据集"}
         </h4>
 
         {#if !!collection.id && !collection.system}
@@ -304,7 +304,7 @@
                         on:click={() => duplicateConfirm()}
                     >
                         <i class="ri-file-copy-line" aria-hidden="true" />
-                        <span class="txt">Duplicate</span>
+                        <span class="txt">复制</span>
                     </button>
                     <button
                         type="button"
@@ -313,7 +313,7 @@
                         on:click|preventDefault|stopPropagation={() => deleteConfirm()}
                     >
                         <i class="ri-delete-bin-7-line" aria-hidden="true" />
-                        <span class="txt">Delete</span>
+                        <span class="txt">删除</span>
                     </button>
                 </Toggler>
             </div>
@@ -330,7 +330,7 @@
                 name="name"
                 let:uniqueId
             >
-                <label for={uniqueId}>Name</label>
+                <label for={uniqueId}>名称</label>
 
                 <!-- svelte-ignore a11y-autofocus -->
                 <input
@@ -340,7 +340,7 @@
                     disabled={isSystemUpdate}
                     spellcheck="false"
                     autofocus={!collection.id}
-                    placeholder={isAuth ? `eg. "users"` : `eg. "posts"`}
+                    placeholder={isAuth ? `比如：users` : `比如：posts`}
                     value={collection.name}
                     on:input={(e) => {
                         collection.name = CommonHelper.slugify(e.target.value);
@@ -358,7 +358,7 @@
                     >
                         <!-- empty span for alignment -->
                         <span aria-hidden="true" />
-                        <span class="txt">Type: {collectionTypes[collection.type] || "N/A"}</span>
+                        <span class="txt">类型: {collectionTypes[collection.type] || "N/A"}</span>
                         {#if !collection.id}
                             <i class="ri-arrow-down-s-fill" aria-hidden="true" />
                             <Toggler class="dropdown dropdown-right dropdown-nowrap m-t-5">
@@ -374,7 +374,7 @@
                                             class={CommonHelper.getCollectionTypeIcon(type)}
                                             aria-hidden="true"
                                         />
-                                        <span class="txt">{label} collection</span>
+                                        <span class="txt">{label}数据集</span>
                                     </button>
                                 {/each}
                             </Toggler>
@@ -383,7 +383,7 @@
                 </div>
 
                 {#if collection.system}
-                    <div class="help-block">System collection</div>
+                    <div class="help-block">系统数据集</div>
                 {/if}
             </Field>
 
@@ -397,7 +397,7 @@
                 class:active={activeTab === TAB_SCHEMA}
                 on:click={() => changeTab(TAB_SCHEMA)}
             >
-                <span class="txt">{isView ? "Query" : "Fields"}</span>
+                <span class="txt">{isView ? "查询" : "字段"}</span>
                 {#if !CommonHelper.isEmpty(schemaTabError)}
                     <i
                         class="ri-error-warning-fill txt-danger"
@@ -413,12 +413,12 @@
                 class:active={activeTab === TAB_RULES}
                 on:click={() => changeTab(TAB_RULES)}
             >
-                <span class="txt">API Rules</span>
+                <span class="txt">API规则</span>
                 {#if !CommonHelper.isEmpty($errors?.listRule) || !CommonHelper.isEmpty($errors?.viewRule) || !CommonHelper.isEmpty($errors?.createRule) || !CommonHelper.isEmpty($errors?.updateRule) || !CommonHelper.isEmpty($errors?.deleteRule) || !CommonHelper.isEmpty($errors?.options?.manageRule)}
                     <i
                         class="ri-error-warning-fill txt-danger"
                         transition:scale={{ duration: 150, start: 0.7 }}
-                        use:tooltip={"Has errors"}
+                        use:tooltip={"有错误"}
                     />
                 {/if}
             </button>
@@ -430,12 +430,12 @@
                     class:active={activeTab === TAB_OPTIONS}
                     on:click={() => changeTab(TAB_OPTIONS)}
                 >
-                    <span class="txt">Options</span>
+                    <span class="txt">选项</span>
                     {#if !CommonHelper.isEmpty($errors?.options) && !$errors?.options?.manageRule}
                         <i
                             class="ri-error-warning-fill txt-danger"
                             transition:scale={{ duration: 150, start: 0.7 }}
-                            use:tooltip={"Has errors"}
+                            use:tooltip={"有错误"}
                         />
                     {/if}
                 </button>
@@ -468,7 +468,7 @@
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" disabled={isSaving} on:click={() => hide()}>
-            <span class="txt">Cancel</span>
+            <span class="txt">取消</span>
         </button>
         <button
             type="button"
@@ -477,7 +477,7 @@
             disabled={!canSave || isSaving}
             on:click={() => saveConfirm()}
         >
-            <span class="txt">{!collection.id ? "Create" : "Save changes"}</span>
+            <span class="txt">{!collection.id ? "创建" : "保存"}</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

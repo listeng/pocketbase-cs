@@ -37,7 +37,7 @@
     type="button"
     aria-label="Generate"
     class="btn btn-circle {classes}"
-    use:tooltip={togglerActive ? "" : "Generate"}
+    use:tooltip={togglerActive ? "" : "生成"}
 >
     <i class="ri-sparkling-line" aria-hidden="true" />
     <Toggler
@@ -52,7 +52,7 @@
             <!-- svelte-ignore a11y-no-static-element-interactions -->
             <i
                 class="ri-refresh-line txt-sm link-hint"
-                use:tooltip={"Refresh"}
+                use:tooltip={"刷新"}
                 aria-label="Refresh"
                 on:click={generate}
             />

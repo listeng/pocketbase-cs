@@ -8,20 +8,20 @@
     import TokenField from "@/components/settings/TokenField.svelte";
 
     const recordTokensList = [
-        { key: "recordAuthToken", label: "Auth record authentication token" },
-        { key: "recordVerificationToken", label: "Auth record email verification token" },
-        { key: "recordPasswordResetToken", label: "Auth record password reset token" },
-        { key: "recordEmailChangeToken", label: "Auth record email change token" },
-        { key: "recordFileToken", label: "Records protected file access token" },
+        { key: "recordAuthToken", label: "记录认证令牌" },
+        { key: "recordVerificationToken", label: "记录邮箱验证令牌" },
+        { key: "recordPasswordResetToken", label: "记录密码重置令牌" },
+        { key: "recordEmailChangeToken", label: "记录邮箱更改令牌" },
+        { key: "recordFileToken", label: "记录受保护文件访问令牌" },
     ];
 
     const adminTokensList = [
-        { key: "adminAuthToken", label: "Admins auth token" },
-        { key: "adminPasswordResetToken", label: "Admins password reset token" },
-        { key: "adminFileToken", label: "Admins protected file access token" },
+        { key: "adminAuthToken", label: "管理员认证令牌" },
+        { key: "adminPasswordResetToken", label: "管理员密码重置令牌" },
+        { key: "adminFileToken", label: "管理员受保护文件访问令牌" },
     ];
 
-    $pageTitle = "Token options";
+    $pageTitle = "令牌设置";
 
     let originalFormSettings = {};
     let formSettings = {};
@@ -90,7 +90,7 @@
 <PageWrapper>
     <header class="page-header">
         <nav class="breadcrumbs">
-            <div class="breadcrumb-item">Settings</div>
+            <div class="breadcrumb-item">设置</div>
             <div class="breadcrumb-item">{$pageTitle}</div>
         </nav>
     </header>
@@ -98,13 +98,13 @@
     <div class="wrapper">
         <form class="panel" autocomplete="off" on:submit|preventDefault={save}>
             <div class="content m-b-sm txt-xl">
-                <p>Adjust common token options.</p>
+                <p>设置令牌参数</p>
             </div>
 
             {#if isLoading}
                 <div class="loader" />
             {:else}
-                <h3 class="section-title">Record tokens</h3>
+                <h3 class="section-title">记录令牌</h3>
                 {#each recordTokensList as token (token.key)}
                     <TokenField
                         key={token.key}
@@ -116,7 +116,7 @@
 
                 <hr />
 
-                <h3 class="section-title">Admin tokens</h3>
+                <h3 class="section-title">管理令牌</h3>
                 {#each adminTokensList as token (token.key)}
                     <TokenField
                         key={token.key}
@@ -135,7 +135,7 @@
                             disabled={isSaving}
                             on:click={() => reset()}
                         >
-                            <span class="txt">Cancel</span>
+                            <span class="txt">取消</span>
                         </button>
                     {/if}
                     <button
@@ -145,7 +145,7 @@
                         disabled={!hasChanges || isSaving}
                         on:click={() => save()}
                     >
-                        <span class="txt">Save changes</span>
+                        <span class="txt">保存</span>
                     </button>
                 </div>
             {/if}

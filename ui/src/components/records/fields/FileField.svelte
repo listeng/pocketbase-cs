@@ -164,7 +164,7 @@
                                     class="btn btn-sm btn-danger btn-transparent"
                                     on:click={() => restoreExistingFile(filename)}
                                 >
-                                    <span class="txt">Restore</span>
+                                    <span class="txt">恢复</span>
                                 </button>
                             {:else}
                                 <button

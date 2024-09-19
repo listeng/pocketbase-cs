@@ -4,7 +4,7 @@
 
     const dispatch = createEventDispatcher();
 
-    let tooltipData = { text: "Refresh", position: "right" };
+    let tooltipData = { text: "刷新", position: "right" };
     export { tooltipData as tooltip };
 
     let classes = "";

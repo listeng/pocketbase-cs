@@ -244,7 +244,7 @@
                 <div class="flex m-b-base flex-gap-10">
                     <Searchbar
                         value={filter}
-                        placeholder="Record search term or filter..."
+                        placeholder="搜索关键字或者使用过滤器..."
                         autocompleteCollection={selectedCollection}
                         on:submit={(e) => (filter = e.detail)}
                     />
@@ -253,7 +253,7 @@
                         class="btn btn-pill btn-transparent btn-hint p-l-xs p-r-xs"
                         on:click={() => upsertPanel?.show()}
                     >
-                        <div class="txt">New record</div>
+                        <div class="txt">新记录</div>
                     </button>
                 </div>
                 <Scroller

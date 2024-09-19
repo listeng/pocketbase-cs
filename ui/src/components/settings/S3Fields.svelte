@@ -126,11 +126,11 @@
             <Field class="form-field" name="{configKey}.forcePathStyle" let:uniqueId>
                 <input type="checkbox" id={uniqueId} bind:checked={config.forcePathStyle} />
                 <label for={uniqueId}>
-                    <span class="txt">Force path-style addressing</span>
+                    <span class="txt">强制使用路径样式的地址</span>
                     <i
                         class="ri-information-line link-hint"
                         use:tooltip={{
-                            text: 'Forces the request to use path-style addressing, eg. "https://s3.amazonaws.com/BUCKET/KEY" instead of the default "https://BUCKET.s3.amazonaws.com/KEY".',
+                            text: '强制请求使用路径样式的地址，例如： "https://s3.amazonaws.com/BUCKET/KEY" 替代默认的 "https://BUCKET.s3.amazonaws.com/KEY".',
                             position: "top",
                         }}
                     />

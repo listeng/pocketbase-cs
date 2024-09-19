@@ -43,7 +43,7 @@
                 confirmationPopup?.hide();
             }}
         >
-            <span class="txt">No</span>
+            <span class="txt">不</span>
         </button>
         <button
             type="button"
@@ -60,7 +60,7 @@
                 confirmationPopup?.hide();
             }}
         >
-            <span class="txt">Yes</span>
+            <span class="txt">是的</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

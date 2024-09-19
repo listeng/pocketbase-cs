@@ -7,7 +7,7 @@
     const uniqueId = "search_" + CommonHelper.randomString(7);
 
     export let value = "";
-    export let placeholder = 'Search term or filter like created > "2022-01-01"...';
+    export let placeholder = '搜索关键字或者使用过滤器，比如： created > "2022-01-01"...';
 
     // autocomplete filter component fields
     export let autocompleteCollection = CommonHelper.initCollection();
@@ -89,7 +89,7 @@
             class="btn btn-expanded-sm btn-sm btn-warning"
             transition:fly={{ duration: 150, x: 5 }}
         >
-            <span class="txt">Search</span>
+            <span class="txt">搜索</span>
         </button>
     {/if}
 
@@ -103,7 +103,7 @@
                 submit();
             }}
         >
-            <span class="txt">Clear</span>
+            <span class="txt">清除</span>
         </button>
     {/if}
 </form>

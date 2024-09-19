@@ -6,7 +6,7 @@
     import AuthProviderCard from "@/components/settings/AuthProviderCard.svelte";
     import providersList from "@/providers.js";
 
-    $pageTitle = "Auth providers";
+    $pageTitle = "第三方登录";
 
     let isLoading = false;
     let formSettings = {};
@@ -45,14 +45,14 @@
 <PageWrapper>
     <header class="page-header">
         <nav class="breadcrumbs">
-            <div class="breadcrumb-item">Settings</div>
+            <div class="breadcrumb-item">设置</div>
             <div class="breadcrumb-item">{$pageTitle}</div>
         </nav>
     </header>
 
     <div class="wrapper">
         <div class="panel">
-            <h6 class="m-b-base">Manage the allowed users OAuth2 sign-in/sign-up methods.</h6>
+            <h6 class="m-b-base">管理允许用户通过 OAuth2 登录/登出的第三方配置</h6>
 
             {#if isLoading}
                 <div class="loader" />
