@@ -170,7 +170,7 @@
                                 <button
                                     type="button"
                                     class="btn btn-transparent btn-hint btn-sm btn-circle btn-remove"
-                                    use:tooltip={"Remove file"}
+                                    use:tooltip={"删除文件"}
                                     on:click={() => removeExistingFile(filename)}
                                 >
                                     <i class="ri-close-line" />

@@ -11,14 +11,14 @@
         <div class="grid grid-sm">
             <div class="col-sm-3">
                 <Field class="form-field" name="schema.{key}.options.min" let:uniqueId>
-                    <label for={uniqueId}>Min length</label>
+                    <label for={uniqueId}>最小长度</label>
                     <input type="number" id={uniqueId} step="1" min="0" bind:value={field.options.min} />
                 </Field>
             </div>
 
             <div class="col-sm-3">
                 <Field class="form-field" name="schema.{key}.options.max" let:uniqueId>
-                    <label for={uniqueId}>Max length</label>
+                    <label for={uniqueId}>最大长度</label>
                     <input
                         type="number"
                         id={uniqueId}
@@ -31,11 +31,11 @@
 
             <div class="col-sm-6">
                 <Field class="form-field" name="schema.{key}.options.pattern" let:uniqueId>
-                    <label for={uniqueId}>Regex pattern</label>
+                    <label for={uniqueId}>正则验证</label>
                     <input
                         type="text"
                         id={uniqueId}
-                        placeholder={"Valid Go regular expression, eg. ^\\w+$"}
+                        placeholder={"使用 Go 表达式来验证, 比如： ^\\w+$"}
                         bind:value={field.options.pattern}
                     />
                 </Field>

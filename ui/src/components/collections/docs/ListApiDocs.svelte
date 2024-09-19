@@ -41,7 +41,7 @@
             body: `
                 {
                   "code": 400,
-                  "message": "Something went wrong while processing your request. Invalid filter.",
+                  "message": "处理您的请求时发生错误。无效的过滤器。",
                   "data": {}
                 }
             `,
@@ -53,7 +53,7 @@
                 body: `
                     {
                       "code": 403,
-                      "message": "Only admins can access this action.",
+                      "message": "只有管理员能操作",
                       "data": {}
                     }
                 `,

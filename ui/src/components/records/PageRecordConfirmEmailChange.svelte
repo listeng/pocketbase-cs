@@ -40,19 +40,19 @@
         <div class="alert alert-success">
             <div class="icon"><i class="ri-checkbox-circle-line" /></div>
             <div class="content txt-bold">
-                <p>Successfully changed the user email address.</p>
-                <p>You can now sign in with your new email address.</p>
+                <p>修改邮箱地址成功。</p>
+                <p>现在你可以用新邮箱登录了。</p>
             </div>
         </div>
 
         <button type="button" class="btn btn-transparent btn-block" on:click={() => window.close()}>
-            Close
+            关闭
         </button>
     {:else}
         <form on:submit|preventDefault={submit}>
             <div class="content txt-center m-b-base">
                 <h5>
-                    Type your password to confirm changing your email address
+                    输入密码以确认修改邮箱
                     {#if newEmail}
                         to <strong class="txt-nowrap">{newEmail}</strong>
                     {/if}
@@ -60,7 +60,7 @@
             </div>
 
             <Field class="form-field required" name="password" let:uniqueId>
-                <label for={uniqueId}>Password</label>
+                <label for={uniqueId}>密码</label>
                 <!-- svelte-ignore a11y-autofocus -->
                 <input type="password" id={uniqueId} required autofocus bind:value={password} />
             </Field>
@@ -71,7 +71,7 @@
                 class:btn-loading={isLoading}
                 disabled={isLoading}
             >
-                <span class="txt">Confirm new email</span>
+                <span class="txt">确认新邮箱</span>
             </button>
         </form>
     {/if}

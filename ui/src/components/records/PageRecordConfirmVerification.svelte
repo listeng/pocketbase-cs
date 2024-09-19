@@ -31,30 +31,30 @@
     {#if isLoading}
         <div class="txt-center">
             <div class="loader loader-lg">
-                <em>Please wait...</em>
+                <em>请稍等...</em>
             </div>
         </div>
     {:else if success}
         <div class="alert alert-success">
             <div class="icon"><i class="ri-checkbox-circle-line" /></div>
             <div class="content txt-bold">
-                <p>Successfully verified email address.</p>
+                <p>验证邮箱地址成功</p>
             </div>
         </div>
 
         <button type="button" class="btn btn-transparent btn-block" on:click={() => window.close()}>
-            Close
+            关闭
         </button>
     {:else}
         <div class="alert alert-danger">
             <div class="icon"><i class="ri-error-warning-line" /></div>
             <div class="content txt-bold">
-                <p>Invalid or expired verification token.</p>
+                <p>无效或过期的验证令牌</p>
             </div>
         </div>
 
         <button type="button" class="btn btn-transparent btn-block" on:click={() => window.close()}>
-            Close
+            关闭
         </button>
     {/if}
 </FullPage>

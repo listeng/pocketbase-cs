@@ -46,7 +46,7 @@
 
             hide();
             dispatch("submit");
-            addSuccessToast("Successfully generated new backup.");
+            addSuccessToast("生成新的备份成功");
         } catch (err) {
             if (!err.isAbort) {
                 ApiClient.error(err);
@@ -67,7 +67,7 @@
     class="backup-create-panel"
     beforeOpen={() => {
         if (isSubmitting) {
-            addInfoToast("A backup has already been started, please wait.");
+            addInfoToast("正在备份，请稍等");
             return false;
         }
 
@@ -76,7 +76,7 @@
     beforeHide={() => {
         if (isSubmitting) {
             addInfoToast(
-                "The backup was started but may take a while to complete. You can come back later.",
+                "备份一起动，需要耗费一些时间。您可以稍后再来查看。",
                 4500
             );
         }

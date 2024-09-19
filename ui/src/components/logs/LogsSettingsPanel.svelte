@@ -68,7 +68,7 @@
 
             hide();
 
-            addSuccessToast("Successfully saved logs settings.");
+            addSuccessToast("保存日志设置成功");
 
             dispatch("save", settings);
         } catch (err) {

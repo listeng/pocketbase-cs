@@ -84,7 +84,7 @@
             await ApiClient.backups.delete(name);
             CommonHelper.removeByKey(backups, "name", name);
             loadBackups();
-            addSuccessToast(`Successfully deleted ${name}.`);
+            addSuccessToast(`删除 ${name} 成功`);
         } catch (err) {
             if (!err.isAbort) {
                 ApiClient.error(err);

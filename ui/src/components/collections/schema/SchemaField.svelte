@@ -17,8 +17,8 @@
 
     const customRequiredLabels = {
         // type => label
-        bool: "Nonfalsey",
-        number: "Nonzero",
+        bool: "非假",
+        number: "非零",
     };
 
     export let key = "";
@@ -230,7 +230,7 @@
                 <Field class="form-field form-field-toggle" name="presentable" let:uniqueId>
                     <input type="checkbox" id={uniqueId} bind:checked={field.presentable} />
                     <label for={uniqueId}>
-                        <span class="txt">Presentable</span>
+                        <span class="txt">展示</span>
                         <i
                             class="ri-information-line link-hint"
                             use:tooltip={{

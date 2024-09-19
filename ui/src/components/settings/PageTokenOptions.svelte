@@ -57,7 +57,7 @@
         try {
             const result = await ApiClient.settings.update(CommonHelper.filterRedactedProps(formSettings));
             initSettings(result);
-            addSuccessToast("Successfully saved tokens options.");
+            addSuccessToast("保存令牌设置成功");
         } catch (err) {
             ApiClient.error(err);
         }

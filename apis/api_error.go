@@ -31,7 +31,7 @@ func (e *ApiError) RawData() any {
 // NewNotFoundError creates and returns 404 `ApiError`.
 func NewNotFoundError(message string, data any) *ApiError {
 	if message == "" {
-		message = "The requested resource wasn't found."
+		message = "请求的资源未找到"
 	}
 
 	return NewApiError(http.StatusNotFound, message, data)
@@ -40,7 +40,7 @@ func NewNotFoundError(message string, data any) *ApiError {
 // NewBadRequestError creates and returns 400 `ApiError`.
 func NewBadRequestError(message string, data any) *ApiError {
 	if message == "" {
-		message = "Something went wrong while processing your request."
+		message = "处理您的请求时发生错误"
 	}
 
 	return NewApiError(http.StatusBadRequest, message, data)
@@ -49,7 +49,7 @@ func NewBadRequestError(message string, data any) *ApiError {
 // NewForbiddenError creates and returns 403 `ApiError`.
 func NewForbiddenError(message string, data any) *ApiError {
 	if message == "" {
-		message = "You are not allowed to perform this request."
+		message = "没有操作的权限"
 	}
 
 	return NewApiError(http.StatusForbidden, message, data)
@@ -58,7 +58,7 @@ func NewForbiddenError(message string, data any) *ApiError {
 // NewUnauthorizedError creates and returns 401 `ApiError`.
 func NewUnauthorizedError(message string, data any) *ApiError {
 	if message == "" {
-		message = "Missing or invalid authentication token."
+		message = "无效的令牌"
 	}
 
 	return NewApiError(http.StatusUnauthorized, message, data)

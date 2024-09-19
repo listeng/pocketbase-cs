@@ -3,78 +3,78 @@
 
     const baseTabs = {
         list: {
-            label: "List/Search",
+            label: "列表",
             component: import("@/components/collections/docs/ListApiDocs.svelte"),
         },
         view: {
-            label: "View",
+            label: "查看",
             component: import("@/components/collections/docs/ViewApiDocs.svelte"),
         },
         create: {
-            label: "Create",
+            label: "创建",
             component: import("@/components/collections/docs/CreateApiDocs.svelte"),
         },
         update: {
-            label: "Update",
+            label: "更新",
             component: import("@/components/collections/docs/UpdateApiDocs.svelte"),
         },
         delete: {
-            label: "Delete",
+            label: "删除",
             component: import("@/components/collections/docs/DeleteApiDocs.svelte"),
         },
         realtime: {
-            label: "Realtime",
+            label: "实时",
             component: import("@/components/collections/docs/RealtimeApiDocs.svelte"),
         },
     };
 
     const authTabs = {
         "auth-with-password": {
-            label: "Auth with password",
+            label: "密码鉴权",
             component: import("@/components/collections/docs/AuthWithPasswordDocs.svelte"),
         },
         "auth-with-oauth2": {
-            label: "Auth with OAuth2",
+            label: "OAuth2鉴权",
             component: import("@/components/collections/docs/AuthWithOAuth2Docs.svelte"),
         },
         refresh: {
-            label: "Auth refresh",
+            label: "更新令牌",
             component: import("@/components/collections/docs/AuthRefreshDocs.svelte"),
         },
         "request-verification": {
-            label: "Request verification",
+            label: "请求验证",
             component: import("@/components/collections/docs/RequestVerificationDocs.svelte"),
         },
         "confirm-verification": {
-            label: "Confirm verification",
+            label: "确认验证",
             component: import("@/components/collections/docs/ConfirmVerificationDocs.svelte"),
         },
         "request-password-reset": {
-            label: "Request password reset",
+            label: "请求密码重置",
             component: import("@/components/collections/docs/RequestPasswordResetDocs.svelte"),
         },
         "confirm-password-reset": {
-            label: "Confirm password reset",
+            label: "确认密码重置",
             component: import("@/components/collections/docs/ConfirmPasswordResetDocs.svelte"),
         },
         "request-email-change": {
-            label: "Request email change",
+            label: "请求修改邮箱",
             component: import("@/components/collections/docs/RequestEmailChangeDocs.svelte"),
         },
         "confirm-email-change": {
-            label: "Confirm email change",
+            label: "确认修改邮箱",
             component: import("@/components/collections/docs/ConfirmEmailChangeDocs.svelte"),
         },
         "list-auth-methods": {
-            label: "List auth methods",
+            label: "列出鉴权方法",
             component: import("@/components/collections/docs/AuthMethodsDocs.svelte"),
         },
         "list-linked-accounts": {
-            label: "List OAuth2 accounts",
+            label: "列出 OAuth2 账号",
             component: import("@/components/collections/docs/ListExternalAuthsDocs.svelte"),
         },
         "unlink-account": {
-            label: "Unlink OAuth2 account",
+            label: "解绑 OAuth2 账号",
             component: import("@/components/collections/docs/UnlinkExternalAuthDocs.svelte"),
         },
     };
@@ -160,7 +160,7 @@
     <!-- visible only on small screens -->
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={() => hide()}>
-            <span class="txt">Close</span>
+            <span class="txt">关闭</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

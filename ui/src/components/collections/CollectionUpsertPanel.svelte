@@ -156,7 +156,7 @@
                 hide();
 
                 addSuccessToast(
-                    !collection.id ? "Successfully created collection." : "Successfully updated collection.",
+                    !collection.id ? "创建数据集成功" : "更新数据集成功",
                 );
 
                 dispatch("save", {
@@ -192,12 +192,12 @@
             return; // nothing to delete
         }
 
-        confirm(`Do you really want to delete collection "${original.name}" and all its records?`, () => {
+        confirm(`确定要删除数据集 "${original.name}" 和他的所有记录?`, () => {
             return ApiClient.collections
                 .delete(original.id)
                 .then(() => {
                     hide();
-                    addSuccessToast(`Successfully deleted collection "${original.name}".`);
+                    addSuccessToast(`删除数据集 "${original.name}" 成功`);
                     dispatch("delete", original);
                     removeCollection(original);
                 })

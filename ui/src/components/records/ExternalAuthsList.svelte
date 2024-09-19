@@ -44,11 +44,11 @@
             return; // nothing to unlink
         }
 
-        confirm(`Do you really want to unlink the ${getProviderTitle(provider)} provider?`, () => {
+        confirm(`确定解绑第三方登录 ${getProviderTitle(provider)} ?`, () => {
             return ApiClient.collection(record.collectionId)
                 .unlinkExternalAuth(record.id, provider)
                 .then(() => {
-                    addSuccessToast(`Successfully unlinked the ${getProviderTitle(provider)} provider.`);
+                    addSuccessToast(`解绑 ${getProviderTitle(provider)} 成功`);
                     dispatch("unlink", provider);
                     loadExternalAuths(); // reload list
                 })

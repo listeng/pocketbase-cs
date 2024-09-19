@@ -31,7 +31,7 @@
         <div class="grid grid-sm">
             <div class="col-sm-6">
                 <Field class="form-field" name="schema.{key}.options.min" let:uniqueId>
-                    <label for={uniqueId}>Min date (UTC)</label>
+                    <label for={uniqueId}>最早 (UTC)</label>
                     <Flatpickr
                         id={uniqueId}
                         options={CommonHelper.defaultFlatpickrOptions()}
@@ -44,7 +44,7 @@
 
             <div class="col-sm-6">
                 <Field class="form-field" name="schema.{key}.options.max" let:uniqueId>
-                    <label for={uniqueId}>Max date (UTC)</label>
+                    <label for={uniqueId}>最晚 (UTC)</label>
                     <Flatpickr
                         id={uniqueId}
                         options={CommonHelper.defaultFlatpickrOptions()}

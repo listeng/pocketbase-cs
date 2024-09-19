@@ -28,7 +28,7 @@
             isUploading = false;
 
             dispatch("success");
-            addSuccessToast("Successfully uploaded a new backup.");
+            addSuccessToast("上传新备份成功");
         } catch (err) {
             if (!err.isAbort) {
                 isUploading = false;
@@ -52,7 +52,7 @@
     class:btn-loading={isUploading}
     class:btn-disabled={isUploading}
     aria-label="Upload backup"
-    use:tooltip={"Upload backup"}
+    use:tooltip={"上传备份"}
     on:click={() => fileInput?.click()}
 >
     <i class="ri-upload-cloud-line" />

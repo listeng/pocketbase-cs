@@ -15,11 +15,11 @@
             <div class="col-sm-6">
                 <Field class="form-field" name="schema.{key}.options.exceptDomains" let:uniqueId>
                     <label for={uniqueId}>
-                        <span class="txt">Except domains</span>
+                        <span class="txt">域名黑名单</span>
                         <i
                             class="ri-information-line link-hint"
                             use:tooltip={{
-                                text: 'List of domains that are NOT allowed. \n This field is disabled if "Only domains" is set.',
+                                text: '不允许这些域名。\n如果设置了“域名白名单”，此字段将被禁用。',
                                 position: "top",
                             }}
                         />
@@ -29,18 +29,18 @@
                         disabled={!CommonHelper.isEmpty(field.options.onlyDomains)}
                         bind:value={field.options.exceptDomains}
                     />
-                    <div class="help-block">Use comma as separator.</div>
+                    <div class="help-block">使用逗号分隔</div>
                 </Field>
             </div>
 
             <div class="col-sm-6">
                 <Field class="form-field" name="schema.{key}.options.onlyDomains" let:uniqueId>
                     <label for="{uniqueId}.options.onlyDomains">
-                        <span class="txt">Only domains</span>
+                        <span class="txt">域名白名单</span>
                         <i
                             class="ri-information-line link-hint"
                             use:tooltip={{
-                                text: 'List of domains that are ONLY allowed. \n This field is disabled if "Except domains" is set.',
+                                text: '仅允许这些域名。\n如果设置了“域名黑名单”，此字段将被禁用。',
                                 position: "top",
                             }}
                         />
@@ -50,7 +50,7 @@
                         disabled={!CommonHelper.isEmpty(field.options.exceptDomains)}
                         bind:value={field.options.onlyDomains}
                     />
-                    <div class="help-block">Use comma as separator.</div>
+                    <div class="help-block">使用逗号分隔</div>
                 </Field>
             </div>
         </div>

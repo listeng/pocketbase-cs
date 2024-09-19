@@ -14,9 +14,9 @@
     const testRequestKey = "email_test_request";
 
     const templateOptions = [
-        { label: '"Verification" template', value: "verification" },
-        { label: '"Password reset" template', value: "password-reset" },
-        { label: '"Confirm email change" template', value: "email-change" },
+        { label: '验证模板', value: "verification" },
+        { label: '重置密码模板', value: "password-reset" },
+        { label: '确认改变邮箱模板', value: "email-change" },
     ];
 
     let panel;
@@ -55,7 +55,7 @@
         clearTimeout(testTimeoutId);
         testTimeoutId = setTimeout(() => {
             ApiClient.cancelRequest(testRequestKey);
-            addErrorToast("Test email send timeout.");
+            addErrorToast("发送测试邮件超时");
         }, 30000);
 
         try {
@@ -63,7 +63,7 @@
                 $cancelKey: testRequestKey,
             });
 
-            addSuccessToast("Successfully sent test email.");
+            addSuccessToast("发送测试邮件成功");
             dispatch("submit");
             isSubmitting = false;
 
@@ -90,7 +90,7 @@
     on:hide
 >
     <svelte:fragment slot="header">
-        <h4 class="center txt-break">Send test email</h4>
+        <h4 class="center txt-break">发送测试邮件</h4>
     </svelte:fragment>
 
     <form id={formId} autocomplete="off" on:submit|preventDefault={() => submit()}>
@@ -110,7 +110,7 @@
         </Field>
 
         <Field class="form-field required m-0" name="email" let:uniqueId>
-            <label for={uniqueId}>To email address</label>
+            <label for={uniqueId}>接收邮件的地址</label>
             <!-- svelte-ignore a11y-autofocus -->
             <input type="email" id={uniqueId} autofocus required bind:value={email} />
         </Field>
@@ -118,7 +118,7 @@
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={hide} disabled={isSubmitting}
-            >Close</button
+            >关闭</button
         >
         <button
             type="submit"
@@ -128,7 +128,7 @@
             disabled={!canSubmit || isSubmitting}
         >
             <i class="ri-mail-send-line" />
-            <span class="txt">Send</span>
+            <span class="txt">发送</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

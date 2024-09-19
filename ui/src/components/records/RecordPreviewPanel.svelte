@@ -104,7 +104,7 @@
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={() => hide()}>
-            <span class="txt">Close</span>
+            <span class="txt">关闭</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

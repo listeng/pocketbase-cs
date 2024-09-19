@@ -54,7 +54,7 @@
 
             isSubmitting = false;
 
-            addSuccessToast("Successfully generated client secret.");
+            addSuccessToast("生成客户端密钥成功");
 
             dispatch("submit", result);
 
@@ -136,7 +136,7 @@
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={hide} disabled={isSubmitting}
-            >Close</button
+            >关闭</button
         >
         <button
             type="submit"

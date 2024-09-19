@@ -23,7 +23,7 @@
 
         try {
             await ApiClient.admins.confirmPasswordReset(params?.token, newPassword, newPasswordConfirm);
-            addSuccessToast("Successfully set a new admin password.");
+            addSuccessToast("设置管理员密码成功");
             replace("/");
         } catch (err) {
             ApiClient.error(err);

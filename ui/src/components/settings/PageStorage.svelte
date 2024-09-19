@@ -57,9 +57,9 @@
             removeAllToasts();
 
             if (testError) {
-                addWarningToast("Successfully saved but failed to establish S3 connection.");
+                addWarningToast("保存设置成功，但是连接 S3 失败");
             } else {
-                addSuccessToast("Successfully saved files storage settings.");
+                addSuccessToast("保存文件设置成功");
             }
         } catch (err) {
             ApiClient.error(err);

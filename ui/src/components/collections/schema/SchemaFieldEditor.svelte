@@ -23,11 +23,11 @@
         <Field class="form-field form-field-toggle" name="schema.{key}.options.convertUrls" let:uniqueId>
             <input type="checkbox" id={uniqueId} bind:checked={field.options.convertUrls} />
             <label for={uniqueId}>
-                <span class="txt">Strip urls domain</span>
+                <span class="txt">去除URL的域名</span>
                 <i
                     class="ri-information-line link-hint"
                     use:tooltip={{
-                        text: `This could help making the editor content more portable between environments since there will be no local base url to replace.`,
+                        text: `这可以帮助使编辑器内容在不同环境之间更加便携，因为不再需要替换本地基础 URL`,
                     }}
                 />
             </label>

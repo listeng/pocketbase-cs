@@ -10,8 +10,8 @@
     export let key = "";
 
     const isSingleOptions = [
-        { label: "Single", value: true },
-        { label: "Multiple", value: false },
+        { label: "单个", value: true },
+        { label: "多个", value: false },
     ];
 
     let isSingle = field.options?.maxSelect <= 1;
@@ -50,10 +50,10 @@
             name="schema.{key}.options.values"
             let:uniqueId
         >
-            <div use:tooltip={{ text: "Choices (comma separated)", position: "top-left", delay: 700 }}>
+            <div use:tooltip={{ text: "选项 (逗号分隔)", position: "top-left", delay: 700 }}>
                 <MultipleValueInput
                     id={uniqueId}
-                    placeholder="Choices: eg. optionA, optionB"
+                    placeholder="选项，比如: optionA, optionB"
                     required
                     readonly={!interactive}
                     bind:value={field.options.values}
@@ -82,7 +82,7 @@
     <svelte:fragment slot="options">
         {#if !isSingle}
             <Field class="form-field required" name="schema.{key}.options.maxSelect" let:uniqueId>
-                <label for={uniqueId}>Max select</label>
+                <label for={uniqueId}>最大选择数量</label>
                 <input
                     id={uniqueId}
                     type="number"

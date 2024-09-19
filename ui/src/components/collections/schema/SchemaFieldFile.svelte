@@ -195,7 +195,7 @@
                         <i
                             class="ri-information-line link-hint"
                             use:tooltip={{
-                                text: "List of additional thumb sizes for image files, along with the default thumb size of 100x100. The thumbs are generated lazily on first access.",
+                                text: "图像文件的附加缩略图尺寸列表，以及默认的缩略图尺寸 100x100。缩略图在首次访问时按需生成。",
                                 position: "top",
                             }}
                         />
@@ -214,27 +214,27 @@
                                 <ul class="m-0">
                                     <li>
                                         <strong>WxH</strong>
-                                        (eg. 100x50) - crop to WxH viewbox (from center)
+                                        (比如 100x50) - 裁剪到 WxH 视口框 (从中央)
                                     </li>
                                     <li>
                                         <strong>WxHt</strong>
-                                        (eg. 100x50t) - crop to WxH viewbox (from top)
+                                        (比如 100x50t) - 裁剪到 WxH 视口框 (从顶部)
                                     </li>
                                     <li>
                                         <strong>WxHb</strong>
-                                        (eg. 100x50b) - crop to WxH viewbox (from bottom)
+                                        (比如 100x50b) - 裁剪到 WxH 视口框 (从底部)
                                     </li>
                                     <li>
                                         <strong>WxHf</strong>
-                                        (eg. 100x50f) - fit inside a WxH viewbox (without cropping)
+                                        (比如 100x50f) - 适应 WxH 在视口框内 (不裁剪)
                                     </li>
                                     <li>
                                         <strong>0xH</strong>
-                                        (eg. 0x50) - resize to H height preserving the aspect ratio
+                                        (比如 0x50) - 调整到高度 H，同时保持纵横比
                                     </li>
                                     <li>
                                         <strong>Wx0</strong>
-                                        (eg. 100x0) - resize to W width preserving the aspect ratio
+                                        (比如 100x0) - 调整到宽度 W，同时保持纵横比
                                     </li>
                                 </ul>
                             </Toggler>
