@@ -220,7 +220,7 @@
 
     function duplicateConfirm() {
         if (hasChanges) {
-            confirm("You have unsaved changes. Do you really want to discard them?", () => {
+            confirm("还没有保存，确定放弃吗？", () => {
                 duplicate();
             });
         } else {
@@ -271,7 +271,7 @@
     overlayClose={!isSaving}
     beforeHide={() => {
         if (hasChanges && confirmClose) {
-            confirm("You have unsaved changes. Do you really want to close the panel?", () => {
+            confirm("还没有保存，确定关闭吗?", () => {
                 confirmClose = false;
                 hide();
             });

@@ -621,7 +621,7 @@
                 <input
                     type="text"
                     id={uniqueId}
-                    placeholder={!isLoading ? "Leave empty to auto generate..." : ""}
+                    placeholder={!isLoading ? "留空的话自动生成..." : ""}
                     minlength="15"
                     readonly={!isNew}
                     bind:value={record.id}

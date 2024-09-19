@@ -12,7 +12,7 @@
     export let label = "Rule";
     export let formKey = "rule";
     export let required = false;
-    export let placeholder = "Leave empty to grant everyone access...";
+    export let placeholder = "留空的话，所有人都可以访问...";
 
     let editorRef = null;
     let tempValue = null;
@@ -77,7 +77,7 @@
                         on:click={lock}
                     >
                         <i class="ri-lock-line" />
-                        <span class="txt">Set Admins only</span>
+                        <span class="txt">设成只有管理员可访问</span>
                     </button>
                 {/if}
             </label>
@@ -100,7 +100,7 @@
                     transition:scale={{ duration: 150, start: 0.98 }}
                     on:click={unlock}
                 >
-                    <small class="txt">Unlock and set custom rule</small>
+                    <small class="txt">点击解锁并设置自定义规则</small>
                     <div class="icon">
                         <i class="ri-lock-unlock-line" />
                     </div>

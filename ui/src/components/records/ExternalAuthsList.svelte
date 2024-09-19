@@ -88,5 +88,5 @@
         {/each}
     </div>
 {:else}
-    <h6 class="txt-hint txt-center m-t-sm m-b-sm">No linked OAuth2 providers.</h6>
+    <h6 class="txt-hint txt-center m-t-sm m-b-sm">没有连接到任何第三方账号</h6>
 {/if}

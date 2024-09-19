@@ -149,7 +149,7 @@
                                 class="txt-ellipsis {isDeleted
                                     ? 'txt-strikethrough txt-hint'
                                     : 'link-primary'}"
-                                title="Download"
+                                title="下载"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -195,13 +195,13 @@
                             <UploadedFilePreview {file} />
                         </figure>
                         <div class="filename m-r-auto" title={file.name}>
-                            <small class="label label-success m-r-5">New</small>
+                            <small class="label label-success m-r-5">新的</small>
                             <span class="txt">{file.name}</span>
                         </div>
                         <button
                             type="button"
                             class="btn btn-transparent btn-hint btn-sm btn-circle btn-remove"
-                            use:tooltip={"Remove file"}
+                            use:tooltip={"删除文件"}
                             on:click={() => removeNewFile(i)}
                         >
                             <i class="ri-close-line" />
@@ -232,7 +232,7 @@
                     on:click={() => fileInput?.click()}
                 >
                     <i class="ri-upload-cloud-line" />
-                    <span class="txt">Upload new file</span>
+                    <span class="txt">上传新文件</span>
                 </button>
             </div>
         </div>

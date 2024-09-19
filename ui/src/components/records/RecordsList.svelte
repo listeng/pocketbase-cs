@@ -467,12 +467,12 @@
                                     {#if record.verified}
                                         <i
                                             class="ri-checkbox-circle-fill txt-sm txt-success"
-                                            use:tooltip={"Verified"}
+                                            use:tooltip={"已验证"}
                                         />
                                     {:else}
                                         <i
                                             class="ri-error-warning-fill txt-sm txt-hint"
-                                            use:tooltip={"Unverified"}
+                                            use:tooltip={"未验证"}
                                         />
                                     {/if}
                                 {/if}
@@ -537,14 +537,14 @@
                 {:else}
                     <tr>
                         <td colspan="99" class="txt-center txt-hint p-xs">
-                            <h6>No records found.</h6>
+                            <h6>没有记录</h6>
                             {#if filter?.length}
                                 <button
                                     type="button"
                                     class="btn btn-hint btn-expanded m-t-sm"
                                     on:click={() => (filter = "")}
                                 >
-                                    <span class="txt">Clear filters</span>
+                                    <span class="txt">清空过滤器</span>
                                 </button>
                             {:else if !isView}
                                 <button
@@ -553,7 +553,7 @@
                                     on:click={() => dispatch("new")}
                                 >
                                     <i class="ri-add-line" />
-                                    <span class="txt">New record</span>
+                                    <span class="txt">新记录</span>
                                 </button>
                             {/if}
                         </td>
@@ -570,7 +570,7 @@
                             class:btn-loading={isLoading}
                             on:click|preventDefault={() => load(currentPage + 1)}
                         >
-                            <span class="txt">Load more</span>
+                            <span class="txt">加载更多</span>
                         </button>
                     </td>
                 </tr>

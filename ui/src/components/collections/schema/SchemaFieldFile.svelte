@@ -13,8 +13,8 @@
     export let key = "";
 
     const isSingleOptions = [
-        { label: "Single", value: true },
-        { label: "Multiple", value: false },
+        { label: "单个", value: true },
+        { label: "多个", value: false },
     ];
 
     let mimeTypesList = baseMimeTypesList.slice();
@@ -95,11 +95,11 @@
             <div class="col-sm-12">
                 <Field class="form-field" name="schema.{key}.options.mimeTypes" let:uniqueId>
                     <label for={uniqueId}>
-                        <span class="txt">Allowed mime types</span>
+                        <span class="txt">允许的 mime 类型</span>
                         <i
                             class="ri-information-line link-hint"
                             use:tooltip={{
-                                text: "Allow files ONLY with the listed mime types. \n Leave empty for no restriction.",
+                                text: "只运行下面这些 mime 类型的文件。 \n 留空的话就无限制。",
                                 position: "top",
                             }}
                         />
@@ -110,7 +110,7 @@
                         searchable
                         closable={false}
                         selectionKey="mimeType"
-                        selectPlaceholder="No restriction"
+                        selectPlaceholder="无限制"
                         items={mimeTypesList}
                         labelComponent={MimeTypeSelectOption}
                         optionComponent={MimeTypeSelectOption}
@@ -118,7 +118,7 @@
                     />
                     <div class="help-block">
                         <div tabindex="0" role="button" class="inline-flex flex-gap-0">
-                            <span class="txt link-primary">Choose presets</span>
+                            <span class="txt link-primary">选择预设</span>
                             <i class="ri-arrow-drop-down-fill" aria-hidden="true" />
                             <Toggler class="dropdown dropdown-sm dropdown-nowrap dropdown-left">
                                 <button
@@ -135,7 +135,7 @@
                                         ];
                                     }}
                                 >
-                                    <span class="txt">Images (jpg, png, svg, gif, webp)</span>
+                                    <span class="txt">图片 (jpg, png, svg, gif, webp)</span>
                                 </button>
                                 <button
                                     type="button"
@@ -151,7 +151,7 @@
                                         ];
                                     }}
                                 >
-                                    <span class="txt">Documents (pdf, doc/docx, xls/xlsx)</span>
+                                    <span class="txt">文档 (pdf, doc/docx, xls/xlsx)</span>
                                 </button>
                                 <button
                                     type="button"
@@ -166,7 +166,7 @@
                                         ];
                                     }}
                                 >
-                                    <span class="txt">Videos (mp4, avi, mov, 3gp)</span>
+                                    <span class="txt">视频 (mp4, avi, mov, 3gp)</span>
                                 </button>
                                 <button
                                     type="button"
@@ -180,7 +180,7 @@
                                         ];
                                     }}
                                 >
-                                    <span class="txt">Archives (zip, 7zip, rar)</span>
+                                    <span class="txt">压缩包 (zip, 7zip, rar)</span>
                                 </button>
                             </Toggler>
                         </div>
@@ -191,7 +191,7 @@
             <div class={!isSingle ? "col-sm-6" : "col-sm-8"}>
                 <Field class="form-field" name="schema.{key}.options.thumbs" let:uniqueId>
                     <label for={uniqueId}>
-                        <span class="txt">Thumb sizes</span>
+                        <span class="txt">缩略图大小</span>
                         <i
                             class="ri-information-line link-hint"
                             use:tooltip={{
@@ -206,9 +206,9 @@
                         bind:value={field.options.thumbs}
                     />
                     <div class="help-block">
-                        <span class="txt">Use comma as separator.</span>
+                        <span class="txt">使用逗号作为分隔符</span>
                         <button type="button" class="inline-flex flex-gap-0">
-                            <span class="txt link-primary">Supported formats</span>
+                            <span class="txt link-primary">支持的格式</span>
                             <i class="ri-arrow-drop-down-fill" aria-hidden="true" />
                             <Toggler class="dropdown dropdown-sm dropdown-center dropdown-nowrap p-r-10">
                                 <ul class="m-0">
@@ -245,16 +245,16 @@
 
             <div class={!isSingle ? "col-sm-3" : "col-sm-4"}>
                 <Field class="form-field required" name="schema.{key}.options.maxSize" let:uniqueId>
-                    <label for={uniqueId}>Max file size</label>
+                    <label for={uniqueId}>最大文件大小</label>
                     <input type="number" id={uniqueId} step="1" min="0" bind:value={field.options.maxSize} />
-                    <div class="help-block">Must be in bytes.</div>
+                    <div class="help-block">单位：字节.</div>
                 </Field>
             </div>
 
             {#if !isSingle}
                 <div class="col-sm-3">
                     <Field class="form-field required" name="schema.{key}.options.maxSelect" let:uniqueId>
-                        <label for={uniqueId}>Max select</label>
+                        <label for={uniqueId}>最大可选数量</label>
                         <input
                             id={uniqueId}
                             type="number"
@@ -273,7 +273,7 @@
         <Field class="form-field form-field-toggle" name="schema.{key}.options.protected" let:uniqueId>
             <input type="checkbox" id={uniqueId} bind:checked={field.options.protected} />
             <label for={uniqueId}>
-                <span class="txt">Protected</span>
+                <span class="txt">被保护的</span>
             </label>
             <a
                 href={import.meta.env.PB_PROTECTED_FILE_DOCS}
@@ -281,7 +281,7 @@
                 target="_blank"
                 rel="noopener"
             >
-                (Learn more)
+                (说明)
             </a>
         </Field>
     </svelte:fragment>

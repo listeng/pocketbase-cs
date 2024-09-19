@@ -201,7 +201,7 @@
 <OverlayPanel bind:this={pickerPanel} popup class="overlay-panel-xl" on:hide on:show {...$$restProps}>
     <svelte:fragment slot="header">
         <h4>
-            Select <strong>{collection?.name || ""}</strong> records
+            选择 <strong>{collection?.name || ""}</strong> 的记录
         </h4>
     </svelte:fragment>
 
@@ -217,7 +217,7 @@
                 class="btn btn-pill btn-transparent btn-hint p-l-xs p-r-xs"
                 on:click={() => upsertPanel?.show()}
             >
-                <div class="txt">New record</div>
+                <div class="txt">新记录</div>
             </button>
         {/if}
     </div>
@@ -292,9 +292,9 @@
     </div>
 
     <h5 class="section-title">
-        Selected
+        选中了 
         {#if maxSelect > 1}
-            ({selected.length} of MAX {maxSelect})
+            ({selected.length} 条，最多可选 {maxSelect} 条)
         {/if}
     </h5>
     {#if selected.length}
@@ -305,7 +305,7 @@
                         <RecordInfo {record} />
                         <button
                             type="button"
-                            title="Remove"
+                            title="删除"
                             class="btn btn-circle btn-transparent btn-hint btn-xs"
                             on:click={() => deselect(record)}
                         >
@@ -316,15 +316,15 @@
             {/each}
         </div>
     {:else}
-        <p class="txt-hint">No selected records.</p>
+        <p class="txt-hint">没有选中的记录</p>
     {/if}
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={() => hide()}>
-            <span class="txt">Cancel</span>
+            <span class="txt">取消</span>
         </button>
         <button type="button" class="btn" on:click={() => save()}>
-            <span class="txt">Set selection</span>
+            <span class="txt">保存</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>
