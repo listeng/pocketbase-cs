@@ -21,7 +21,8 @@ import (
 	"github.com/spf13/cast"
 )
 
-const trailedAdminPath = "/_/"
+const BaseUrl = "/pb-proxy"
+const trailedAdminPath = BaseUrl + "/_/"
 
 // InitApi creates a configured echo instance with registered
 // system and app specific routes and middlewares.
@@ -45,7 +46,7 @@ func InitApi(app core.App) (*echo.Echo, error) {
 	e.Pre(middleware.RemoveTrailingSlashWithConfig(middleware.RemoveTrailingSlashConfig{
 		Skipper: func(c echo.Context) bool {
 			// enable by default only for the API routes
-			return !strings.HasPrefix(c.Request().URL.Path, "/api/")
+			return !strings.HasPrefix(c.Request().URL.Path, BaseUrl+"/api/")
 		},
 	}))
 	e.Pre(LoadAuthContext(app))
@@ -117,7 +118,7 @@ func InitApi(app core.App) (*echo.Echo, error) {
 	bindStaticAdminUI(app, e)
 
 	// default routes
-	api := e.Group("/api", eagerRequestInfoCache(app))
+	api := e.Group(BaseUrl+"/api", eagerRequestInfoCache(app))
 	bindSettingsApi(app, api)
 	bindAdminApi(app, api)
 	bindCollectionApi(app, api)
