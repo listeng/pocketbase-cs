@@ -136,17 +136,17 @@ func (validator *RecordDataValidator) checkTextValue(field *schema.SchemaField, 
 	length := len([]rune(val))
 
 	if options.Min != nil && length < *options.Min {
-		return validation.NewError("validation_min_text_constraint", fmt.Sprintf("Must be at least %d character(s)", *options.Min))
+		return validation.NewError("validation_min_text_constraint", fmt.Sprintf("至少 %d 个字符", *options.Min))
 	}
 
 	if options.Max != nil && length > *options.Max {
-		return validation.NewError("validation_max_text_constraint", fmt.Sprintf("Must be less than %d character(s)", *options.Max))
+		return validation.NewError("validation_max_text_constraint", fmt.Sprintf("最多 %d 个字符", *options.Max))
 	}
 
 	if options.Pattern != "" {
 		match, _ := regexp.MatchString(options.Pattern, val)
 		if !match {
-			return validation.NewError("validation_invalid_format", "Invalid value format")
+			return validation.NewError("validation_invalid_format", "无效的格式")
 		}
 	}
 
@@ -166,11 +166,11 @@ func (validator *RecordDataValidator) checkNumberValue(field *schema.SchemaField
 	}
 
 	if options.Min != nil && val < *options.Min {
-		return validation.NewError("validation_min_number_constraint", fmt.Sprintf("Must be larger than %f", *options.Min))
+		return validation.NewError("validation_min_number_constraint", fmt.Sprintf("必须大于 %f", *options.Min))
 	}
 
 	if options.Max != nil && val > *options.Max {
-		return validation.NewError("validation_max_number_constraint", fmt.Sprintf("Must be less than %f", *options.Max))
+		return validation.NewError("validation_max_number_constraint", fmt.Sprintf("必须小于 %f", *options.Max))
 	}
 
 	return nil
@@ -187,7 +187,7 @@ func (validator *RecordDataValidator) checkEmailValue(field *schema.SchemaField,
 	}
 
 	if is.EmailFormat.Validate(val) != nil {
-		return validation.NewError("validation_invalid_email", "Must be a valid email")
+		return validation.NewError("validation_invalid_email", "必须是邮箱格式")
 	}
 
 	options, _ := field.Options.(*schema.EmailOptions)
@@ -195,12 +195,12 @@ func (validator *RecordDataValidator) checkEmailValue(field *schema.SchemaField,
 
 	// only domains check
 	if len(options.OnlyDomains) > 0 && !list.ExistInSlice(domain, options.OnlyDomains) {
-		return validation.NewError("validation_email_domain_not_allowed", "Email domain is not allowed")
+		return validation.NewError("validation_email_domain_not_allowed", "不允许的邮箱域名")
 	}
 
 	// except domains check
 	if len(options.ExceptDomains) > 0 && list.ExistInSlice(domain, options.ExceptDomains) {
-		return validation.NewError("validation_email_domain_not_allowed", "Email domain is not allowed")
+		return validation.NewError("validation_email_domain_not_allowed", "不允许的邮箱域名")
 	}
 
 	return nil
@@ -213,7 +213,7 @@ func (validator *RecordDataValidator) checkUrlValue(field *schema.SchemaField, v
 	}
 
 	if is.URL.Validate(val) != nil {
-		return validation.NewError("validation_invalid_url", "Must be a valid url")
+		return validation.NewError("validation_invalid_url", "必须是有效的 URL")
 	}
 
 	options, _ := field.Options.(*schema.UrlOptions)
@@ -224,12 +224,12 @@ func (validator *RecordDataValidator) checkUrlValue(field *schema.SchemaField, v
 
 	// only domains check
 	if len(options.OnlyDomains) > 0 && !list.ExistInSlice(host, options.OnlyDomains) {
-		return validation.NewError("validation_url_domain_not_allowed", "Url domain is not allowed")
+		return validation.NewError("validation_url_domain_not_allowed", "不允许的 URL 域名")
 	}
 
 	// except domains check
 	if len(options.ExceptDomains) > 0 && list.ExistInSlice(host, options.ExceptDomains) {
-		return validation.NewError("validation_url_domain_not_allowed", "Url domain is not allowed")
+		return validation.NewError("validation_url_domain_not_allowed", "不允许的 URL 域名")
 	}
 
 	return nil
@@ -297,7 +297,7 @@ var emptyJsonValues = []string{
 
 func (validator *RecordDataValidator) checkJsonValue(field *schema.SchemaField, value any) error {
 	if is.JSON.Validate(value) != nil {
-		return validation.NewError("validation_invalid_json", "Must be a valid json value")
+		return validation.NewError("validation_invalid_json", "必须是有效的 JSON")
 	}
 
 	raw, _ := types.ParseJsonRaw(value)
@@ -305,7 +305,7 @@ func (validator *RecordDataValidator) checkJsonValue(field *schema.SchemaField, 
 	options, _ := field.Options.(*schema.JsonOptions)
 
 	if len(raw) > options.MaxSize {
-		return validation.NewError("validation_json_size_limit", fmt.Sprintf("The maximum allowed JSON size is %v bytes", options.MaxSize))
+		return validation.NewError("validation_json_size_limit", fmt.Sprintf("JSON 最大不能超过 %v 字节", options.MaxSize))
 	}
 
 	rawStr := strings.TrimSpace(raw.String())

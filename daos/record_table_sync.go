@@ -338,7 +338,7 @@ func (dao *Dao) createCollectionIndexes(collection *models.Collection) error {
 			if !parsed.IsValid() {
 				errs[strconv.Itoa(i)] = validation.NewError(
 					"validation_invalid_index_expression",
-					"Invalid CREATE INDEX expression.",
+					"无效的 CREATE INDEX 表达式.",
 				)
 				continue
 			}
@@ -346,7 +346,7 @@ func (dao *Dao) createCollectionIndexes(collection *models.Collection) error {
 			if _, err := txDao.DB().NewQuery(parsed.Build()).Execute(); err != nil {
 				errs[strconv.Itoa(i)] = validation.NewError(
 					"validation_invalid_index_expression",
-					fmt.Sprintf("Failed to create index %s - %v.", parsed.IndexName, err.Error()),
+					fmt.Sprintf("无法创建索引 %s - %v.", parsed.IndexName, err.Error()),
 				)
 				continue
 			}

@@ -14,7 +14,7 @@ func Compare(valueToCompare string) validation.RuleFunc {
 		v, _ := value.(string)
 
 		if v != valueToCompare {
-			return validation.NewError("validation_values_mismatch", "Values don't match.")
+			return validation.NewError("validation_values_mismatch", "值不匹配")
 		}
 
 		return nil

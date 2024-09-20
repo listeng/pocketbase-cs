@@ -55,7 +55,7 @@
             icon: CommonHelper.getFieldTypeIcon("file"),
         },
         {
-            label: "外键",
+            label: "关系",
             value: "relation",
             icon: CommonHelper.getFieldTypeIcon("relation"),
         },

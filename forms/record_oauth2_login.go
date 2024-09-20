@@ -97,7 +97,7 @@ func (form *RecordOAuth2Login) checkProviderName(value any) error {
 
 	config, ok := form.app.Settings().NamedAuthProviderConfigs()[name]
 	if !ok || !config.Enabled {
-		return validation.NewError("validation_invalid_provider", fmt.Sprintf("%q is missing or is not enabled.", name))
+		return validation.NewError("validation_invalid_provider", fmt.Sprintf("%q 缺失或未启用", name))
 	}
 
 	return nil

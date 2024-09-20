@@ -433,7 +433,7 @@ func (form *RecordUpsert) LoadData(requestData map[string]any) error {
 			return validation.Errors{
 				key: validation.NewError(
 					"validation_unknown_filenames",
-					"The field contains unknown filenames.",
+					"字段包含未知的文件名称",
 				),
 			}
 		}
@@ -575,7 +575,7 @@ func (form *RecordUpsert) checkUniqueUsername(value any) error {
 		form.record.Id,
 	)
 	if !isUnique {
-		return validation.NewError("validation_invalid_username", "The username is invalid or already in use.")
+		return validation.NewError("validation_invalid_username", "用户名无效或已存在")
 	}
 
 	return nil
@@ -594,7 +594,7 @@ func (form *RecordUpsert) checkUniqueEmail(value any) error {
 		form.record.Id,
 	)
 	if !isUnique {
-		return validation.NewError("validation_invalid_email", "The email is invalid or already in use.")
+		return validation.NewError("validation_invalid_email", "邮箱无效或已存在")
 	}
 
 	return nil

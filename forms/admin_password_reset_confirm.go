@@ -55,7 +55,7 @@ func (form *AdminPasswordResetConfirm) checkToken(value any) error {
 
 	admin, err := form.dao.FindAdminByToken(v, form.app.Settings().AdminPasswordResetToken.Secret)
 	if err != nil || admin == nil {
-		return validation.NewError("validation_invalid_token", "Invalid or expired token.")
+		return validation.NewError("validation_invalid_token", "无效或过期的令牌")
 	}
 
 	return nil

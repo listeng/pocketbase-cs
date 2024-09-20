@@ -289,7 +289,7 @@ func (f *SchemaField) InitOptions() error {
 		options = &UserOptions{}
 
 	default:
-		return errors.New("Missing or unknown field field type.")
+		return errors.New("缺失或者是未知的字段类型")
 	}
 
 	if err := json.Unmarshal(serialized, options); err != nil {

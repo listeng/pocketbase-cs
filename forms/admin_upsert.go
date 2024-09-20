@@ -92,7 +92,7 @@ func (form *AdminUpsert) checkUniqueEmail(value any) error {
 		return nil
 	}
 
-	return validation.NewError("validation_admin_email_exists", "Admin email already exists.")
+	return validation.NewError("validation_admin_email_exists", "管理员邮箱已存在")
 }
 
 // Submit validates the form and upserts the form admin model.

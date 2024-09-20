@@ -48,7 +48,7 @@
 
     $: if ($errors.schema || $errors.options?.query) {
         // extract the direct schema field error, otherwise - return a generic message
-        schemaTabError = CommonHelper.getNestedVal($errors, "schema.message") || "Has errors";
+        schemaTabError = CommonHelper.getNestedVal($errors, "schema.message") || "有错误";
     } else {
         schemaTabError = "";
     }

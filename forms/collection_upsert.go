@@ -172,7 +172,7 @@ func (form *CollectionUpsert) checkForVia(value any) error {
 	}
 
 	if strings.Contains(strings.ToLower(v), "_via_") {
-		return validation.NewError("validation_invalid_name", "The name of the collection cannot contain '_via_'.")
+		return validation.NewError("validation_invalid_name", "数据集名称不能包含 '_via_'")
 	}
 
 	return nil
@@ -183,12 +183,12 @@ func (form *CollectionUpsert) checkUniqueName(value any) error {
 
 	// ensure unique collection name
 	if !form.dao.IsCollectionNameUnique(v, form.collection.Id) {
-		return validation.NewError("validation_collection_name_exists", "Collection name must be unique (case insensitive).")
+		return validation.NewError("validation_collection_name_exists", "数据集名称必须唯一（大小写敏感）")
 	}
 
 	// ensure that the collection name doesn't collide with the id of any collection
 	if form.dao.FindById(&models.Collection{}, v) == nil {
-		return validation.NewError("validation_collection_name_id_duplicate", "The name must not match an existing collection id.")
+		return validation.NewError("validation_collection_name_id_duplicate", "数据集名称与现有的 id 不能相同")
 	}
 
 	return nil
@@ -198,7 +198,7 @@ func (form *CollectionUpsert) ensureNoSystemNameChange(value any) error {
 	v, _ := value.(string)
 
 	if !form.collection.IsNew() && form.collection.System && v != form.collection.Name {
-		return validation.NewError("validation_collection_system_name_change", "System collections cannot be renamed.")
+		return validation.NewError("validation_collection_system_name_change", "系统数据集不能重命名")
 	}
 
 	return nil
@@ -208,7 +208,7 @@ func (form *CollectionUpsert) ensureNoSystemFlagChange(value any) error {
 	v, _ := value.(bool)
 
 	if !form.collection.IsNew() && v != form.collection.System {
-		return validation.NewError("validation_collection_system_flag_change", "System collection state cannot be changed.")
+		return validation.NewError("validation_collection_system_flag_change", "系统数据集状态不能修改")
 	}
 
 	return nil
@@ -218,7 +218,7 @@ func (form *CollectionUpsert) ensureNoTypeChange(value any) error {
 	v, _ := value.(string)
 
 	if !form.collection.IsNew() && v != form.collection.Type {
-		return validation.NewError("validation_collection_type_change", "Collection type cannot be changed.")
+		return validation.NewError("validation_collection_type_change", "数据集类型不能修改")
 	}
 
 	return nil
@@ -233,7 +233,7 @@ func (form *CollectionUpsert) ensureNoFieldsTypeChange(value any) error {
 		if oldField != nil && oldField.Type != field.Type {
 			return validation.Errors{fmt.Sprint(i): validation.NewError(
 				"validation_field_type_change",
-				"Field type cannot be changed.",
+				"字段类型不能修改",
 			)}
 		}
 	}
@@ -254,7 +254,7 @@ func (form *CollectionUpsert) checkRelationFields(value any) error {
 			return validation.Errors{fmt.Sprint(i): validation.Errors{
 				"options": validation.NewError(
 					"validation_schema_invalid_relation_field_options",
-					"The relation field has invalid field options.",
+					"关系字段出现了无效的选项",
 				)},
 			}
 		}
@@ -268,7 +268,7 @@ func (form *CollectionUpsert) checkRelationFields(value any) error {
 					"options": validation.Errors{
 						"collectionId": validation.NewError(
 							"validation_field_relation_change",
-							"The relation collection cannot be changed.",
+							"关联的数据集不能修改",
 						),
 					}},
 				}
@@ -283,7 +283,7 @@ func (form *CollectionUpsert) checkRelationFields(value any) error {
 				"options": validation.Errors{
 					"collectionId": validation.NewError(
 						"validation_field_invalid_relation",
-						"The relation collection doesn't exist.",
+						"关联的数据集不存在",
 					),
 				}},
 			}
@@ -296,7 +296,7 @@ func (form *CollectionUpsert) checkRelationFields(value any) error {
 				"options": validation.Errors{
 					"collectionId": validation.NewError(
 						"validation_field_non_view_base_relation_collection",
-						"Non view collections are not allowed to have a view relation.",
+						"非视图数据集不允许创建视图关系",
 					),
 				}},
 			}
@@ -323,7 +323,7 @@ func (form *CollectionUpsert) ensureNoAuthFieldName(value any) error {
 			errs[fmt.Sprint(i)] = validation.Errors{
 				"name": validation.NewError(
 					"validation_reserved_auth_field_name",
-					"The field name is reserved and cannot be used.",
+					"字段名是保留的，不能使用",
 				),
 			}
 		}
@@ -362,7 +362,7 @@ func (form *CollectionUpsert) ensureNoSystemFieldsChange(value any) error {
 		newField := v.GetFieldById(oldField.Id)
 
 		if newField == nil || oldField.String() != newField.String() {
-			return validation.NewError("validation_system_field_change", "System fields cannot be deleted or changed.")
+			return validation.NewError("validation_system_field_change", "系统字段不能删除或修改")
 		}
 	}
 
@@ -385,7 +385,7 @@ func (form *CollectionUpsert) checkRule(value any) error {
 
 	_, err := search.FilterData(*v).BuildExpr(r)
 	if err != nil {
-		return validation.NewError("validation_invalid_rule", "Invalid filter rule. Raw error: "+err.Error())
+		return validation.NewError("validation_invalid_rule", "无效的过滤规则. 原始错误: "+err.Error())
 	}
 
 	return nil
@@ -397,7 +397,7 @@ func (form *CollectionUpsert) checkIndexes(value any) error {
 	if form.Type == models.CollectionTypeView && len(v) > 0 {
 		return validation.NewError(
 			"validation_indexes_not_supported",
-			"The collection doesn't support indexes.",
+			"数据集不支持索引",
 		)
 	}
 
@@ -408,7 +408,7 @@ func (form *CollectionUpsert) checkIndexes(value any) error {
 			return validation.Errors{
 				strconv.Itoa(i): validation.NewError(
 					"validation_invalid_index_expression",
-					"Invalid CREATE INDEX expression.",
+					"无效的 CREATE INDEX 表达式.",
 				),
 			}
 		}
@@ -464,7 +464,7 @@ func (form *CollectionUpsert) checkOptions(value any) error {
 			return validation.Errors{
 				"query": validation.NewError(
 					"validation_invalid_view_query",
-					fmt.Sprintf("Invalid query - %s", err.Error()),
+					fmt.Sprintf("无效的查询语句 - %s", err.Error()),
 				),
 			}
 		}
@@ -476,11 +476,11 @@ func (form *CollectionUpsert) checkOptions(value any) error {
 func decodeOptions(options types.JsonMap, result any) error {
 	raw, err := options.MarshalJSON()
 	if err != nil {
-		return validation.NewError("validation_invalid_options", "Invalid options.")
+		return validation.NewError("validation_invalid_options", "无效的选项")
 	}
 
 	if err := json.Unmarshal(raw, result); err != nil {
-		return validation.NewError("validation_invalid_options", "Invalid options.")
+		return validation.NewError("validation_invalid_options", "无效的选项")
 	}
 
 	return nil

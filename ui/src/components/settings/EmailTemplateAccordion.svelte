@@ -72,7 +72,7 @@
             <i
                 class="ri-error-warning-fill txt-danger"
                 transition:scale={{ duration: 150, start: 0.7 }}
-                use:tooltip={{ text: "Has errors", position: "left" }}
+                use:tooltip={{ text: "有错误", position: "left" }}
             />
         {/if}
     </svelte:fragment>
