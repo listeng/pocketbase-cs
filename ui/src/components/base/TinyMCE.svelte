@@ -180,6 +180,7 @@
     function init() {
         const finalInit = {
             ...conf,
+            language: 'zh_CN',
             target: element,
             inline: inline !== undefined ? inline : conf.inline !== undefined ? conf.inline : false,
             readonly: disabled,

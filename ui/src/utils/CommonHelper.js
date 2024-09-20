@@ -1579,7 +1579,7 @@ export default class CommonHelper {
                         const items = [
                             {
                                 type: "menuitem",
-                                text: "From collection",
+                                text: "从数据集选择",
                                 icon: "gallery",
                                 onAction: () => {
                                     editor.dispatch("collections_file_picker", {})
@@ -1587,7 +1587,7 @@ export default class CommonHelper {
                             },
                             {
                                 type: "menuitem",
-                                text: "Inline",
+                                text: "直接插入",
                                 icon: "browse",
                                 onAction: () => {
                                     editor.execCommand("mceImage");

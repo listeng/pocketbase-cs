@@ -32,6 +32,6 @@
         bind:selected={value}
     />
     {#if field.options?.maxSelect > 1}
-        <div class="help-block">Select up to {field.options.maxSelect} items.</div>
+        <div class="help-block">最多可选 {field.options.maxSelect} 个</div>
     {/if}
 </Field>

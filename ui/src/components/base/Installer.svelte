@@ -37,17 +37,17 @@
 
 <form class="block" autocomplete="off" on:submit|preventDefault={submit}>
     <div class="content txt-center m-b-base">
-        <h4>Create your first admin account in order to continue</h4>
+        <h4>创建管理员账户，然后继续</h4>
     </div>
 
     <Field class="form-field required" name="email" let:uniqueId>
-        <label for={uniqueId}>Email</label>
+        <label for={uniqueId}>邮箱</label>
         <!-- svelte-ignore a11y-autofocus -->
         <input type="email" autocomplete="off" id={uniqueId} bind:value={email} required autofocus />
     </Field>
 
     <Field class="form-field required" name="password" let:uniqueId>
-        <label for={uniqueId}>Password</label>
+        <label for={uniqueId}>密码</label>
         <input
             type="password"
             autocomplete="new-password"
@@ -56,11 +56,11 @@
             bind:value={password}
             required
         />
-        <div class="help-block">Minimum 10 characters.</div>
+        <div class="help-block">至少十个字符</div>
     </Field>
 
     <Field class="form-field required" name="passwordConfirm" let:uniqueId>
-        <label for={uniqueId}>Password confirm</label>
+        <label for={uniqueId}>确认密码</label>
         <input type="password" minlength="10" id={uniqueId} bind:value={passwordConfirm} required />
     </Field>
 
@@ -70,7 +70,7 @@
         class:btn-disabled={isLoading}
         class:btn-loading={isLoading}
     >
-        <span class="txt">Create and login</span>
+        <span class="txt">创建并登录</span>
         <i class="ri-arrow-right-line" />
     </button>
 </form>

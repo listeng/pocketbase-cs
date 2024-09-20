@@ -202,7 +202,7 @@
                     </label>
                     <MultipleValueInput
                         id={uniqueId}
-                        placeholder="eg. 50x50, 480x720"
+                        placeholder="比如：50x50, 480x720"
                         bind:value={field.options.thumbs}
                     />
                     <div class="help-block">

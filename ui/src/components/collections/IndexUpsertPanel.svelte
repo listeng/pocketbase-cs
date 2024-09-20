@@ -115,7 +115,7 @@
             <svelte:component
                 this={codeEditorComponent}
                 id={uniqueId}
-                placeholder={`eg. CREATE INDEX idx_test on ${collection?.name} (created)`}
+                placeholder={`比如：CREATE INDEX idx_test on ${collection?.name} (created)`}
                 language="sql-create-index"
                 minHeight="85"
                 bind:value={index}

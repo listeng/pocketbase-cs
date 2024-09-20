@@ -61,16 +61,16 @@
 
 <Field class="form-field required {schemaErrors.length ? 'error' : ''}" name="options.query" let:uniqueId>
     <label for={uniqueId}>
-        <span class="txt">Select query</span>
+        <span class="txt">SELECT 查询</span>
     </label>
 
     {#if isCodeEditorComponentLoading}
-        <textarea disabled rows="7" placeholder="Loading..." />
+        <textarea disabled rows="7" placeholder="载入中..." />
     {:else}
         <svelte:component
             this={codeEditorComponent}
             id={uniqueId}
-            placeholder="eg. SELECT id, name from posts"
+            placeholder="比如：SELECT id, name from posts"
             language="sql-select"
             minHeight="150"
             on:change={() => {
@@ -84,16 +84,16 @@
 
     <div class="help-block">
         <ul>
-            <li>Wildcard columns (<code>*</code>) are not supported.</li>
+            <li>支持 (<code>*</code>) 通配符</li>
             <li>
-                The query must have a unique <code>id</code> column.
+                请求必须包含唯一的 <code>id</code> 列。
                 <br />
-                If your query doesn't have a suitable one, you can use the universal
-                <code>(ROW_NUMBER() OVER()) as id</code>.
+                如果没有包含合适的列，您可以使用
+                <code>(ROW_NUMBER() OVER()) as id</code>作为 ID列
             </li>
             <li>
-                Expressions must be aliased with a valid formatted field name (eg.
-                <code>MAX(balance) as maxBalance</code>).
+                表达式必须使用格式正确的字段名称作为别名 (比如：
+                <code>MAX(balance) as maxBalance</code>)
             </li>
         </ul>
     </div>

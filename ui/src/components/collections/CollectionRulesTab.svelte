@@ -73,12 +73,12 @@
     {/if}
 </div>
 
-<RuleField label="List/Search rule" formKey="listRule" {collection} bind:rule={collection.listRule} />
+<RuleField label="列表/搜索规则" formKey="listRule" {collection} bind:rule={collection.listRule} />
 
-<RuleField label="View rule" formKey="viewRule" {collection} bind:rule={collection.viewRule} />
+<RuleField label="查看规则" formKey="viewRule" {collection} bind:rule={collection.viewRule} />
 
 {#if collection?.type !== "view"}
-    <RuleField label="Create rule" formKey="createRule" {collection} bind:rule={collection.createRule}>
+    <RuleField label="创建规则" formKey="createRule" {collection} bind:rule={collection.createRule}>
         <svelte:fragment slot="afterLabel" let:isAdminOnly>
             {#if !isAdminOnly}
                 <i
@@ -92,9 +92,9 @@
         </svelte:fragment>
     </RuleField>
 
-    <RuleField label="Update rule" formKey="updateRule" {collection} bind:rule={collection.updateRule} />
+    <RuleField label="更新规则" formKey="updateRule" {collection} bind:rule={collection.updateRule} />
 
-    <RuleField label="Delete rule" formKey="deleteRule" {collection} bind:rule={collection.deleteRule} />
+    <RuleField label="删除规则" formKey="deleteRule" {collection} bind:rule={collection.deleteRule} />
 {/if}
 
 {#if collection?.type === "auth"}

@@ -39,7 +39,7 @@ type recordApi struct {
 func (api *recordApi) list(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("", "Missing collection context.")
+		return NewNotFoundError("", "缺少数据集上下文")
 	}
 
 	requestInfo := RequestInfo(c)
@@ -51,7 +51,7 @@ func (api *recordApi) list(c echo.Context) error {
 
 	if requestInfo.Admin == nil && collection.ListRule == nil {
 		// only admins can access if the rule is nil
-		return NewForbiddenError("Only admins can perform this action.", nil)
+		return NewForbiddenError("只有管理员能进行这个操作", nil)
 	}
 
 	fieldsResolver := resolvers.NewRecordFieldResolver(
@@ -98,7 +98,7 @@ func (api *recordApi) list(c echo.Context) error {
 func (api *recordApi) view(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("", "Missing collection context.")
+		return NewNotFoundError("", "缺少数据集上下文")
 	}
 
 	recordId := c.PathParam("id")
@@ -110,7 +110,7 @@ func (api *recordApi) view(c echo.Context) error {
 
 	if requestInfo.Admin == nil && collection.ViewRule == nil {
 		// only admins can access if the rule is nil
-		return NewForbiddenError("Only admins can perform this action.", nil)
+		return NewForbiddenError("只有管理员能进行这个操作", nil)
 	}
 
 	ruleFunc := func(q *dbx.SelectQuery) error {
@@ -157,14 +157,14 @@ func (api *recordApi) view(c echo.Context) error {
 func (api *recordApi) create(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("", "Missing collection context.")
+		return NewNotFoundError("", "缺少数据集上下文")
 	}
 
 	requestInfo := RequestInfo(c)
 
 	if requestInfo.Admin == nil && collection.CreateRule == nil {
 		// only admins can access if the rule is nil
-		return NewForbiddenError("Only admins can perform this action.", nil)
+		return NewForbiddenError("只有管理员能进行这个操作", nil)
 	}
 
 	hasFullManageAccess := requestInfo.Admin != nil
@@ -268,7 +268,7 @@ func (api *recordApi) create(c echo.Context) error {
 func (api *recordApi) update(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("", "Missing collection context.")
+		return NewNotFoundError("", "缺少数据集上下文")
 	}
 
 	recordId := c.PathParam("id")
@@ -280,7 +280,7 @@ func (api *recordApi) update(c echo.Context) error {
 
 	if requestInfo.Admin == nil && collection.UpdateRule == nil {
 		// only admins can access if the rule is nil
-		return NewForbiddenError("Only admins can perform this action.", nil)
+		return NewForbiddenError("只有管理员能进行这个操作", nil)
 	}
 
 	// eager fetch the record so that the modifier field values are replaced
@@ -360,7 +360,7 @@ func (api *recordApi) update(c echo.Context) error {
 func (api *recordApi) delete(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("", "Missing collection context.")
+		return NewNotFoundError("", "缺少数据集上下文")
 	}
 
 	recordId := c.PathParam("id")
@@ -372,7 +372,7 @@ func (api *recordApi) delete(c echo.Context) error {
 
 	if requestInfo.Admin == nil && collection.DeleteRule == nil {
 		// only admins can access if the rule is nil
-		return NewForbiddenError("Only admins can perform this action.", nil)
+		return NewForbiddenError("只有管理员能进行这个操作", nil)
 	}
 
 	ruleFunc := func(q *dbx.SelectQuery) error {

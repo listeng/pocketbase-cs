@@ -10,27 +10,27 @@
 
     const types = [
         {
-            label: "Plain text",
+            label: "文本",
             value: "text",
             icon: CommonHelper.getFieldTypeIcon("text"),
         },
         {
-            label: "Rich editor",
+            label: "富文本",
             value: "editor",
             icon: CommonHelper.getFieldTypeIcon("editor"),
         },
         {
-            label: "Number",
+            label: "数字",
             value: "number",
             icon: CommonHelper.getFieldTypeIcon("number"),
         },
         {
-            label: "Bool",
+            label: "布尔",
             value: "bool",
             icon: CommonHelper.getFieldTypeIcon("bool"),
         },
         {
-            label: "Email",
+            label: "邮箱",
             value: "email",
             icon: CommonHelper.getFieldTypeIcon("email"),
         },
@@ -40,22 +40,22 @@
             icon: CommonHelper.getFieldTypeIcon("url"),
         },
         {
-            label: "DateTime",
+            label: "日期",
             value: "date",
             icon: CommonHelper.getFieldTypeIcon("date"),
         },
         {
-            label: "Select",
+            label: "选项",
             value: "select",
             icon: CommonHelper.getFieldTypeIcon("select"),
         },
         {
-            label: "File",
+            label: "文件",
             value: "file",
             icon: CommonHelper.getFieldTypeIcon("file"),
         },
         {
-            label: "Relation",
+            label: "外键",
             value: "relation",
             icon: CommonHelper.getFieldTypeIcon("relation"),
         },

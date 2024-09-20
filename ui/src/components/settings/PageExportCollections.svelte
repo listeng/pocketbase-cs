@@ -55,7 +55,7 @@
 
     function copy() {
         CommonHelper.copyToClipboard(schema);
-        addInfoToast("The configuration was copied to your clipboard!", 3000);
+        addInfoToast("配置文件已经复制到剪切板！", 3000);
     }
 
     function toggleSelectAll() {

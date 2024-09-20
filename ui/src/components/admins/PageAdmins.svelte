@@ -163,7 +163,7 @@
                                 <span class="txt">{admin.id}</span>
                             </div>
                             {#if admin.id === $loggedAdmin.id}
-                                <span class="label label-warning m-l-5">You</span>
+                                <span class="label label-warning m-l-5">你</span>
                             {/if}
                         </td>
 

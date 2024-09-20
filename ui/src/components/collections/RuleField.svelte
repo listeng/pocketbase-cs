@@ -65,7 +65,7 @@
 
                 <span class="txt" class:txt-hint={isAdminOnly}>
                     {label}
-                    {isAdminOnly ? "- Admins only" : ""}
+                    {isAdminOnly ? "- 仅管理员可用" : ""}
                 </span>
 
                 <slot name="afterLabel" {isAdminOnly} />

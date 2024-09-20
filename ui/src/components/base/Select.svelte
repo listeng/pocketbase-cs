@@ -5,9 +5,9 @@
     import { onMount } from "svelte";
 
     export let id = "";
-    export let noOptionsText = "No options found";
-    export let selectPlaceholder = "- Select -";
-    export let searchPlaceholder = "Search...";
+    export let noOptionsText = "没有选项";
+    export let selectPlaceholder = "- 选择 -";
+    export let searchPlaceholder = "搜索...";
     export let items = [];
     export let multiple = false;
     export let disabled = false;

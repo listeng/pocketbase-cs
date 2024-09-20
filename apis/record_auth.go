@@ -93,7 +93,7 @@ type providerInfo struct {
 func (api *recordAuthApi) authMethods(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("Missing collection context.", nil)
+		return NewNotFoundError("缺少数据集上下文", nil)
 	}
 
 	authOptions := collection.AuthOptions()
@@ -183,7 +183,7 @@ func (api *recordAuthApi) authMethods(c echo.Context) error {
 func (api *recordAuthApi) authWithOAuth2(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("Missing collection context.", nil)
+		return NewNotFoundError("缺少数据集上下文", nil)
 	}
 
 	if !collection.AuthOptions().AllowOAuth2Auth {
@@ -294,7 +294,7 @@ func (api *recordAuthApi) authWithOAuth2(c echo.Context) error {
 func (api *recordAuthApi) authWithPassword(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("Missing collection context.", nil)
+		return NewNotFoundError("缺少数据集上下文", nil)
 	}
 
 	form := forms.NewRecordPasswordLogin(api.app, collection)
@@ -366,7 +366,7 @@ func (api *recordAuthApi) authWithPassword(c echo.Context) error {
 func (api *recordAuthApi) requestPasswordReset(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("Missing collection context.", nil)
+		return NewNotFoundError("缺少数据集上下文", nil)
 	}
 
 	authOptions := collection.AuthOptions()
@@ -425,7 +425,7 @@ func (api *recordAuthApi) requestPasswordReset(c echo.Context) error {
 func (api *recordAuthApi) confirmPasswordReset(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("Missing collection context.", nil)
+		return NewNotFoundError("缺少数据集上下文", nil)
 	}
 
 	form := forms.NewRecordPasswordResetConfirm(api.app, collection)
@@ -463,7 +463,7 @@ func (api *recordAuthApi) confirmPasswordReset(c echo.Context) error {
 func (api *recordAuthApi) requestVerification(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("Missing collection context.", nil)
+		return NewNotFoundError("缺少数据集上下文", nil)
 	}
 
 	form := forms.NewRecordVerificationRequest(api.app, collection)
@@ -517,7 +517,7 @@ func (api *recordAuthApi) requestVerification(c echo.Context) error {
 func (api *recordAuthApi) confirmVerification(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("Missing collection context.", nil)
+		return NewNotFoundError("缺少数据集上下文", nil)
 	}
 
 	form := forms.NewRecordVerificationConfirm(api.app, collection)
@@ -555,7 +555,7 @@ func (api *recordAuthApi) confirmVerification(c echo.Context) error {
 func (api *recordAuthApi) requestEmailChange(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("Missing collection context.", nil)
+		return NewNotFoundError("缺少数据集上下文", nil)
 	}
 
 	record, _ := c.Get(ContextAuthRecordKey).(*models.Record)
@@ -595,7 +595,7 @@ func (api *recordAuthApi) requestEmailChange(c echo.Context) error {
 func (api *recordAuthApi) confirmEmailChange(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("Missing collection context.", nil)
+		return NewNotFoundError("缺少数据集上下文", nil)
 	}
 
 	form := forms.NewRecordEmailChangeConfirm(api.app, collection)
@@ -633,7 +633,7 @@ func (api *recordAuthApi) confirmEmailChange(c echo.Context) error {
 func (api *recordAuthApi) listExternalAuths(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("Missing collection context.", nil)
+		return NewNotFoundError("缺少数据集上下文", nil)
 	}
 
 	id := c.PathParam("id")
@@ -665,7 +665,7 @@ func (api *recordAuthApi) listExternalAuths(c echo.Context) error {
 func (api *recordAuthApi) unlinkExternalAuth(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
-		return NewNotFoundError("Missing collection context.", nil)
+		return NewNotFoundError("缺少数据集上下文", nil)
 	}
 
 	id := c.PathParam("id")
