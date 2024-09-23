@@ -115,6 +115,15 @@
                 >
                     <i class="ri-tools-line" />
                 </a>
+                <a
+                    href="/pb-proxy/amis-editor/"
+                    class="menu-item"
+                    aria-label="AmisEditor"
+                    target="_blank"
+                    use:tooltip={{ text: "表单编辑", position: "right" }}
+                >
+                    <i class="ri-edit-2-line" />
+                </a>
             </nav>
 
             <div
