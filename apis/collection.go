@@ -162,7 +162,7 @@ func (api *collectionApi) delete(c echo.Context) error {
 
 	return api.app.OnCollectionBeforeDeleteRequest().Trigger(event, func(e *core.CollectionDeleteEvent) error {
 		if err := api.app.Dao().DeleteCollection(e.Collection); err != nil {
-			return NewBadRequestError("Failed to delete collection due to existing dependency.", err)
+			return NewBadRequestError("删除失败，这个数据集还存在依赖关系", err)
 		}
 
 		return api.app.OnCollectionAfterDeleteRequest().Trigger(event, func(e *core.CollectionDeleteEvent) error {

@@ -35,7 +35,7 @@ type adminApi struct {
 func (api *adminApi) authResponse(c echo.Context, admin *models.Admin, finalizers ...func(token string) error) error {
 	token, tokenErr := tokens.NewAdminAuthToken(api.app, admin)
 	if tokenErr != nil {
-		return NewBadRequestError("Failed to create auth token.", tokenErr)
+		return NewBadRequestError("创建授权令牌失败", tokenErr)
 	}
 
 	for _, f := range finalizers {
@@ -95,7 +95,7 @@ func (api *adminApi) authWithPassword(c echo.Context) error {
 
 			return api.app.OnAdminBeforeAuthWithPasswordRequest().Trigger(event, func(e *core.AdminAuthWithPasswordEvent) error {
 				if err := next(e.Admin); err != nil {
-					return NewBadRequestError("Failed to authenticate.", err)
+					return NewBadRequestError("鉴权失败", err)
 				}
 
 				return api.app.OnAdminAfterAuthWithPasswordRequest().Trigger(event, func(e *core.AdminAuthWithPasswordEvent) error {
@@ -168,7 +168,7 @@ func (api *adminApi) confirmPasswordReset(c echo.Context) error {
 
 			return api.app.OnAdminBeforeConfirmPasswordResetRequest().Trigger(event, func(e *core.AdminConfirmPasswordResetEvent) error {
 				if err := next(e.Admin); err != nil {
-					return NewBadRequestError("Failed to set new password.", err)
+					return NewBadRequestError("设置新密码失败", err)
 				}
 
 				return api.app.OnAdminAfterConfirmPasswordResetRequest().Trigger(event, func(e *core.AdminConfirmPasswordResetEvent) error {
@@ -259,7 +259,7 @@ func (api *adminApi) create(c echo.Context) error {
 
 			return api.app.OnAdminBeforeCreateRequest().Trigger(event, func(e *core.AdminCreateEvent) error {
 				if err := next(e.Admin); err != nil {
-					return NewBadRequestError("Failed to create admin.", err)
+					return NewBadRequestError("创建管理员失败", err)
 				}
 
 				return api.app.OnAdminAfterCreateRequest().Trigger(event, func(e *core.AdminCreateEvent) error {

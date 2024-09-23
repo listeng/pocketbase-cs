@@ -259,7 +259,7 @@ func (api *recordAuthApi) authWithOAuth2(c echo.Context) error {
 				data.OAuth2User = e.OAuth2User
 
 				if err := next(data); err != nil {
-					return NewBadRequestError("Failed to authenticate.", err)
+					return NewBadRequestError("鉴权失败", err)
 				}
 
 				e.Record = data.Record
@@ -314,14 +314,14 @@ func (api *recordAuthApi) authWithPassword(c echo.Context) error {
 
 			return api.app.OnRecordBeforeAuthWithPasswordRequest().Trigger(event, func(e *core.RecordAuthWithPasswordEvent) error {
 				if err := next(e.Record); err != nil {
-					return NewBadRequestError("Failed to authenticate.", err)
+					return NewBadRequestError("鉴权失败", err)
 				}
 
 				// @todo remove after the refactoring
 				if collection.AuthOptions().AllowOAuth2Auth && e.Record.Email() != "" {
 					externalAuths, err := api.app.Dao().FindAllExternalAuthsByRecord(e.Record)
 					if err != nil {
-						return NewBadRequestError("Failed to authenticate.", err)
+						return NewBadRequestError("鉴权失败", err)
 					}
 					if len(externalAuths) > 0 {
 						lastLoginAlert := e.Record.LastLoginAlertSentAt().Time()
@@ -342,7 +342,7 @@ func (api *recordAuthApi) authWithPassword(c echo.Context) error {
 							}
 
 							if err := mails.SendRecordPasswordLoginAlert(api.app, e.Record, providerNames...); err != nil {
-								return NewBadRequestError("Failed to authenticate.", err)
+								return NewBadRequestError("鉴权失败", err)
 							}
 
 							e.Record.SetLastLoginAlertSentAt(types.NowDateTime())
