@@ -31,18 +31,18 @@
         <div class="alert alert-success">
             <div class="icon"><i class="ri-checkbox-circle-line" /></div>
             <div class="content">
-                <p>Check <strong class="txt-nowrap">{email}</strong> for the recovery link.</p>
+                <p>检查您的邮箱 <strong class="txt-nowrap">{email}</strong> 中的密码找回邮件</p>
             </div>
         </div>
     {:else}
         <form class="m-b-base" on:submit|preventDefault={submit}>
             <div class="content txt-center m-b-sm">
-                <h4 class="m-b-xs">Forgotten admin password</h4>
-                <p>Enter the email associated with your account and we’ll send you a recovery link:</p>
+                <h4 class="m-b-xs">忘记管理员密码</h4>
+                <p>输入邮箱，会给您发送密码找回邮件:</p>
             </div>
 
             <Field class="form-field required" name="email" let:uniqueId>
-                <label for={uniqueId}>Email</label>
+                <label for={uniqueId}>邮箱</label>
                 <!-- svelte-ignore a11y-autofocus -->
                 <input type="email" id={uniqueId} required autofocus bind:value={email} />
             </Field>
@@ -54,12 +54,12 @@
                 disabled={isLoading}
             >
                 <i class="ri-mail-send-line" />
-                <span class="txt">Send recovery link</span>
+                <span class="txt">发送密码找回邮件</span>
             </button>
         </form>
     {/if}
 
     <div class="content txt-center">
-        <a href="/login" class="link-hint" use:link>Back to login</a>
+        <a href="/login" class="link-hint" use:link>返回登录</a>
     </div>
 </FullPage>

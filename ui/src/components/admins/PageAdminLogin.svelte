@@ -33,7 +33,7 @@
                 replace("/");
             })
             .catch(() => {
-                addErrorToast("Invalid login credentials.");
+                addErrorToast("用户名或密码错误");
             })
             .finally(() => {
                 isLoading = false;
