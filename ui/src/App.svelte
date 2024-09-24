@@ -116,13 +116,23 @@
                     <i class="ri-tools-line" />
                 </a>
                 <a
+                    href="/hooks"
+                    class="menu-item"
+                    aria-label="Hook"
+                    use:link
+                    use:active={{ path: "/hooks/?.*", className: "current-route" }}
+                    use:tooltip={{ text: "云函数", position: "right" }}
+                >
+                    <i class="ri-edit-line" />
+                </a>
+                <a
                     href="/pb-proxy/amis-editor/"
                     class="menu-item"
                     aria-label="AmisEditor"
                     target="_blank"
                     use:tooltip={{ text: "表单编辑", position: "right" }}
                 >
-                    <i class="ri-edit-2-line" />
+                    <i class="ri-pages-line" />
                 </a>
             </nav>
 

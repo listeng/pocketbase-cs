@@ -129,6 +129,7 @@ func InitApi(app core.App) (*echo.Echo, error) {
 	bindLogsApi(app, api)
 	bindHealthApi(app, api)
 	bindBackupApi(app, api)
+	bindHookEditApi(app, api)
 
 	// catch all any route
 	api.Any("/*", func(c echo.Context) error {

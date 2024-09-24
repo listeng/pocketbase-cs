@@ -116,7 +116,7 @@ func RequireAdminAuth() echo.MiddlewareFunc {
 		return func(c echo.Context) error {
 			admin, _ := c.Get(ContextAdminKey).(*models.Admin)
 			if admin == nil {
-				return NewUnauthorizedError("The request requires valid admin authorization token to be set.", nil)
+				return NewUnauthorizedError("只有管理员才能访问此资源", nil)
 			}
 
 			return next(c)
@@ -137,14 +137,14 @@ func RequireAdminAuthOnlyIfAny(app core.App) echo.MiddlewareFunc {
 
 			totalAdmins, err := app.Dao().TotalAdmins()
 			if err != nil {
-				return NewBadRequestError("Failed to fetch admins info.", err)
+				return NewBadRequestError("获取管理员信息失败", err)
 			}
 
 			if totalAdmins == 0 {
 				return next(c)
 			}
 
-			return NewUnauthorizedError("The request requires valid admin authorization token to be set.", nil)
+			return NewUnauthorizedError("只有管理员才能访问此资源", nil)
 		}
 	}
 }
