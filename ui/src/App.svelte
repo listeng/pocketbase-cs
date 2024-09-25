@@ -126,6 +126,16 @@
                     <i class="ri-edit-line" />
                 </a>
                 <a
+                    href="/pages"
+                    class="menu-item"
+                    aria-label="Pages"
+                    use:link
+                    use:active={{ path: "/pages/?.*", className: "current-route" }}
+                    use:tooltip={{ text: "扩展页面", position: "right" }}
+                >
+                    <i class="ri-space-ship-line" />
+                </a>
+                <a
                     href="/pb-proxy/amis-editor/"
                     class="menu-item"
                     aria-label="AmisEditor"

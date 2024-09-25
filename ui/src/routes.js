@@ -15,6 +15,7 @@ import PageExportCollections from "@/components/settings/PageExportCollections.s
 import PageImportCollections from "@/components/settings/PageImportCollections.svelte";
 import PageBackups           from "@/components/settings/PageBackups.svelte";
 import HookEditor           from "@/components/admins/HookEditor.svelte";
+import CustomPage           from "@/components/admins/CustomPage.svelte";
 
 const baseConditions = [
     async (details) => {
@@ -115,6 +116,12 @@ const routes = {
 
     "/hooks": wrap({
         component:  HookEditor,
+        conditions: baseConditions.concat([(_) => ApiClient.authStore.isValid]),
+        userData: { showAppSidebar: true },
+    }),
+
+    "/pages": wrap({
+        component:  CustomPage,
         conditions: baseConditions.concat([(_) => ApiClient.authStore.isValid]),
         userData: { showAppSidebar: true },
     }),
