@@ -1,12 +1,8 @@
 <script>
     import { onMount } from "svelte";
-    import * as monaco from "monaco-editor";
     import { addSuccessToast, addErrorToast } from "@/stores/toasts";
     import { confirm } from "@/stores/confirmation";
     import PageWrapper from "@/components/base/PageWrapper.svelte";
-
-    import editorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
-    import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
 
     let files = [];
     let selectedFile = null;
@@ -15,30 +11,40 @@
     const baseUrl = import.meta.env.PB_BACKEND_URL;
 
     async function loadDtsFile(url) {
-    const response = await fetch(url);
-    const dtsContent = await response.text();
-    monaco.languages.typescript.javascriptDefaults.addExtraLib(dtsContent, url);
-  }
+        const response = await fetch(url);
+        const dtsContent = await response.text();
+        window.monaco.languages.typescript.javascriptDefaults.addExtraLib(dtsContent, url);
+    }
+
+    async function loadMonacoEditor() {
+        if (window.monaco) return;
+
+        const script = document.createElement('script');
+        script.src = './libs/page/js/amis@6.8/sdk/thirds/monaco-editor/min/vs/loader.js';
+        script.async = true;
+        document.body.appendChild(script);
+
+        await new Promise(resolve => script.onload = resolve);
+
+        require.config({ paths: { 'vs': './libs/page/js/amis@6.8/sdk/thirds/monaco-editor/min/vs' }});
+        
+        await new Promise(resolve => {
+            require(['vs/editor/editor.main'], resolve);
+        });
+    }
 
     onMount(async () => {
-        self.MonacoEnvironment = {
-            getWorker: function (_, label) {
-                if (label === "typescript" || label === "javascript") {
-                    return new tsWorker();
-                }
-                return new editorWorker();
-            },
-        };
+        await loadMonacoEditor();
 
         loadFiles();
 
-        editor = monaco.editor.create(editorContainer, {
+        editor = window.monaco.editor.create(editorContainer, {
             value: "",
             language: "javascript",
             theme: "vs-dark",
         });
 
-        await loadDtsFile(baseUrl + 'types.d.ts');
+        await loadDtsFile(baseUrl + "types.d.ts");
 
         return () => {
             editor.dispose();
@@ -68,7 +74,11 @@
 
     async function loadFiles() {
         const response = await authenticatedFetch(baseUrl + "api/hooks");
-        files = await response.json();
+        const result = await response.json();
+
+        if (result) {
+            files = result
+        }
     }
 
     async function selectFile(filename) {
@@ -155,6 +165,24 @@
             }
         });
     }
+
+    async function restartBackend() {
+        confirm(`确认要重启服务吗？（只有win平台需要手工重启）`, async () => {
+            const response = await authenticatedFetch(baseUrl + `api/hooks/restart`, {
+                method: "PUT",
+            });
+
+            if (response.ok) {
+                addSuccessToast("正在重启……");
+
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            } else {
+                addErrorToast("重启失败：" + (await response.json()).message);
+            }
+        });
+    }
 </script>
 
 <aside class="page-sidebar settings-sidebar">
@@ -194,6 +222,10 @@
         <div class="flex-fill" />
 
         <div class="btns-group">
+            <button type="button" class="btn btn-outline" on:click={restartBackend}>
+                <i class="ri-exchange-funds-line" />
+                <span class="txt">重启服务</span>
+            </button>
             <button type="button" class="btn btn-expanded-sm" on:click={createNewFile}>
                 <i class="ri-add-line" />
                 <span class="txt">新文件</span>
