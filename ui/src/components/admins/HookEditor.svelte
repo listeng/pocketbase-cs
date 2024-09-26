@@ -41,7 +41,7 @@
         editor = window.monaco.editor.create(editorContainer, {
             value: "",
             language: "javascript",
-            theme: "vs-dark",
+            theme: "vs",
         });
 
         await loadDtsFile(baseUrl + "types.d.ts");

@@ -192,21 +192,25 @@ func (api *hookEditApi) restartBackend(c echo.Context) error {
 		exePath := filepath.Dir(executable)
 		batPath := filepath.Join(exePath, "restart.bat")
 
-		// 创建 restart.bat 文件，包含 2 秒延迟
-		batContent := fmt.Sprintf(`@echo off
+		_, fileexterr := os.Stat(batPath)
+		if !os.IsNotExist(fileexterr) {
+
+			// 创建 restart.bat 文件，包含 2 秒延迟
+			batContent := fmt.Sprintf(`@echo off
 cd /d "%s"
 echo Waiting for 2 seconds before restarting...
 timeout /t 2 /nobreak > NUL
-start "" "%s" serve
+start "" "%s" serve --http 0.0.0.0:8090
 exit
 `, exePath, filepath.Base(executable))
 
-		err = os.WriteFile(batPath, []byte(batContent), 0644)
-		if err != nil {
-			api.app.Logger().Error(
-				"Error creating restart.bat:" + err.Error(),
-			)
-			return
+			err = os.WriteFile(batPath, []byte(batContent), 0644)
+			if err != nil {
+				api.app.Logger().Error(
+					"Error creating restart.bat:" + err.Error(),
+				)
+				return
+			}
 		}
 
 		// 启动 restart.bat
