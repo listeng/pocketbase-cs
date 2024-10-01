@@ -21,11 +21,11 @@
             body: `
                 {
                   "code": 400,
-                  "message": "Failed to authenticate.",
+                  "message": "认证失败。",
                   "data": {
                     "token": {
                       "code": "validation_required",
-                      "message": "Missing required value."
+                      "message": "缺少必需的值。"
                     }
                   }
                 }
@@ -34,9 +34,9 @@
     ];
 </script>
 
-<h3 class="m-b-sm">Confirm verification ({collection.name})</h3>
+<h3 class="m-b-sm">确认验证 ({collection.name})</h3>
 <div class="content txt-lg m-b-sm">
-    <p>Confirms <strong>{collection.name}</strong> account verification request.</p>
+    <p>确认 <strong>{collection.name}</strong> 账户验证请求。</p>
 </div>
 
 <SdkTabs
@@ -49,7 +49,7 @@
 
         await pb.collection('${collection?.name}').confirmVerification('TOKEN');
 
-        // optionally refresh the previous authStore state with the latest record changes
+        // 可选：使用最新的记录更改刷新之前的 authStore 状态
         await pb.collection('${collection?.name}').authRefresh();
     `}
     dart={`
@@ -61,12 +61,12 @@
 
         await pb.collection('${collection?.name}').confirmVerification('TOKEN');
 
-        // optionally refresh the previous authStore state with the latest record changes
+        // 可选：使用最新的记录更改刷新之前的 authStore 状态
         await pb.collection('${collection?.name}').authRefresh();
     `}
 />
 
-<h6 class="m-b-xs">API details</h6>
+<h6 class="m-b-xs">API 详情</h6>
 <div class="alert alert-success">
     <strong class="label label-primary">POST</strong>
     <div class="content">
@@ -76,32 +76,32 @@
     </div>
 </div>
 
-<div class="section-title">Body Parameters</div>
+<div class="section-title">请求体参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="50%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="50%">描述</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>
                 <div class="inline-flex">
-                    <span class="label label-success">Required</span>
+                    <span class="label label-success">必需</span>
                     <span>token</span>
                 </div>
             </td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
-            <td>The token from the verification request email.</td>
+            <td>来自验证请求电子邮件的令牌。</td>
         </tr>
     </tbody>
 </table>
 
-<div class="section-title">Responses</div>
+<div class="section-title">响应</div>
 <div class="tabs">
     <div class="tabs-header compact combined left">
         {#each responses as response (response.code)}

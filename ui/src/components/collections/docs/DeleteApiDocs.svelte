@@ -26,7 +26,7 @@
             body: `
                 {
                   "code": 400,
-                  "message": "Failed to delete record. Make sure that the record is not part of a required relation reference.",
+                  "message": "删除记录失败。确保该记录不是必需关系引用的一部分。",
                   "data": {}
                 }
             `,
@@ -38,7 +38,7 @@
                 body: `
                     {
                       "code": 403,
-                      "message": "Only admins can access this action.",
+                      "message": "只有管理员可以访问此操作。",
                       "data": {}
                     }
                 `,
@@ -50,7 +50,7 @@
             body: `
                 {
                   "code": 404,
-                  "message": "The requested resource wasn't found.",
+                  "message": "请求的资源未找到。",
                   "data": {}
                 }
             `,
@@ -58,9 +58,9 @@
     }
 </script>
 
-<h3 class="m-b-sm">Delete ({collection.name})</h3>
+<h3 class="m-b-sm">删除 ({collection.name})</h3>
 <div class="content txt-lg m-b-sm">
-    <p>Delete a single <strong>{collection.name}</strong> record.</p>
+    <p>删除单个 <strong>{collection.name}</strong> 记录。</p>
 </div>
 
 <SdkTabs
@@ -84,7 +84,7 @@
     `}
 />
 
-<h6 class="m-b-xs">API details</h6>
+<h6 class="m-b-xs">API 详情</h6>
 <div class="alert alert-danger">
     <strong class="label label-primary">DELETE</strong>
     <div class="content">
@@ -93,31 +93,31 @@
         </p>
     </div>
     {#if adminsOnly}
-        <p class="txt-hint txt-sm txt-right">Requires admin <code>Authorization:TOKEN</code> header</p>
+        <p class="txt-hint txt-sm txt-right">需要管理员 <code>Authorization:TOKEN</code> 头</p>
     {/if}
 </div>
 
-<div class="section-title">Path parameters</div>
+<div class="section-title">路径参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="60%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="60%">描述</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>id</td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
-            <td>ID of the record to delete.</td>
+            <td>要删除的记录的 ID。</td>
         </tr>
     </tbody>
 </table>
 
-<div class="section-title">Responses</div>
+<div class="section-title">响应</div>
 <div class="tabs">
     <div class="tabs-header compact combined left">
         {#each responses as response (response.code)}

@@ -43,7 +43,7 @@
             body: `
                 {
                   "code": 401,
-                  "message": "The request requires valid record authorization token to be set.",
+                  "message": "请求需要设置有效的记录授权令牌。",
                   "data": {}
                 }
             `,
@@ -53,7 +53,7 @@
             body: `
                 {
                   "code": 403,
-                  "message": "The authorized record model is not allowed to perform this action.",
+                  "message": "授权的记录模型不允许执行此操作。",
                   "data": {}
                 }
             `,
@@ -63,7 +63,7 @@
             body: `
                 {
                   "code": 404,
-                  "message": "The requested resource wasn't found.",
+                  "message": "未找到请求的资源。",
                   "data": {}
                 }
             `,
@@ -71,12 +71,12 @@
     ];
 </script>
 
-<h3 class="m-b-sm">List OAuth2 accounts ({collection.name})</h3>
+<h3 class="m-b-sm">列出 OAuth2 账户（{collection.name}）</h3>
 <div class="content txt-lg m-b-sm">
     <p>
-        Returns a list with all OAuth2 providers linked to a single <strong>{collection.name}</strong>.
+        返回与单个 <strong>{collection.name}</strong> 关联的所有 OAuth2 提供者的列表。
     </p>
-    <p>Only admins and the account owner can access this action.</p>
+    <p>只有管理员和账户拥有者可以访问此操作。</p>
 </div>
 
 <SdkTabs
@@ -108,7 +108,7 @@
     `}
 />
 
-<h6 class="m-b-xs">API details</h6>
+<h6 class="m-b-xs">API 详情</h6>
 <div class="alert alert-info">
     <strong class="label label-primary">GET</strong>
     <div class="content">
@@ -116,36 +116,36 @@
             /api/collections/<strong>{collection.name}</strong>/records/<strong>:id</strong>/external-auths
         </p>
     </div>
-    <p class="txt-hint txt-sm txt-right">Requires <code>Authorization:TOKEN</code> header</p>
+    <p class="txt-hint txt-sm txt-right">需要 <code>Authorization:TOKEN</code> 头部</p>
 </div>
 
-<div class="section-title">Path Parameters</div>
+<div class="section-title">路径参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="60%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="60%">描述</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>id</td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
-            <td>ID of the auth record.</td>
+            <td>授权记录的 ID。</td>
         </tr>
     </tbody>
 </table>
 
-<div class="section-title">Query parameters</div>
+<div class="section-title">查询参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="50%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="50%">描述</th>
         </tr>
     </thead>
     <tbody>
@@ -153,7 +153,7 @@
     </tbody>
 </table>
 
-<div class="section-title">Responses</div>
+<div class="section-title">响应</div>
 <div class="tabs">
     <div class="tabs-header compact combined left">
         {#each responses as response (response.code)}

@@ -29,7 +29,7 @@
             body: `
                 {
                   "code": 401,
-                  "message": "The request requires valid record authorization token to be set.",
+                  "message": "请求需要设置有效的记录授权令牌。",
                   "data": {}
                 }
             `,
@@ -39,7 +39,7 @@
             body: `
                 {
                   "code": 403,
-                  "message": "The authorized record model is not allowed to perform this action.",
+                  "message": "授权的记录模型不允许执行此操作。",
                   "data": {}
                 }
             `,
@@ -49,7 +49,7 @@
             body: `
                 {
                   "code": 404,
-                  "message": "Missing auth record context.",
+                  "message": "缺少授权记录上下文。",
                   "data": {}
                 }
             `,
@@ -57,16 +57,14 @@
     ];
 </script>
 
-<h3 class="m-b-sm">Auth refresh ({collection.name})</h3>
+<h3 class="m-b-sm">身份验证刷新 ({collection.name})</h3>
 <div class="content txt-lg m-b-sm">
     <p>
-        Returns a new auth response (token and record data) for an
-        <strong>already authenticated record</strong>.
+        为<strong>已经验证的记录</strong>返回新的身份验证响应（令牌和记录数据）。
     </p>
     <p>
         <em>
-            This method is usually called by users on page/screen reload to ensure that the previously stored
-            data in <code>pb.authStore</code> is still valid and up-to-date.
+            此方法通常在页面/屏幕重新加载时由用户调用，以确保之前存储在<code>pb.authStore</code>中的数据仍然有效且是最新的。
         </em>
     </p>
 </div>
@@ -81,7 +79,7 @@
 
         const authData = await pb.collection('${collection?.name}').authRefresh();
 
-        // after the above you can also access the refreshed auth data from the authStore
+        // 以上之后，您还可以从authStore访问刷新后的身份验证数据
         console.log(pb.authStore.isValid);
         console.log(pb.authStore.token);
         console.log(pb.authStore.model.id);
@@ -95,14 +93,14 @@
 
         final authData = await pb.collection('${collection?.name}').authRefresh();
 
-        // after the above you can also access the refreshed auth data from the authStore
+        // 以上之后，您还可以从authStore访问刷新后的身份验证数据
         print(pb.authStore.isValid);
         print(pb.authStore.token);
         print(pb.authStore.model.id);
     `}
 />
 
-<h6 class="m-b-xs">API details</h6>
+<h6 class="m-b-xs">API 详情</h6>
 <div class="alert alert-success">
     <strong class="label label-primary">POST</strong>
     <div class="content">
@@ -110,39 +108,38 @@
             /api/collections/<strong>{collection.name}</strong>/auth-refresh
         </p>
     </div>
-    <p class="txt-hint txt-sm txt-right">Requires record <code>Authorization:TOKEN</code> header</p>
+    <p class="txt-hint txt-sm txt-right">需要记录<code>Authorization:TOKEN</code>头</p>
 </div>
 
-<div class="section-title">Query parameters</div>
+<div class="section-title">查询参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="60%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="60%">描述</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>expand</td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
             <td>
-                Auto expand record relations. Ex.:
+                自动扩展记录关系。例如：
                 <CodeBlock content={`?expand=relField1,relField2.subRelField`} />
-                Supports up to 6-levels depth nested relations expansion. <br />
-                The expanded relations will be appended to the record under the
-                <code>expand</code> property (eg. <code>{`"expand": {"relField1": {...}, ...}`}</code>).
+                支持最多6级嵌套关系的扩展。 <br />
+                扩展的关系将附加到记录的<code>expand</code>属性下（例如<code>{`"expand": {"relField1": {...}, ...}`}</code>）。
                 <br />
-                Only the relations to which the request user has permissions to <strong>view</strong> will be expanded.
+                只有请求用户有权限<strong>查看</strong>的关系才会被扩展。
             </td>
         </tr>
         <FieldsQueryParam prefix="record." />
     </tbody>
 </table>
 
-<div class="section-title">Responses</div>
+<div class="section-title">响应</div>
 <div class="tabs">
     <div class="tabs-header compact combined left">
         {#each responses as response (response.code)}

@@ -21,11 +21,11 @@
             body: `
                 {
                   "code": 400,
-                  "message": "Failed to authenticate.",
+                  "message": "身份验证失败。",
                   "data": {
                     "newEmail": {
                       "code": "validation_required",
-                      "message": "Missing required value."
+                      "message": "缺少必需的值。"
                     }
                   }
                 }
@@ -36,7 +36,7 @@
             body: `
                 {
                   "code": 401,
-                  "message": "The request requires valid record authorization token to be set.",
+                  "message": "请求需要设置有效的记录授权令牌。",
                   "data": {}
                 }
             `,
@@ -46,7 +46,7 @@
             body: `
                 {
                   "code": 403,
-                  "message": "The authorized record model is not allowed to perform this action.",
+                  "message": "授权的记录模型不允许执行此操作。",
                   "data": {}
                 }
             `,
@@ -54,9 +54,9 @@
     ];
 </script>
 
-<h3 class="m-b-sm">Request email change ({collection.name})</h3>
+<h3 class="m-b-sm">请求更改邮箱 ({collection.name})</h3>
 <div class="content txt-lg m-b-sm">
-    <p>Sends <strong>{collection.name}</strong> email change request.</p>
+    <p>发送 <strong>{collection.name}</strong> 的邮箱更改请求。</p>
 </div>
 
 <SdkTabs
@@ -84,7 +84,7 @@
     `}
 />
 
-<h6 class="m-b-xs">API details</h6>
+<h6 class="m-b-xs">API 详情</h6>
 <div class="alert alert-success">
     <strong class="label label-primary">POST</strong>
     <div class="content">
@@ -92,35 +92,35 @@
             /api/collections/<strong>{collection.name}</strong>/request-email-change
         </p>
     </div>
-    <p class="txt-hint txt-sm txt-right">Requires record <code>Authorization:TOKEN</code> header</p>
+    <p class="txt-hint txt-sm txt-right">需要记录 <code>Authorization:TOKEN</code> 头</p>
 </div>
 
-<div class="section-title">Body Parameters</div>
+<div class="section-title">请求体参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="50%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="50%">描述</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>
                 <div class="inline-flex">
-                    <span class="label label-success">Required</span>
+                    <span class="label label-success">必需</span>
                     <span>newEmail</span>
                 </div>
             </td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
-            <td>The new email address to send the change email request.</td>
+            <td>发送更改邮箱请求的新邮箱地址。</td>
         </tr>
     </tbody>
 </table>
 
-<div class="section-title">Responses</div>
+<div class="section-title">响应</div>
 <div class="tabs">
     <div class="tabs-header compact combined left">
         {#each responses as response (response.code)}

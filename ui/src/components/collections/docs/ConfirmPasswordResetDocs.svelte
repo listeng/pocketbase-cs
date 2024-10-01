@@ -21,11 +21,11 @@
             body: `
                 {
                   "code": 400,
-                  "message": "Failed to authenticate.",
+                  "message": "认证失败。",
                   "data": {
                     "token": {
                       "code": "validation_required",
-                      "message": "Missing required value."
+                      "message": "缺少必填值。"
                     }
                   }
                 }
@@ -34,12 +34,11 @@
     ];
 </script>
 
-<h3 class="m-b-sm">Confirm password reset ({collection.name})</h3>
+<h3 class="m-b-sm">确认密码重置（{collection.name}）</h3>
 <div class="content txt-lg m-b-sm">
-    <p>Confirms <strong>{collection.name}</strong> password reset request and sets a new password.</p>
+    <p>确认<strong>{collection.name}</strong>的密码重置请求并设置新密码。</p>
     <p>
-        After this request all previously issued tokens for the specific record will be automatically
-        invalidated.
+        在此请求之后，所有之前发出的特定记录的令牌将自动失效。
     </p>
 </div>
 
@@ -59,8 +58,8 @@
             'NEW_PASSWORD_CONFIRM',
         );
 
-        // reauthenticate if needed
-        // (after the above call all previously issued tokens are invalidated)
+        // 如有需要，则重新认证
+        // （在上述调用之后，所有之前发出的令牌将失效）
         await pb.collection('${collection?.name}').authWithPassword(oldAuth.email, 'NEW_PASSWORD');
     `}
     dart={`
@@ -78,13 +77,13 @@
           'NEW_PASSWORD_CONFIRM',
         );
 
-        // reauthenticate if needed
-        // (after the above call all previously issued tokens are invalidated)
+        // 如有需要，则重新认证
+        // （在上述调用之后，所有之前发出的令牌将失效）
         await pb.collection('${collection?.name}').authWithPassword(oldAuth.email, 'NEW_PASSWORD');
     `}
 />
 
-<h6 class="m-b-xs">API details</h6>
+<h6 class="m-b-xs">API 详情</h6>
 <div class="alert alert-success">
     <strong class="label label-primary">POST</strong>
     <div class="content">
@@ -94,56 +93,56 @@
     </div>
 </div>
 
-<div class="section-title">Body Parameters</div>
+<div class="section-title">请求体参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="50%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="50%">描述</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>
                 <div class="inline-flex">
-                    <span class="label label-success">Required</span>
+                    <span class="label label-success">必填</span>
                     <span>token</span>
                 </div>
             </td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
-            <td>The token from the password reset request email.</td>
+            <td>来自密码重置请求邮件的令牌。</td>
         </tr>
         <tr>
             <td>
                 <div class="inline-flex">
-                    <span class="label label-success">Required</span>
+                    <span class="label label-success">必填</span>
                     <span>password</span>
                 </div>
             </td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
-            <td>The new password to set.</td>
+            <td>要设置的新密码。</td>
         </tr>
         <tr>
             <td>
                 <div class="inline-flex">
-                    <span class="label label-success">Required</span>
+                    <span class="label label-success">必填</span>
                     <span>passwordConfirm</span>
                 </div>
             </td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
-            <td>The new password confirmation.</td>
+            <td>新密码的确认。</td>
         </tr>
     </tbody>
 </table>
 
-<div class="section-title">Responses</div>
+<div class="section-title">响应</div>
 <div class="tabs">
     <div class="tabs-header compact combined left">
         {#each responses as response (response.code)}

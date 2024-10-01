@@ -19,48 +19,48 @@
         {
             code: 400,
             body: `
-                {
-                  "code": 400,
-                  "message": "Failed to authenticate.",
-                  "data": {
-                    "email": {
-                      "code": "validation_required",
-                      "message": "Missing required value."
-                    }
-                  }
-                }
-            `,
+    {
+    "code": 400,
+    "message": "认证失败。",
+    "data": {
+    "email": {
+    "code": "validation_required",
+    "message": "缺少必需值。"
+    }
+    }
+    }
+    `,
         },
     ];
 </script>
 
-<h3 class="m-b-sm">Request verification ({collection.name})</h3>
+<h3 class="m-b-sm">请求验证 ({collection.name})</h3>
 <div class="content txt-lg m-b-sm">
-    <p>Sends <strong>{collection.name}</strong> verification email request.</p>
+    <p>发送 <strong>{collection.name}</strong> 验证邮件请求。</p>
 </div>
 
 <SdkTabs
     js={`
-        import PocketBase from 'pocketbase';
-
-        const pb = new PocketBase('${backendAbsUrl}');
-
-        ...
-
-        await pb.collection('${collection?.name}').requestVerification('test@example.com');
+    import PocketBase from 'pocketbase';
+    
+    const pb = new PocketBase('${backendAbsUrl}');
+    
+    ...
+    
+    await pb.collection('${collection?.name}').requestVerification('test@example.com');
     `}
     dart={`
-        import 'package:pocketbase/pocketbase.dart';
-
-        final pb = PocketBase('${backendAbsUrl}');
-
-        ...
-
-        await pb.collection('${collection?.name}').requestVerification('test@example.com');
+    import 'package:pocketbase/pocketbase.dart';
+    
+    final pb = PocketBase('${backendAbsUrl}');
+    
+    ...
+    
+    await pb.collection('${collection?.name}').requestVerification('test@example.com');
     `}
 />
 
-<h6 class="m-b-xs">API details</h6>
+<h6 class="m-b-xs">API 详情</h6>
 <div class="alert alert-success">
     <strong class="label label-primary">POST</strong>
     <div class="content">
@@ -70,32 +70,32 @@
     </div>
 </div>
 
-<div class="section-title">Body Parameters</div>
+<div class="section-title">请求参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="50%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="50%">描述</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>
                 <div class="inline-flex">
-                    <span class="label label-success">Required</span>
+                    <span class="label label-success">必填</span>
                     <span>email</span>
                 </div>
             </td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
-            <td>The auth record email address to send the verification request (if exists).</td>
+            <td>要发送验证请求的认证记录电子邮件地址（如果存在）。</td>
         </tr>
     </tbody>
 </table>
 
-<div class="section-title">Responses</div>
+<div class="section-title">响应</div>
 <div class="tabs">
     <div class="tabs-header compact combined left">
         {#each responses as response (response.code)}
