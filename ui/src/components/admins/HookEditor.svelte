@@ -202,7 +202,7 @@
     </div>
 </aside>
 
-<PageWrapper class="flex-content">
+<PageWrapper class="flex-content" showFooter={false}>
     <header class="page-header">
         <div class="btns-group">
             <button type="button" class="btn" on:click={saveFile} disabled={!selectedFile}>
@@ -234,6 +234,12 @@
     </header>
 
     <div bind:this={editorContainer} class="editor"></div>
+
+    <div style="">
+        <span class="label label-warning">格式化代码：SHIFT + ALT(OPTION) + F</span>
+        <span class="label label-warning">Windows版本保存代码之后需要手工重启服务才能生效</span>
+    </div>
+    
 </PageWrapper>
 
 <style>

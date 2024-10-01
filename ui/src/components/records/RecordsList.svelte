@@ -46,6 +46,8 @@
 
     $: isAuth = collection?.type === "auth";
 
+    $: isPage = collection?.name === "Page";
+
     $: fields = collection?.schema || [];
 
     $: editorFields = fields.filter((field) => field.type === "editor");
@@ -260,9 +262,7 @@
     }
 
     function deleteSelectedConfirm() {
-        const msg = `确定删除选定的${
-            totalBulkSelected
-        }条记录吗?`;
+        const msg = `确定删除选定的${totalBulkSelected}条记录吗?`;
 
         confirm(msg, deleteSelected);
     }
@@ -281,9 +281,7 @@
 
         return Promise.all(promises)
             .then(() => {
-                addSuccessToast(
-                    `成功删除选定的${totalBulkSelected}条记录`,
-                );
+                addSuccessToast(`成功删除选定的${totalBulkSelected}条记录`);
 
                 dispatch("delete", bulkSelected);
 
@@ -524,7 +522,23 @@
                     {/if}
 
                     <td class="col-type-action min-width">
-                        <i class="ri-arrow-right-line" />
+                        {#if isPage}
+                            <a
+                                type="button"
+                                aria-label="Edit Page"
+                                href="./libs/amis-editor/#/edit/{record.id}"
+                                target="_blank"
+                                class="btn btn-transparent btn-circle"
+                                use:tooltip={{ text: "编辑表单", position: "top" }}
+                                on:click|stopPropagation={() => {
+
+                                }}
+                            >
+                                <i class="ri-pages-line" />
+                            </a>
+                        {:else}
+                            <i class="ri-arrow-right-line" />
+                        {/if}
                     </td>
                 </tr>
             {:else}

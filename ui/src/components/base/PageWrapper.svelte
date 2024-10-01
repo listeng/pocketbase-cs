@@ -1,5 +1,6 @@
 <script>
     export let center = false;
+    export let showFooter = true;
 
     let classes = "";
     export { classes as class }; // export reserved keyword
@@ -10,6 +11,7 @@
         <slot />
     </main>
 
+    {#if showFooter}
     <footer class="page-footer">
         <slot name="footer" />
 
@@ -22,4 +24,5 @@
             <span class="txt">PocketBase {import.meta.env.PB_VERSION}</span>
         </a>
     </footer>
+    {/if}
 </div>

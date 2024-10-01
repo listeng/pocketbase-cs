@@ -112,12 +112,14 @@
             function getAuthToken() {
                 const pb_admin_token = localStorage.getItem("pb_admin_auth");
                 if (pb_admin_token) {
-                    return JSON.parse(pb_admin_token).token;
-                } else {
-                    const pb_token = localStorage.getItem("pb_token");
-                    if (pb_token) {
-                        return pb_token;
-                    }
+                    try {
+                        return JSON.parse(pb_admin_token).token;
+                    } catch {}
+                }
+
+                const pb_token = localStorage.getItem("pb_token");
+                if (pb_token) {
+                    return pb_token;
                 }
 
                 return null;
@@ -213,16 +215,7 @@
                                 {
                                     requestAdaptor: (api) => {
                                         api.headers = api.headers || {};
-
-                                        const pb_admin_token = localStorage.getItem("pb_admin_auth");
-                                        if (pb_admin_token) {
-                                            api.headers["Authorization"] = JSON.parse(pb_admin_token).token;
-                                        } else {
-                                            const pb_token = localStorage.getItem("pb_token");
-                                            if (pb_token) {
-                                                api.headers["Authorization"] = pb_token;
-                                            }
-                                        }
+                                        api.headers["Authorization"] = getAuthToken();
 
                                         return api;
                                     },

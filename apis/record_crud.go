@@ -11,6 +11,7 @@ import (
 	"github.com/pocketbase/pocketbase/daos"
 	"github.com/pocketbase/pocketbase/forms"
 	"github.com/pocketbase/pocketbase/models"
+	"github.com/pocketbase/pocketbase/models/schema"
 	"github.com/pocketbase/pocketbase/resolvers"
 	"github.com/pocketbase/pocketbase/tools/search"
 )
@@ -30,6 +31,8 @@ func bindRecordCrudApi(app core.App, rg *echo.Group) {
 	subGroup.POST("/records", api.create, LoadCollectionContext(app, models.CollectionTypeBase, models.CollectionTypeAuth))
 	subGroup.PATCH("/records/:id", api.update, LoadCollectionContext(app, models.CollectionTypeBase, models.CollectionTypeAuth))
 	subGroup.DELETE("/records/:id", api.delete, LoadCollectionContext(app, models.CollectionTypeBase, models.CollectionTypeAuth))
+
+	subGroup.GET("/options/:field", api.options, LoadCollectionContext(app))
 }
 
 type recordApi struct {
@@ -411,5 +414,72 @@ func (api *recordApi) delete(c echo.Context) error {
 
 			return e.HttpContext.NoContent(http.StatusNoContent)
 		})
+	})
+}
+
+func (api *recordApi) options(c echo.Context) error {
+	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
+	if collection == nil {
+		return NewNotFoundError("", "缺少数据集上下文")
+	}
+
+	fieldName := c.PathParam("field")
+	if fieldName == "" {
+		return NewNotFoundError("", nil)
+	}
+
+	requestInfo := RequestInfo(c)
+
+	if requestInfo.Admin == nil && collection.ViewRule == nil {
+		// only admins can access if the rule is nil
+		return NewForbiddenError("只有管理员能进行这个操作", nil)
+	}
+
+	event := new(core.RecordViewEvent)
+	event.HttpContext = c
+	event.Collection = collection
+	event.Record = nil
+
+	return api.app.OnRecordViewRequest().Trigger(event, func(e *core.RecordViewEvent) error {
+		if e.HttpContext.Response().Committed {
+			return nil
+		}
+
+		ops := collection.Schema.GetFieldByName(fieldName).Options
+
+		selectOptions, ok := ops.(*schema.SelectOptions)
+		if !ok {
+			_, ok = ops.(*schema.BoolOptions)
+			if !ok {
+				return NewNotFoundError("不是一个枚举类型", nil)
+			} else {
+				result := make([]map[string]string, 2)
+
+				result[0] = map[string]string{
+					"label": "是",
+					"value": "true",
+				}
+
+				result[1] = map[string]string{
+					"label": "否",
+					"value": "false",
+				}
+
+				return e.HttpContext.JSON(http.StatusOK, result)
+			}
+
+		} else {
+
+			result := make([]map[string]string, len(selectOptions.Values))
+
+			for i, value := range selectOptions.Values {
+				result[i] = map[string]string{
+					"label": value,
+					"value": value,
+				}
+			}
+
+			return e.HttpContext.JSON(http.StatusOK, result)
+		}
 	})
 }

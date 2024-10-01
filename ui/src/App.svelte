@@ -106,16 +106,6 @@
                     <i class="ri-line-chart-line" />
                 </a>
                 <a
-                    href="/settings"
-                    class="menu-item"
-                    aria-label="Settings"
-                    use:link
-                    use:active={{ path: "/settings/?.*", className: "current-route" }}
-                    use:tooltip={{ text: "设置", position: "right" }}
-                >
-                    <i class="ri-tools-line" />
-                </a>
-                <a
                     href="/hooks"
                     class="menu-item"
                     aria-label="Hook"
@@ -136,13 +126,14 @@
                     <i class="ri-space-ship-line" />
                 </a>
                 <a
-                    href="/pb-proxy/amis-editor/"
+                    href="/settings"
                     class="menu-item"
-                    aria-label="AmisEditor"
-                    target="_blank"
-                    use:tooltip={{ text: "表单编辑", position: "right" }}
+                    aria-label="Settings"
+                    use:link
+                    use:active={{ path: "/settings/?.*", className: "current-route" }}
+                    use:tooltip={{ text: "设置", position: "right" }}
                 >
-                    <i class="ri-pages-line" />
+                    <i class="ri-tools-line" />
                 </a>
             </nav>
 
