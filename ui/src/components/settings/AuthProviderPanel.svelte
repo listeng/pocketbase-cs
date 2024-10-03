@@ -74,14 +74,14 @@
 
 <OverlayPanel bind:this={panel} overlayClose={!isSubmitting} escClose={!isSubmitting} on:show on:hide>
     <svelte:fragment slot="header">
-        <h4 class="center txt-break">{provider.title || provider.key} provider</h4>
+        <h4 class="center txt-break">{provider.title || provider.key} 登录提供者</h4>
     </svelte:fragment>
 
     <form id={formId} autocomplete="off" on:submit|preventDefault={() => submit()}>
         <div class="flex m-b-base">
             <Field class="form-field form-field-toggle m-b-0" name="{provider.key}.enabled" let:uniqueId>
                 <input type="checkbox" id={uniqueId} bind:checked={config.enabled} />
-                <label for={uniqueId}>激活</label>
+                <label for={uniqueId}>启用</label>
             </Field>
 
             <button type="button" class="btn btn-sm btn-transparent btn-hint m-l-auto" on:click={clear}>
@@ -89,23 +89,29 @@
             </button>
         </div>
 
-        <Field
-            class="form-field {config.enabled ? 'required' : ''}"
-            name="{provider.key}.clientId"
-            let:uniqueId
-        >
-            <label for={uniqueId}>Client ID</label>
-            <input type="text" id={uniqueId} bind:value={config.clientId} required={config.enabled} />
-        </Field>
+        {#if provider.key != "casAuth"}
+            <Field
+                class="form-field {config.enabled ? 'required' : ''}"
+                name="{provider.key}.clientId"
+                let:uniqueId
+            >
+                <label for={uniqueId}>Client ID</label>
+                <input type="text" id={uniqueId} bind:value={config.clientId} required={config.enabled} />
+            </Field>
 
-        <Field
-            class="form-field {config.enabled ? 'required' : ''}"
-            name="{provider.key}.clientSecret"
-            let:uniqueId
-        >
-            <label for={uniqueId}>Client secret</label>
-            <RedactedPasswordInput bind:value={config.clientSecret} id={uniqueId} required={config.enabled} />
-        </Field>
+            <Field
+                class="form-field {config.enabled ? 'required' : ''}"
+                name="{provider.key}.clientSecret"
+                let:uniqueId
+            >
+                <label for={uniqueId}>Client secret</label>
+                <RedactedPasswordInput
+                    bind:value={config.clientSecret}
+                    id={uniqueId}
+                    required={config.enabled}
+                />
+            </Field>
+        {/if}
 
         {#if provider.optionsComponent}
             <div class="col-lg-12">

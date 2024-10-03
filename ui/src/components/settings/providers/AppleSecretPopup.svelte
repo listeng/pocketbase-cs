@@ -77,7 +77,7 @@
     on:hide
 >
     <svelte:fragment slot="header">
-        <h4 class="center txt-break">Generate Apple client secret</h4>
+        <h4 class="center txt-break">生成 Apple 客户端密钥</h4>
     </svelte:fragment>
 
     <form id={formId} autocomplete="off" on:submit|preventDefault={() => submit()}>
@@ -119,7 +119,7 @@
             </div>
 
             <Field class="form-field required" name="privateKey" let:uniqueId>
-                <label for={uniqueId}>Private key</label>
+                <label for={uniqueId}>私钥</label>
                 <textarea
                     id={uniqueId}
                     required
@@ -128,7 +128,7 @@
                     bind:value={privateKey}
                 />
                 <div class="help-block">
-                    The key is not stored on the server and it is used only for generating the signed JWT.
+                    密钥不存储在服务器上，它仅用于生成已签名的 JWT。
                 </div>
             </Field>
         </div>

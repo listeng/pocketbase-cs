@@ -67,6 +67,7 @@ type Settings struct {
 	MailcowAuth        AuthProviderConfig `form:"mailcowAuth" json:"mailcowAuth"`
 	BitbucketAuth      AuthProviderConfig `form:"bitbucketAuth" json:"bitbucketAuth"`
 	PlanningcenterAuth AuthProviderConfig `form:"planningcenterAuth" json:"planningcenterAuth"`
+	CASAuth            CasProviderConfig  `form:"casAuth" json:"casAuth"`
 }
 
 // New creates and returns a new default Settings instance.
@@ -204,6 +205,9 @@ func New() *Settings {
 		PlanningcenterAuth: AuthProviderConfig{
 			Enabled: false,
 		},
+		CASAuth: CasProviderConfig{
+			Enabled: false,
+		},
 	}
 }
 
@@ -251,6 +255,7 @@ func (s *Settings) Validate() error {
 		validation.Field(&s.MailcowAuth),
 		validation.Field(&s.BitbucketAuth),
 		validation.Field(&s.PlanningcenterAuth),
+		validation.Field(&s.CASAuth),
 	)
 }
 
@@ -700,4 +705,26 @@ type EmailAuthConfig struct {
 // Deprecated: Will be removed in v0.9+
 func (c EmailAuthConfig) Validate() error {
 	return nil
+}
+
+type CasProviderConfig struct {
+	Enabled       bool   `form:"enabled" json:"enabled"`
+	OnlyCASLogin  bool   `form:"onlyCasLogin" json:"onlyCasLogin"`
+	LoginUrl      string `form:"loginUrl" json:"loginUrl"`
+	LogoutUrl     string `form:"logoutUrl" json:"logoutUrl"`
+	ValidateUrl   string `form:"validateUrl" json:"validateUrl"`
+	CallbackUrl   string `form:"callbackUrl" json:"callbackUrl"`
+	CreateNewUser bool   `form:"createNewUser" json:"createNewUser"`
+	DisplayName   string `form:"displayName" json:"displayName"`
+	Realm         string `form:"realm" json:"realm"`
+}
+
+// Validate makes `ProviderConfig` validatable by implementing [validation.Validatable] interface.
+func (c CasProviderConfig) Validate() error {
+	return validation.ValidateStruct(&c,
+		validation.Field(&c.LoginUrl, is.URL, validation.When(c.Enabled, validation.Required)),
+		validation.Field(&c.ValidateUrl, is.URL, validation.When(c.Enabled, validation.Required)),
+		validation.Field(&c.CallbackUrl, is.URL, validation.When(c.Enabled, validation.Required)),
+		validation.Field(&c.LogoutUrl, is.URL),
+	)
 }

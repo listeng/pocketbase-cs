@@ -41,21 +41,17 @@
     }
 
     async function initLogin() {
-        const config_data = await ApiClient.collection('config').getList(1, 20, {
-            filter: 'code = "cas-config"'
-        });
+        const authList = await ApiClient.collection('users').listAuthMethods();
 
-        if (config_data.totalItems > 0) {
-            const cfg = config_data.items[0].config;
-            if (cfg['cas-url'] && cfg['valid-url'] && cfg['callback-url'] && cfg['realm']) {
-                showSSOLoginButton = true;
-                ssoCfg = cfg;
+        if (authList.casProviders.length > 0) {
+            const cfg = authList.casProviders[0];
+            showSSOLoginButton = true;
+            ssoCfg = cfg;
 
-                const ps = getUrlParams(cleanUrl(window.location.href).url);
-                if (ps['iscas'] == 1 && ps['ticket']) {
-                    isSSOLoading = true;
-                    validUserinfo(ps['ticket'])
-                }
+            const ps = getUrlParams(cleanUrl(window.location.href).url);
+            if (ps['iscas'] == 1 && ps['ticket']) {
+                isSSOLoading = true;
+                validUserinfo(ps['ticket'])
             }
         }
     }
@@ -63,7 +59,7 @@
     async function validUserinfo(ticket) {
         try {
             const service = localStorage.getItem('cas-service');
-            const response = await fetch(ssoCfg['callback-url'] + '?ticket=' + 
+            const response = await fetch(ssoCfg['callbackUrl'] + '?ticket=' + 
                 ticket + '&service=' + encodeURIComponent(service));
             
             if (response.status === 200) {
@@ -130,7 +126,7 @@
         } else {
             currentUrl += '?iscas=1&hashurl=' + hash;
         }
-        const loginUrl = ssoCfg['cas-url'] + '/login?service=' + encodeURIComponent(currentUrl);
+        const loginUrl = ssoCfg['loginUrl'] + '?service=' + encodeURIComponent(currentUrl);
         localStorage.setItem('cas-service', currentUrl);
 
         window.location.href = loginUrl;
@@ -147,6 +143,8 @@
         <div class="content txt-center m-b-base">
             <h4>管理员登录</h4>
         </div>
+
+        {#if !(ssoCfg && ssoCfg.onlyCasLogin)}
 
         <Field class="form-field required" name="identity" let:uniqueId>
             <label for={uniqueId}>邮箱</label>
@@ -172,14 +170,15 @@
             <span class="txt">登录</span>
             <i class="ri-arrow-right-line" />
         </button>
+        {/if}
 
         {#if showSSOLoginButton}
         <button
-            on:click={ssologin}
+            on:click|preventDefault|stopPropagation={ssologin}
             class="btn btn-lg btn-block btn-next"
             style="margin-top: 20px; background-color: #4BABD3"
         >
-            <span class="txt">单点登录</span>
+            <span class="txt">{ssoCfg.displayName}</span>
             <i class="ri-arrow-right-line" />
         </button>
         {/if}

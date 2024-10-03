@@ -52,7 +52,7 @@
 
     <div class="wrapper">
         <div class="panel">
-            <h6 class="m-b-base">管理允许用户通过 OAuth2 登录/登出的第三方配置</h6>
+            <h6 class="m-b-base">管理允许用户通过 OAuth2/CAS 登录/登出的第三方配置</h6>
 
             {#if isLoading}
                 <div class="loader" />
@@ -78,5 +78,6 @@
                 </div>
             {/if}
         </div>
+        
     </div>
 </PageWrapper>

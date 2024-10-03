@@ -1,12 +1,17 @@
 package apis
 
 import (
+	"database/sql"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"log/slog"
 	"net/http"
+	"net/url"
+	"regexp"
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/labstack/echo/v5"
@@ -18,6 +23,7 @@ import (
 	"github.com/pocketbase/pocketbase/models"
 	"github.com/pocketbase/pocketbase/models/schema"
 	"github.com/pocketbase/pocketbase/resolvers"
+	"github.com/pocketbase/pocketbase/tokens"
 	"github.com/pocketbase/pocketbase/tools/auth"
 	"github.com/pocketbase/pocketbase/tools/routine"
 	"github.com/pocketbase/pocketbase/tools/search"
@@ -54,6 +60,8 @@ func bindRecordAuthApi(app core.App, rg *echo.Group) {
 	subGroup.POST("/confirm-email-change", api.confirmEmailChange)
 	subGroup.GET("/records/:id/external-auths", api.listExternalAuths, RequireAdminOrOwnerAuth("id"))
 	subGroup.DELETE("/records/:id/external-auths/:provider", api.unlinkExternalAuth, RequireAdminOrOwnerAuth("id"))
+	subGroup.GET("/auth-with-cas", api.authWithCasAsAdmin)
+	subGroup.GET("/auth-with-casu", api.authWithCasAsUser)
 }
 
 type recordAuthApi struct {
@@ -90,6 +98,15 @@ type providerInfo struct {
 	CodeChallengeMethod string `json:"codeChallengeMethod"`
 }
 
+type casProviderInfo struct {
+	Name         string `json:"name"`
+	DisplayName  string `json:"displayName"`
+	LoginUrl     string `json:"loginUrl"`
+	LogoutUrl    string `json:"logoutUrl"`
+	CallbackUrl  string `json:"callbackUrl"`
+	OnlyCASLogin bool   `json:"onlyCasLogin"`
+}
+
 func (api *recordAuthApi) authMethods(c echo.Context) error {
 	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
 	if collection == nil {
@@ -99,15 +116,17 @@ func (api *recordAuthApi) authMethods(c echo.Context) error {
 	authOptions := collection.AuthOptions()
 
 	result := struct {
-		AuthProviders    []providerInfo `json:"authProviders"`
-		UsernamePassword bool           `json:"usernamePassword"`
-		EmailPassword    bool           `json:"emailPassword"`
-		OnlyVerified     bool           `json:"onlyVerified"`
+		AuthProviders    []providerInfo    `json:"authProviders"`
+		CasProviders     []casProviderInfo `json:"casProviders"`
+		UsernamePassword bool              `json:"usernamePassword"`
+		EmailPassword    bool              `json:"emailPassword"`
+		OnlyVerified     bool              `json:"onlyVerified"`
 	}{
 		UsernamePassword: authOptions.AllowUsernameAuth,
 		EmailPassword:    authOptions.AllowEmailAuth,
 		OnlyVerified:     authOptions.OnlyVerified,
 		AuthProviders:    []providerInfo{},
+		CasProviders:     []casProviderInfo{},
 	}
 
 	if !authOptions.AllowOAuth2Auth {
@@ -176,6 +195,18 @@ func (api *recordAuthApi) authMethods(c echo.Context) error {
 	sort.SliceStable(result.AuthProviders, func(i, j int) bool {
 		return result.AuthProviders[i].Name < result.AuthProviders[j].Name
 	})
+
+	if api.app.Settings().CASAuth.Enabled {
+		info := casProviderInfo{
+			Name:         "GxdnrCas",
+			DisplayName:  api.app.Settings().CASAuth.DisplayName,
+			LoginUrl:     api.app.Settings().CASAuth.LoginUrl,
+			LogoutUrl:    api.app.Settings().CASAuth.LogoutUrl,
+			CallbackUrl:  api.app.Settings().CASAuth.CallbackUrl,
+			OnlyCASLogin: api.app.Settings().CASAuth.OnlyCASLogin,
+		}
+		result.CasProviders = append(result.CasProviders, info)
+	}
 
 	return c.JSON(http.StatusOK, result)
 }
@@ -762,4 +793,154 @@ func (api *recordAuthApi) oauth2SubscriptionRedirect(c echo.Context) error {
 	}
 
 	return c.Redirect(redirectStatusCode, oauth2RedirectSuccessPath)
+}
+
+func (api *recordAuthApi) validateCASTicket(c echo.Context) (string, string, error) {
+	if !api.app.Settings().CASAuth.Enabled {
+		return "", "", c.JSON(http.StatusForbidden, nil)
+	}
+
+	casTicket := c.QueryParam("ticket")
+	serviceURL := c.QueryParam("service")
+
+	if casTicket == "" {
+		return "", "", c.JSON(http.StatusUnauthorized, map[string]string{"msg": "没有票据"})
+	}
+
+	validateURL := fmt.Sprintf("%s?ticket=%s&service=%s", api.app.Settings().CASAuth.ValidateUrl, url.QueryEscape(casTicket), url.QueryEscape(serviceURL))
+	resp, err := http.Get(validateURL)
+	if err != nil {
+		return "", "", c.JSON(http.StatusInternalServerError, map[string]string{"msg": "CAS登录失败"})
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", "", c.JSON(http.StatusInternalServerError, map[string]string{"msg": "failed to read cas response"})
+	}
+
+	if !strings.Contains(string(body), "cas:authenticationSuccess") {
+		return "", "", c.JSON(http.StatusUnauthorized, map[string]string{"msg": "CAS拒绝登录"})
+	}
+
+	re := regexp.MustCompile(`<cas:user>(.*?)</cas:user>`)
+	userMatch := re.FindStringSubmatch(string(body))
+	if len(userMatch) < 2 {
+		return "", "", c.JSON(http.StatusUnauthorized, map[string]string{"msg": "CAS没有返回用户名（username）"})
+	}
+	username := userMatch[1]
+
+	re = regexp.MustCompile(`<cas:utype>(.*?)</cas:utype>`)
+	userTypeMatch := re.FindStringSubmatch(string(body))
+	if len(userTypeMatch) < 2 {
+		return "", "", c.JSON(http.StatusUnauthorized, map[string]string{"msg": "CAS没有返回用户类型（utype）"})
+	}
+	userType := userTypeMatch[1]
+
+	api.app.Logger().Info("cas login", slog.String("user", username))
+
+	return username, userType, nil
+}
+
+func (api *recordAuthApi) authWithCasAsAdmin(c echo.Context) error {
+	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
+	if collection == nil {
+		return NewNotFoundError("缺少数据集上下文", nil)
+	}
+
+	username, userType, err := api.validateCASTicket(c)
+	if err != nil {
+		return err
+	}
+
+	if userType != "admin" && userType != "super" {
+		return c.JSON(http.StatusUnauthorized, map[string]string{"msg": username + " 不是管理员用户"})
+	}
+
+	adminUser, err := api.app.Dao().FindAdminByEmail(username + "@" + api.app.Settings().CASAuth.Realm)
+	if err == sql.ErrNoRows {
+		if api.app.Settings().CASAuth.CreateNewUser {
+			adminUser = &models.Admin{
+				Email: username + "@" + api.app.Settings().CASAuth.Realm,
+			}
+			api.app.Dao().SaveAdmin(adminUser)
+		} else {
+			return c.JSON(http.StatusUnauthorized, map[string]string{"message": "CAS登录失败，用户无效"})
+		}
+	} else if err != nil {
+		return c.JSON(http.StatusUnauthorized, map[string]string{"message": "CAS登录失败，用户无效[未知错误]"})
+	}
+
+	api.app.Logger().Info("cas login as admin", slog.String("user", username))
+
+	if adminUser != nil {
+		token, err := tokens.NewAdminAuthToken(api.app, adminUser)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, map[string]string{"msg": "创建登录令牌失败"})
+		}
+
+		return c.JSON(http.StatusOK, map[string]interface{}{
+			"token": token,
+			"model": map[string]interface{}{
+				"avatar":  adminUser.Avatar,
+				"created": adminUser.Created,
+				"email":   adminUser.Email,
+				"id":      adminUser.Id,
+				"updated": adminUser.Updated,
+			},
+		})
+	}
+
+	return c.JSON(http.StatusUnauthorized, map[string]string{"message": "CAS登录失败，无效的登录信息"})
+}
+
+func (api *recordAuthApi) authWithCasAsUser(c echo.Context) error {
+	collection, _ := c.Get(ContextCollectionKey).(*models.Collection)
+	if collection == nil {
+		return NewNotFoundError("缺少数据集上下文", nil)
+	}
+
+	username, _, err := api.validateCASTicket(c)
+	if err != nil {
+		return err
+	}
+
+	user, err := api.app.Dao().FindAuthRecordByEmail(collection.Id, username+"@"+api.app.Settings().CASAuth.Realm)
+	if err == sql.ErrNoRows {
+		if api.app.Settings().CASAuth.CreateNewUser {
+			record := models.NewRecord(collection)
+			record.Set("email", username+"@"+api.app.Settings().CASAuth.Realm)
+			record.Set("username", username)
+			record.Set("name", username)
+
+			if err := api.app.Dao().SaveRecord(record); err != nil {
+				return c.JSON(http.StatusUnauthorized, map[string]string{"message": "CAS登录失败，用户无效[新用户创建失败]"})
+			}
+		} else {
+			return c.JSON(http.StatusUnauthorized, map[string]string{"message": "CAS登录失败，用户无效"})
+		}
+	} else if err != nil {
+		return c.JSON(http.StatusUnauthorized, map[string]string{"message": "CAS登录失败，用户无效[未知错误]"})
+	}
+
+	api.app.Logger().Info("cas login as user", slog.String("user", username))
+
+	if user != nil {
+		token, err := tokens.NewRecordAuthToken(api.app, user)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, map[string]string{"msg": "创建登录令牌失败"})
+		}
+
+		return c.JSON(http.StatusOK, map[string]interface{}{
+			"token": token,
+			"model": map[string]interface{}{
+				"created": user.Created,
+				"email":   user.Email,
+				"id":      user.Id,
+				"updated": user.Updated,
+			},
+		})
+	}
+
+	return c.JSON(http.StatusUnauthorized, map[string]string{"message": "CAS登录失败，无效的登录信息"})
 }

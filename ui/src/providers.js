@@ -1,5 +1,6 @@
 import SelfHostedOptions from "@/components/settings/providers/SelfHostedOptions.svelte";
 import OIDCOptions       from "@/components/settings/providers/OIDCOptions.svelte";
+import CASOptions       from "@/components/settings/providers/CASOptions.svelte";
 import MicrosoftOptions  from "@/components/settings/providers/MicrosoftOptions.svelte";
 import AppleOptions      from "@/components/settings/providers/AppleOptions.svelte";
 
@@ -150,5 +151,11 @@ export default [
         title: "(3) OpenID Connect",
         logo:  "oidc.svg",
         optionsComponent: OIDCOptions,
+    },
+    {
+        key:   "casAuth",
+        title: "GxdnrCas",
+        logo:  "cas.svg",
+        optionsComponent: CASOptions,
     },
 ];
