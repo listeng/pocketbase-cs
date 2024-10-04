@@ -526,7 +526,7 @@
                             <a
                                 type="button"
                                 aria-label="Edit Page"
-                                href="./libs/amis-editor/#/edit/{record.id}"
+                                href="./libs/page/#/edit/{record.id}"
                                 target="_blank"
                                 class="btn btn-transparent btn-circle"
                                 use:tooltip={{ text: "编辑表单", position: "top" }}

@@ -21,7 +21,7 @@
 
     async function selectPage(page) {
         selectedPage = page.name;
-        iframeUrl = "./libs/page/?id=" + page.id;
+        iframeUrl = "./libs/page/?_=" + Math.random() + "/#/page/" + page.id;
     }
 </script>
 

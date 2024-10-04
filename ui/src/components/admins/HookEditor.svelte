@@ -20,13 +20,13 @@
         if (window.monaco) return;
 
         const script = document.createElement('script');
-        script.src = './libs/page/js/amis@6.8/sdk/thirds/monaco-editor/min/vs/loader.js';
+        script.src = './libs/monaco-editor/min/vs/loader.js';
         script.async = true;
         document.body.appendChild(script);
 
         await new Promise(resolve => script.onload = resolve);
 
-        require.config({ paths: { 'vs': './libs/page/js/amis@6.8/sdk/thirds/monaco-editor/min/vs' }});
+        require.config({ paths: { 'vs': './libs/monaco-editor/min/vs' }});
         
         await new Promise(resolve => {
             require(['vs/editor/editor.main'], resolve);
