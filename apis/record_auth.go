@@ -900,7 +900,7 @@ func (api *recordAuthApi) authWithCasAsUser(c echo.Context) error {
 		return NewNotFoundError("缺少数据集上下文", nil)
 	}
 
-	username, _, err := api.validateCASTicket(c)
+	username, userType, err := api.validateCASTicket(c)
 	if err != nil {
 		return err
 	}
@@ -908,12 +908,19 @@ func (api *recordAuthApi) authWithCasAsUser(c echo.Context) error {
 	user, err := api.app.Dao().FindAuthRecordByEmail(collection.Id, username+"@"+api.app.Settings().CASAuth.Realm)
 	if err == sql.ErrNoRows {
 		if api.app.Settings().CASAuth.CreateNewUser {
-			record := models.NewRecord(collection)
-			record.Set("email", username+"@"+api.app.Settings().CASAuth.Realm)
-			record.Set("username", username)
-			record.Set("name", username)
+			user = models.NewRecord(collection)
+			user.Set("email", username+"@"+api.app.Settings().CASAuth.Realm)
+			user.Set("username", username)
+			user.Set("name", username)
+			user.Set("verified", true)
 
-			if err := api.app.Dao().SaveRecord(record); err != nil {
+			if userType == "admin" || userType == "super" {
+				if collection.Schema.GetFieldByName("is_admin") != nil {
+					user.Set("is_admin", true)
+				}
+			}
+
+			if err := api.app.Dao().SaveRecord(user); err != nil {
 				return c.JSON(http.StatusUnauthorized, map[string]string{"message": "CAS登录失败，用户无效[新用户创建失败]"})
 			}
 		} else {
@@ -934,10 +941,11 @@ func (api *recordAuthApi) authWithCasAsUser(c echo.Context) error {
 		return c.JSON(http.StatusOK, map[string]interface{}{
 			"token": token,
 			"model": map[string]interface{}{
-				"created": user.Created,
-				"email":   user.Email,
-				"id":      user.Id,
-				"updated": user.Updated,
+				"created":  user.Created,
+				"email":    user.Email(),
+				"id":       user.Id,
+				"updated":  user.Updated,
+				"username": user.Username(),
 			},
 		})
 	}
