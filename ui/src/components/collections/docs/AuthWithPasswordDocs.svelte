@@ -137,7 +137,7 @@
             <td>
                 <div class="inline-flex">
                     <span class="label label-success">必填</span>
-                    <span>身份</span>
+                    <span>identity</span>
                 </div>
             </td>
             <td>
@@ -146,13 +146,13 @@
             <td>
                 要认证的记录的
                 {#if allowUsername}
-                    <strong>用户名</strong>
+                    <strong>username</strong>
                 {/if}
                 {#if allowUsername && allowEmail}
                     或
                 {/if}
                 {#if allowEmail}
-                    <strong>邮箱</strong>
+                    <strong>email</strong>
                 {/if}
             </td>
         </tr>
@@ -160,7 +160,7 @@
             <td>
                 <div class="inline-flex">
                     <span class="label label-success">必填</span>
-                    <span>密码</span>
+                    <span>password</span>
                 </div>
             </td>
             <td>

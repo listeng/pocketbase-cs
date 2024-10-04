@@ -175,7 +175,7 @@ final record = await pb.collection('${collection?.name}').update('RECORD_ID', bo
                 <td>
                     <div class="inline-flex">
                         <span class="label label-warning">可选</span>
-                        <span>用户名</span>
+                        <span>username</span>
                     </div>
                 </td>
                 <td>
@@ -187,7 +187,7 @@ final record = await pb.collection('${collection?.name}').update('RECORD_ID', bo
                 <td>
                     <div class="inline-flex">
                         <span class="label label-warning">可选</span>
-                        <span>邮箱</span>
+                        <span>email</span>
                     </div>
                 </td>
                 <td>
@@ -205,7 +205,7 @@ final record = await pb.collection('${collection?.name}').update('RECORD_ID', bo
                 <td>
                     <div class="inline-flex">
                         <span class="label label-warning">可选</span>
-                        <span>邮箱可见性</span>
+                        <span>emailVisibility</span>
                     </div>
                 </td>
                 <td>
@@ -217,7 +217,7 @@ final record = await pb.collection('${collection?.name}').update('RECORD_ID', bo
                 <td>
                     <div class="inline-flex">
                         <span class="label label-warning">可选</span>
-                        <span>旧密码</span>
+                        <span>oldPassword</span>
                     </div>
                 </td>
                 <td>
@@ -233,7 +233,7 @@ final record = await pb.collection('${collection?.name}').update('RECORD_ID', bo
                 <td>
                     <div class="inline-flex">
                         <span class="label label-warning">可选</span>
-                        <span>密码</span>
+                        <span>password</span>
                     </div>
                 </td>
                 <td>
@@ -245,7 +245,7 @@ final record = await pb.collection('${collection?.name}').update('RECORD_ID', bo
                 <td>
                     <div class="inline-flex">
                         <span class="label label-warning">可选</span>
-                        <span>密码确认</span>
+                        <span>passwordConfirm</span>
                     </div>
                 </td>
                 <td>
@@ -257,7 +257,7 @@ final record = await pb.collection('${collection?.name}').update('RECORD_ID', bo
                 <td>
                     <div class="inline-flex">
                         <span class="label label-warning">可选</span>
-                        <span>已验证</span>
+                        <span>verified</span>
                     </div>
                 </td>
                 <td>
