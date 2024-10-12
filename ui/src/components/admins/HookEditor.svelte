@@ -19,17 +19,17 @@
     async function loadMonacoEditor() {
         if (window.monaco) return;
 
-        const script = document.createElement('script');
-        script.src = './libs/monaco-editor/min/vs/loader.js';
+        const script = document.createElement("script");
+        script.src = "./libs/monaco-editor/min/vs/loader.js";
         script.async = true;
         document.body.appendChild(script);
 
-        await new Promise(resolve => script.onload = resolve);
+        await new Promise((resolve) => (script.onload = resolve));
 
-        require.config({ paths: { 'vs': './libs/monaco-editor/min/vs' }});
-        
-        await new Promise(resolve => {
-            require(['vs/editor/editor.main'], resolve);
+        require.config({ paths: { vs: "./libs/monaco-editor/min/vs" } });
+
+        await new Promise((resolve) => {
+            require(["vs/editor/editor.main"], resolve);
         });
     }
 
@@ -77,7 +77,7 @@
         const result = await response.json();
 
         if (result) {
-            files = result
+            files = result;
         }
     }
 
@@ -88,16 +88,61 @@
         editor.setValue(content);
     }
 
+    function simpleXor(text, key) {
+        let result = "";
+        for (let i = 0; i < text.length; i++) {
+            result += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+        }
+        return result;
+    }
+
+    function encryptString(inputString) {
+        // 将输入字符串转换为Base64
+        const base64String = btoa(encodeURIComponent(inputString));
+
+        // 对Base64字符串进行简单加密
+        let encrypted = "";
+        for (let i = 0; i < base64String.length; i++) {
+            const char = base64String[i];
+            if (char.match(/[a-zA-Z]/)) {
+                // 对字母进行凯撒密码加密（偏移量为3）
+                const code = base64String.charCodeAt(i);
+                if (char === char.toUpperCase()) {
+                    encrypted += String.fromCharCode(((code - 65 + 3) % 26) + 65);
+                } else {
+                    encrypted += String.fromCharCode(((code - 97 + 3) % 26) + 97);
+                }
+            } else if (char.match(/[0-9]/)) {
+                // 对数字进行简单替换
+                encrypted += String.fromCharCode(((char.charCodeAt(0) - 48 + 5) % 10) + 48);
+            } else {
+                // 保持其他字符不变
+                encrypted += char;
+            }
+        }
+
+        return encrypted;
+    }
+
     async function saveFile() {
         if (!selectedFile) return;
 
+        // const encryptionKey = "n3wq19sn2t6y6g3ga";
+
         const content = editor.getValue();
+
+        // const encryptedContent = simpleXor(content, encryptionKey);
+
+        // console.log(encryptedContent);
+
+        const base64Content = encryptString(content);
+
         await authenticatedFetch(baseUrl + `api/hooks/${selectedFile}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ content }),
+            body: JSON.stringify({ content: base64Content }),
         });
 
         addSuccessToast("文件保存成功");
@@ -239,7 +284,6 @@
         <span class="label label-warning">格式化代码：SHIFT + ALT(OPTION) + F</span>
         <span class="label label-warning">Windows版本保存代码之后需要手工重启服务才能生效</span>
     </div>
-    
 </PageWrapper>
 
 <style>

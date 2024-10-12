@@ -837,7 +837,7 @@ func (api *recordAuthApi) validateCASTicket(c echo.Context) (string, string, err
 	}
 	userType := userTypeMatch[1]
 
-	api.app.Logger().Info("cas login", slog.String("user", username))
+	api.app.Logger().Info("cas login", slog.String("user", username), slog.String("utype", userType))
 
 	return username, userType, nil
 }

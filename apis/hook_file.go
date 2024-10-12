@@ -1,8 +1,11 @@
 package apis
 
 import (
+	"encoding/base64"
 	"fmt"
+	"log/slog"
 	"net/http"
+	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -94,6 +97,41 @@ func (api *hookEditApi) readHook(c echo.Context) error {
 	return c.JSON(http.StatusOK, string(content))
 }
 
+func simpleDecrypt(text string, key string) string {
+	result := make([]byte, len(text))
+	for i := 0; i < len(text); i++ {
+		result[i] = text[i] ^ key[i%len(key)]
+	}
+	return string(result)
+}
+
+func decryptString(encryptedString string) (string, error) {
+	// 解密函数
+	decrypt := func(r rune) rune {
+		switch {
+		case r >= 'A' && r <= 'Z':
+			return 'A' + (r-'A'+23)%26 // 26 - 3 = 23
+		case r >= 'a' && r <= 'z':
+			return 'a' + (r-'a'+23)%26 // 26 - 3 = 23
+		case r >= '0' && r <= '9':
+			return '0' + (r-'0'+5)%10 // 对于数字，+5 和 -5 在模10的情况下是等价的
+		default:
+			return r
+		}
+	}
+
+	// 对加密的字符串进行解密
+	decrypted := strings.Map(decrypt, encryptedString)
+
+	// 解码Base64
+	decodedBytes, err := base64.StdEncoding.DecodeString(decrypted)
+	if err != nil {
+		return "", fmt.Errorf("failed to decode base64: %v", err)
+	}
+
+	return string(decodedBytes), nil
+}
+
 func (api *hookEditApi) writeHook(c echo.Context) error {
 	filename := c.PathParam("filename")
 	var content struct {
@@ -103,7 +141,39 @@ func (api *hookEditApi) writeHook(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, "参数错误")
 	}
 
-	err := os.WriteFile(filepath.Join(api.getHooksDir(), filename+".js"), []byte(content.Content), 0644)
+	// decodedContent, err := base64.StdEncoding.DecodeString(content.Content)
+	// if err != nil {
+	// 	return echo.NewHTTPError(http.StatusBadRequest, "Base64解码失败")
+	// }
+
+	// // URL解码
+	// decodedString, err := url.QueryUnescape(string(decodedContent))
+	// if err != nil {
+	// 	return echo.NewHTTPError(http.StatusBadRequest, "URL解码失败")
+	// }
+
+	// encryptionKey := "n3wq19sn2t6y6g3ga"
+	// decryptedContent := simpleDecrypt(string(decodedContent), encryptionKey)
+
+	decryptedContent, err := decryptString(content.Content)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "解码失败")
+	}
+
+	// URL解码
+	decodedString, err := url.QueryUnescape(decryptedContent)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, "URL解码失败")
+	}
+
+	api.app.Logger().Debug(
+		"write to file",
+		slog.String("name", "hook write"),
+		slog.String("data", decodedString),
+		slog.String("base64", content.Content),
+	)
+
+	err = os.WriteFile(filepath.Join(api.getHooksDir(), filename+".js"), []byte(decodedString), 0644)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "保存文件失败")
 	}
