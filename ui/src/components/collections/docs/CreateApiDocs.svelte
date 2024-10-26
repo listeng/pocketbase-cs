@@ -122,7 +122,7 @@ await pb.collection('${collection?.name}').requestVerification('test@example.com
     <strong class="label label-primary">POST</strong>
     <div class="content">
         <p>
-            /api/collections/<strong>{collection.name}</strong>/records
+            /pb-proxy/api/collections/<strong>{collection.name}</strong>/records
         </p>
     </div>
     {#if adminsOnly}

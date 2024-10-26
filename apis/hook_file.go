@@ -97,14 +97,6 @@ func (api *hookEditApi) readHook(c echo.Context) error {
 	return c.JSON(http.StatusOK, string(content))
 }
 
-func simpleDecrypt(text string, key string) string {
-	result := make([]byte, len(text))
-	for i := 0; i < len(text); i++ {
-		result[i] = text[i] ^ key[i%len(key)]
-	}
-	return string(result)
-}
-
 func decryptString(encryptedString string) (string, error) {
 	// 解密函数
 	decrypt := func(r rune) rune {
@@ -140,20 +132,6 @@ func (api *hookEditApi) writeHook(c echo.Context) error {
 	if err := c.Bind(&content); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, "参数错误")
 	}
-
-	// decodedContent, err := base64.StdEncoding.DecodeString(content.Content)
-	// if err != nil {
-	// 	return echo.NewHTTPError(http.StatusBadRequest, "Base64解码失败")
-	// }
-
-	// // URL解码
-	// decodedString, err := url.QueryUnescape(string(decodedContent))
-	// if err != nil {
-	// 	return echo.NewHTTPError(http.StatusBadRequest, "URL解码失败")
-	// }
-
-	// encryptionKey := "n3wq19sn2t6y6g3ga"
-	// decryptedContent := simpleDecrypt(string(decodedContent), encryptionKey)
 
 	decryptedContent, err := decryptString(content.Content)
 	if err != nil {

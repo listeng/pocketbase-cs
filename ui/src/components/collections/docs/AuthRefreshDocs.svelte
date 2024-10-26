@@ -105,7 +105,7 @@
     <strong class="label label-primary">POST</strong>
     <div class="content">
         <p>
-            /api/collections/<strong>{collection.name}</strong>/auth-refresh
+            /pb-proxy/api/collections/<strong>{collection.name}</strong>/auth-refresh
         </p>
     </div>
     <p class="txt-hint txt-sm txt-right">需要记录<code>Authorization:TOKEN</code>头</p>

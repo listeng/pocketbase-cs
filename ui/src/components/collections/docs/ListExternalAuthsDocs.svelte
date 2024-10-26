@@ -113,7 +113,7 @@
     <strong class="label label-primary">GET</strong>
     <div class="content">
         <p>
-            /api/collections/<strong>{collection.name}</strong>/records/<strong>:id</strong>/external-auths
+            /pb-proxy/api/collections/<strong>{collection.name}</strong>/records/<strong>:id</strong>/external-auths
         </p>
     </div>
     <p class="txt-hint txt-sm txt-right">需要 <code>Authorization:TOKEN</code> 头部</p>

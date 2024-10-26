@@ -120,7 +120,7 @@
     <strong class="label label-primary">POST</strong>
     <div class="content">
         <p>
-            /api/collections/<strong>{collection.name}</strong>/auth-with-oauth2
+            /pb-proxy/api/collections/<strong>{collection.name}</strong>/auth-with-oauth2
         </p>
     </div>
 </div>

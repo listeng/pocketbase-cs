@@ -88,14 +88,6 @@
         editor.setValue(content);
     }
 
-    function simpleXor(text, key) {
-        let result = "";
-        for (let i = 0; i < text.length; i++) {
-            result += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length));
-        }
-        return result;
-    }
-
     function encryptString(inputString) {
         // 将输入字符串转换为Base64
         const base64String = btoa(encodeURIComponent(inputString));
@@ -127,14 +119,7 @@
     async function saveFile() {
         if (!selectedFile) return;
 
-        // const encryptionKey = "n3wq19sn2t6y6g3ga";
-
         const content = editor.getValue();
-
-        // const encryptedContent = simpleXor(content, encryptionKey);
-
-        // console.log(encryptedContent);
-
         const base64Content = encryptString(content);
 
         await authenticatedFetch(baseUrl + `api/hooks/${selectedFile}`, {

@@ -71,7 +71,7 @@
     <strong class="label label-primary">POST</strong>
     <div class="content">
         <p>
-            /api/collections/<strong>{collection.name}</strong>/confirm-verification
+            /pb-proxy/api/collections/<strong>{collection.name}</strong>/confirm-verification
         </p>
     </div>
 </div>

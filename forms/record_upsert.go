@@ -922,7 +922,7 @@ func (form *RecordUpsert) prepareError(err error) error {
 		for _, f := range c.Schema.Fields() {
 			// blank space to unify multi-columns lookup
 			if strings.Contains(msg+" ", strings.ToLower(c.Name+"."+f.Name)) {
-				validationErrs[f.Name] = validation.NewError("validation_not_unique", "Value must be unique")
+				validationErrs[f.Name] = validation.NewError("validation_not_unique", "值（或者组合值）有重复")
 			}
 		}
 	}

@@ -82,7 +82,7 @@
     <strong class="label label-primary">GET</strong>
     <div class="content">
         <p>
-            /api/collections/<strong>{collection.name}</strong>/auth-methods
+            /pb-proxy/api/collections/<strong>{collection.name}</strong>/auth-methods
         </p>
     </div>
 </div>

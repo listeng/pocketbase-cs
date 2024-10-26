@@ -65,7 +65,7 @@
     <strong class="label label-primary">POST</strong>
     <div class="content">
         <p>
-            /api/collections/<strong>{collection.name}</strong>/request-password-reset
+            /pb-proxy/api/collections/<strong>{collection.name}</strong>/request-password-reset
         </p>
     </div>
 </div>

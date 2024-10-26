@@ -81,7 +81,7 @@
     <strong class="label label-primary">GET</strong>
     <div class="content">
         <p>
-            /api/collections/<strong>{collection.name}</strong>/records/<strong>:id</strong>
+            /pb-proxy/api/collections/<strong>{collection.name}</strong>/records/<strong>:id</strong>
         </p>
     </div>
     {#if adminsOnly}
