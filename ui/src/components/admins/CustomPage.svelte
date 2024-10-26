@@ -10,6 +10,7 @@
         const pageData = await ApiClient.collection("Page").getList(1, 100, {
             filter: "show=true",
             fields: "id,name,remark",
+            sort: "+sort"
         });
 
         pages = pageData.items;
