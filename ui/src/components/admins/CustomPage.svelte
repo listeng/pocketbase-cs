@@ -6,14 +6,37 @@
     let selectedPage = null;
     let iframeUrl = "";
 
+    function groupItemsByCtype(items) {
+        const grouped = items.reduce((acc, item) => {
+            const ctype = item.ctype;
+
+            if (!acc[ctype]) {
+                acc[ctype] = [];
+            }
+
+            acc[ctype].push(item);
+
+            return acc;
+        }, {});
+
+        const result = Object.entries(grouped).map(([ctype, items]) => {
+            return {
+                ctype: ctype,
+                pages: items,
+            };
+        });
+
+        return result;
+    }
+
     async function loadPageList() {
         const pageData = await ApiClient.collection("Page").getList(1, 100, {
             filter: "show=true",
-            fields: "id,name,remark",
-            sort: "+sort"
+            fields: "id,name,remark,icon,ctype",
+            sort: "+sort",
         });
 
-        pages = pageData.items;
+        pages = groupItemsByCtype(pageData.items);
     }
 
     onMount(async () => {
@@ -28,17 +51,19 @@
 
 <aside class="page-sidebar settings-sidebar">
     <div class="sidebar-content">
-        <div class="sidebar-title">扩展页面</div>
+        {#each pages as items}
+            <div class="sidebar-title">{items.ctype}</div>
 
-        {#each pages as page}
-            <button
-                class="sidebar-list-item"
-                on:click={() => selectPage(page)}
-                class:page-selected={page.name === selectedPage}
-            >
-                <i class="ri-article-line" aria-hidden="true" />
-                <span class="txt">{page.remark}</span>
-            </button>
+            {#each items.pages as page}
+                <button
+                    class="sidebar-list-item"
+                    on:click={() => selectPage(page)}
+                    class:page-selected={page.name === selectedPage}
+                >
+                    <i class={page.icon ? page.icon : "ri-article-line"} aria-hidden="true" />
+                    <span class="txt">{page.remark}</span>
+                </button>
+            {/each}
         {/each}
     </div>
 </aside>
