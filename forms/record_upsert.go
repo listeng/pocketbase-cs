@@ -188,6 +188,22 @@ func (form *RecordUpsert) extractMultipartFormData(
 			continue
 		}
 
+		// 处理带索引的字段名 (如 key[0], key[1])
+		if strings.Contains(key, "[") && strings.HasSuffix(key, "]") {
+			baseName := key[:strings.Index(key, "[")]
+
+			// 如果data中还没有这个key的数组，则创建
+			if _, exists := data[baseName]; !exists {
+				data[baseName] = make([]string, 0)
+			}
+
+			// 如果已经是切片类型，则追加值
+			if slice, ok := data[baseName].([]string); ok {
+				data[baseName] = append(slice, values[0])
+			}
+			continue
+		}
+
 		field := form.record.Collection().Schema.GetFieldByName(key)
 		if field != nil && list.ExistInSlice(field.Type, arraybleFieldTypes) {
 			data[key] = values

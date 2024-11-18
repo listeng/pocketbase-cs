@@ -20,18 +20,35 @@ func FindUploadedFiles(r *http.Request, key string) ([]*filesystem.File, error) 
 		}
 	}
 
-	if r.MultipartForm == nil || r.MultipartForm.File == nil || len(r.MultipartForm.File[key]) == 0 {
+	if r.MultipartForm == nil || r.MultipartForm.File == nil {
 		return nil, http.ErrMissingFile
 	}
 
-	result := make([]*filesystem.File, 0, len(r.MultipartForm.File[key]))
+	// 检查两个key是否都没有文件
+	keyFiles := r.MultipartForm.File[key]
+	keyArrayFiles := r.MultipartForm.File[key+"[]"]
+	if len(keyFiles) == 0 && len(keyArrayFiles) == 0 {
+		return nil, http.ErrMissingFile
+	}
 
-	for _, fh := range r.MultipartForm.File[key] {
+	// 预分配足够的容量
+	result := make([]*filesystem.File, 0, len(keyFiles)+len(keyArrayFiles))
+
+	// 处理 key 的文件
+	for _, fh := range keyFiles {
 		file, err := filesystem.NewFileFromMultipart(fh)
 		if err != nil {
 			return nil, err
 		}
+		result = append(result, file)
+	}
 
+	// 处理 key[] 的文件
+	for _, fh := range keyArrayFiles {
+		file, err := filesystem.NewFileFromMultipart(fh)
+		if err != nil {
+			return nil, err
+		}
 		result = append(result, file)
 	}
 
