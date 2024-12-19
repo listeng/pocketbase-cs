@@ -26,7 +26,7 @@
             providerPanel?.show(
                 provider,
                 Object.assign({}, config, {
-                    enabled: config.clientId ? config.enabled : true,
+                    enabled: config.clientId || config.callbackUrl ? config.enabled : true,
                     pkce: config.clientId ? config.pkce : null,
                 }),
             );
