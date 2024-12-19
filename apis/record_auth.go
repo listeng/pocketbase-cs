@@ -913,6 +913,7 @@ func (api *recordAuthApi) authWithCasAsUser(c echo.Context) error {
 			user.Set("username", username)
 			user.Set("name", username)
 			user.Set("verified", true)
+			user.SetTokenKey(security.RandomString(50))
 
 			if userType == "admin" || userType == "super" {
 				if collection.Schema.GetFieldByName("is_admin") != nil {
@@ -921,12 +922,23 @@ func (api *recordAuthApi) authWithCasAsUser(c echo.Context) error {
 			}
 
 			if err := api.app.Dao().SaveRecord(user); err != nil {
+
+				api.app.Logger().Error(
+					"cas create user failed",
+					slog.String("error", err.Error()),
+				)
+
 				return c.JSON(http.StatusUnauthorized, map[string]string{"message": "CAS登录失败，用户无效[新用户创建失败]"})
 			}
 		} else {
 			return c.JSON(http.StatusUnauthorized, map[string]string{"message": "CAS登录失败，用户无效"})
 		}
 	} else if err != nil {
+		api.app.Logger().Error(
+			"cas login failed",
+			slog.String("error", err.Error()),
+		)
+
 		return c.JSON(http.StatusUnauthorized, map[string]string{"message": "CAS登录失败，用户无效[未知错误]"})
 	}
 
