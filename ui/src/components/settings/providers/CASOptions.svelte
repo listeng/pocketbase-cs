@@ -49,6 +49,13 @@
     <div class="help-block">本平台的用户的电子邮件与此域名相同才是有效用户</div>
 </Field>
 
+<Field class="form-field" name="{key}.adminRole" let:uniqueId>
+    <label for={uniqueId}>管理员角色名称</label>
+    <input type="text" id={uniqueId} bind:value={config.adminRole} />
+
+    <div class="help-block">如果用户是这个角色，则登录的时候设置成管理员</div>
+</Field>
+
 <Field class="form-field" name="{key}.logoutUrl" let:uniqueId>
     <label for={uniqueId}>Logout URL</label>
     <input type="url" id={uniqueId} bind:value={config.logoutUrl} />

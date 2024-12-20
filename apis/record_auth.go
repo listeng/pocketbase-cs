@@ -795,51 +795,65 @@ func (api *recordAuthApi) oauth2SubscriptionRedirect(c echo.Context) error {
 	return c.Redirect(redirectStatusCode, oauth2RedirectSuccessPath)
 }
 
-func (api *recordAuthApi) validateCASTicket(c echo.Context) (string, string, error) {
+func (api *recordAuthApi) validateCASTicket(c echo.Context) (string, string, string, error) {
 	if !api.app.Settings().CASAuth.Enabled {
-		return "", "", c.JSON(http.StatusForbidden, nil)
+		return "", "", "", c.JSON(http.StatusForbidden, nil)
 	}
 
 	casTicket := c.QueryParam("ticket")
 	serviceURL := c.QueryParam("service")
 
 	if casTicket == "" {
-		return "", "", c.JSON(http.StatusUnauthorized, map[string]string{"msg": "没有票据"})
+		return "", "", "", c.JSON(http.StatusUnauthorized, map[string]string{"msg": "没有票据"})
 	}
 
 	validateURL := fmt.Sprintf("%s?ticket=%s&service=%s", api.app.Settings().CASAuth.ValidateUrl, url.QueryEscape(casTicket), url.QueryEscape(serviceURL))
 	resp, err := http.Get(validateURL)
 	if err != nil {
-		return "", "", c.JSON(http.StatusInternalServerError, map[string]string{"msg": "CAS登录失败"})
+		return "", "", "", c.JSON(http.StatusInternalServerError, map[string]string{"msg": "CAS登录失败"})
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return "", "", c.JSON(http.StatusInternalServerError, map[string]string{"msg": "failed to read cas response"})
+		return "", "", "", c.JSON(http.StatusInternalServerError, map[string]string{"msg": "failed to read cas response"})
 	}
 
 	if !strings.Contains(string(body), "cas:authenticationSuccess") {
-		return "", "", c.JSON(http.StatusUnauthorized, map[string]string{"msg": "CAS拒绝登录"})
+		return "", "", "", c.JSON(http.StatusUnauthorized, map[string]string{"msg": "CAS拒绝登录"})
 	}
 
 	re := regexp.MustCompile(`<cas:user>(.*?)</cas:user>`)
 	userMatch := re.FindStringSubmatch(string(body))
 	if len(userMatch) < 2 {
-		return "", "", c.JSON(http.StatusUnauthorized, map[string]string{"msg": "CAS没有返回用户名（username）"})
+		return "", "", "", c.JSON(http.StatusUnauthorized, map[string]string{"msg": "CAS没有返回用户名（username）"})
 	}
 	username := userMatch[1]
 
 	re = regexp.MustCompile(`<cas:utype>(.*?)</cas:utype>`)
 	userTypeMatch := re.FindStringSubmatch(string(body))
 	if len(userTypeMatch) < 2 {
-		return "", "", c.JSON(http.StatusUnauthorized, map[string]string{"msg": "CAS没有返回用户类型（utype）"})
+		return "", "", "", c.JSON(http.StatusUnauthorized, map[string]string{"msg": "CAS没有返回用户类型（utype）"})
 	}
 	userType := userTypeMatch[1]
 
-	api.app.Logger().Info("cas login", slog.String("user", username), slog.String("utype", userType))
+	re = regexp.MustCompile(`<cas:roles>(.*?)</cas:roles>`)
+	userRolesMatch := re.FindStringSubmatch(string(body))
+	// Extract roles but skip if no match found
+	roles := ""
+	if len(userRolesMatch) >= 2 {
+		roles = userRolesMatch[1]
 
-	return username, userType, nil
+		// URL decode the roles string
+		decodedRoles, err := url.QueryUnescape(roles)
+		if err == nil {
+			roles = decodedRoles
+		}
+	}
+
+	api.app.Logger().Info("cas login", slog.String("user", username), slog.String("utype", userType), slog.String("roles", roles))
+
+	return username, userType, roles, nil
 }
 
 func (api *recordAuthApi) authWithCasAsAdmin(c echo.Context) error {
@@ -848,7 +862,7 @@ func (api *recordAuthApi) authWithCasAsAdmin(c echo.Context) error {
 		return NewNotFoundError("缺少数据集上下文", nil)
 	}
 
-	username, userType, err := api.validateCASTicket(c)
+	username, userType, _, err := api.validateCASTicket(c)
 	if err != nil {
 		return err
 	}
@@ -900,7 +914,7 @@ func (api *recordAuthApi) authWithCasAsUser(c echo.Context) error {
 		return NewNotFoundError("缺少数据集上下文", nil)
 	}
 
-	username, userType, err := api.validateCASTicket(c)
+	username, userType, userRoles, err := api.validateCASTicket(c)
 	if err != nil {
 		return err
 	}
@@ -918,6 +932,18 @@ func (api *recordAuthApi) authWithCasAsUser(c echo.Context) error {
 			if userType == "admin" || userType == "super" {
 				if collection.Schema.GetFieldByName("is_admin") != nil {
 					user.Set("is_admin", true)
+				}
+			}
+
+			if api.app.Settings().CASAuth.AdminRole != "" && userRoles != "" {
+				roles := strings.Split(userRoles, ",")
+				for _, role := range roles {
+					if role == api.app.Settings().CASAuth.AdminRole {
+						if collection.Schema.GetFieldByName("is_admin") != nil {
+							user.Set("is_admin", true)
+						}
+						break
+					}
 				}
 			}
 
@@ -945,6 +971,34 @@ func (api *recordAuthApi) authWithCasAsUser(c echo.Context) error {
 	api.app.Logger().Info("cas login as user", slog.String("user", username))
 
 	if user != nil {
+		if userType == "admin" || userType == "super" {
+			if collection.Schema.GetFieldByName("is_admin") != nil {
+				user.Set("is_admin", true)
+			}
+		}
+
+		if api.app.Settings().CASAuth.AdminRole != "" && userRoles != "" {
+			roles := strings.Split(userRoles, ",")
+			for _, role := range roles {
+				if role == api.app.Settings().CASAuth.AdminRole {
+					if collection.Schema.GetFieldByName("is_admin") != nil {
+						user.Set("is_admin", true)
+					}
+					break
+				}
+			}
+		}
+
+		if err := api.app.Dao().SaveRecord(user); err != nil {
+
+			api.app.Logger().Error(
+				"cas create user failed",
+				slog.String("error", err.Error()),
+			)
+
+			return c.JSON(http.StatusUnauthorized, map[string]string{"message": "CAS登录失败，用户无效[用户保存失败]"})
+		}
+
 		token, err := tokens.NewRecordAuthToken(api.app, user)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, map[string]string{"msg": "创建登录令牌失败"})

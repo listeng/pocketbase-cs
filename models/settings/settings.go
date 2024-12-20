@@ -717,6 +717,7 @@ type CasProviderConfig struct {
 	CreateNewUser bool   `form:"createNewUser" json:"createNewUser"`
 	DisplayName   string `form:"displayName" json:"displayName"`
 	Realm         string `form:"realm" json:"realm"`
+	AdminRole     string `form:"adminRole" json:"adminRole"`
 }
 
 // Validate makes `ProviderConfig` validatable by implementing [validation.Validatable] interface.
