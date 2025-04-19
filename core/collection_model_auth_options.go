@@ -131,6 +131,8 @@ type collectionAuthOptions struct {
 	// OTP defines options related to the One-time password authentication (OTP).
 	OTP OTPConfig `form:"otp" json:"otp"`
 
+	CASAuth CasProviderConfig `form:"cas" json:"cas"`
+
 	// Various token configurations
 	// ---
 	AuthToken          TokenConfig `form:"authToken" json:"authToken"`
@@ -540,4 +542,26 @@ func (c OAuth2ProviderConfig) InitProvider() (auth.Provider, error) {
 	}
 
 	return provider, nil
+}
+
+type CasProviderConfig struct {
+	Enabled       bool   `form:"enabled" json:"enabled"`
+	OnlyCASLogin  bool   `form:"onlyCasLogin" json:"onlyCasLogin"`
+	LoginUrl      string `form:"loginUrl" json:"loginUrl"`
+	LogoutUrl     string `form:"logoutUrl" json:"logoutUrl"`
+	ValidateUrl   string `form:"validateUrl" json:"validateUrl"`
+	CallbackUrl   string `form:"callbackUrl" json:"callbackUrl"`
+	CreateNewUser bool   `form:"createNewUser" json:"createNewUser"`
+	DisplayName   string `form:"displayName" json:"displayName"`
+	Realm         string `form:"realm" json:"realm"`
+	AdminRole     string `form:"adminRole" json:"adminRole"`
+}
+
+func (c CasProviderConfig) Validate() error {
+	return validation.ValidateStruct(&c,
+		validation.Field(&c.LoginUrl, is.URL, validation.When(c.Enabled, validation.Required)),
+		validation.Field(&c.ValidateUrl, is.URL, validation.When(c.Enabled, validation.Required)),
+		validation.Field(&c.CallbackUrl, is.URL, validation.When(c.Enabled, validation.Required)),
+		validation.Field(&c.LogoutUrl, is.URL),
+	)
 }

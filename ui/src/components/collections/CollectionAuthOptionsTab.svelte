@@ -3,6 +3,7 @@
     import EmailTemplateAccordion from "@/components/collections/EmailTemplateAccordion.svelte";
     import TokenOptionsAccordion from "@/components/collections/TokenOptionsAccordion.svelte";
     import MFAAccordion from "@/components/collections/MFAAccordion.svelte";
+    import CASAccordion from "@/components/collections/CASAccordion.svelte";
     import OAuth2Accordion from "@/components/collections/OAuth2Accordion.svelte";
     import OTPAccordion from "@/components/collections/OTPAccordion.svelte";
     import PasswordAuthAccordion from "@/components/collections/PasswordAuthAccordion.svelte";
@@ -93,6 +94,8 @@
     <OTPAccordion bind:collection />
 
     <MFAAccordion bind:collection />
+    
+    <CASAccordion bind:collection />
 </div>
 
 <h4 class="section-title">

@@ -66,6 +66,8 @@ func bindRecordAuthApi(app core.App, rg *router.RouterGroup[*core.RequestEvent])
 	)
 
 	sub.POST("/impersonate/{id}", recordAuthImpersonate).Bind(RequireSuperuserAuth())
+
+	sub.GET("/auth-with-cas", recordAuthWithCAS)
 }
 
 func findAuthCollection(e *core.RequestEvent) (*core.Collection, error) {
