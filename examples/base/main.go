@@ -107,8 +107,8 @@ func main() {
 	// (if publicDir exists and the route path is not already defined)
 	app.OnServe().Bind(&hook.Handler[*core.ServeEvent]{
 		Func: func(e *core.ServeEvent) error {
-			if !e.Router.HasRoute(http.MethodGet, "/{path...}") {
-				e.Router.GET("/{path...}", apis.Static(os.DirFS(publicDir), indexFallback))
+			if !e.Router.HasRoute(http.MethodGet, apis.BaseURL+"/{path...}") {
+				e.Router.GET(apis.BaseURL+"/{path...}", apis.Static(os.DirFS(publicDir), indexFallback))
 			}
 
 			return e.Next()

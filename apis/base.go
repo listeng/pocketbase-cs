@@ -15,6 +15,8 @@ import (
 // StaticWildcardParam is the name of Static handler wildcard parameter.
 const StaticWildcardParam = "path"
 
+const BaseURL = "/pb-proxy"
+
 // NewRouter returns a new router instance loaded with the default app middlewares and api routes.
 func NewRouter(app core.App) (*router.Router[*core.RequestEvent], error) {
 	pbRouter := router.NewRouter(func(w http.ResponseWriter, r *http.Request) (*core.RequestEvent, router.EventCleanupFunc) {
@@ -34,7 +36,7 @@ func NewRouter(app core.App) (*router.Router[*core.RequestEvent], error) {
 	pbRouter.Bind(securityHeaders())
 	pbRouter.Bind(BodyLimit(DefaultMaxBodySize))
 
-	apiGroup := pbRouter.Group("/api")
+	apiGroup := pbRouter.Group(BaseURL + "/api")
 	bindSettingsApi(app, apiGroup)
 	bindCollectionApi(app, apiGroup)
 	bindRecordCrudApi(app, apiGroup)

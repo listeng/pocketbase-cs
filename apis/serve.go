@@ -77,7 +77,7 @@ func Serve(app core.App, config ServeConfig) error {
 		AllowMethods: []string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
 	}))
 
-	pbRouter.GET("/_/{path...}", Static(ui.DistDirFS, false)).
+	pbRouter.GET(BaseURL+"/_/{path...}", Static(ui.DistDirFS, false)).
 		BindFunc(func(e *core.RequestEvent) error {
 			// ignore root path
 			if e.Request.PathValue(StaticWildcardParam) != "" {
@@ -226,6 +226,8 @@ func Serve(app core.App, config ServeConfig) error {
 				baseURL += serverAddrToHost(serveEvent.Server.Addr)
 			}
 		}
+
+		baseURL += BaseURL
 
 		addr := e.Server.Addr
 		if addr == "" {
