@@ -33,11 +33,11 @@
             body: `
                 {
                   "status": 400,
-                  "message": "Failed to create record.",
+                  "message": "创建记录失败。",
                   "data": {
                     "${collection?.fields?.[0]?.name}": {
                       "code": "validation_required",
-                      "message": "Missing required value."
+                      "message": "缺少必填值。"
                     }
                   }
                 }
@@ -48,7 +48,7 @@
             body: `
                 {
                   "status": 403,
-                  "message": "You are not allowed to perform this request.",
+                  "message": "您无权执行此请求。",
                   "data": {}
                 }
             `,
@@ -68,20 +68,20 @@
     }
 </script>
 
-<h3 class="m-b-sm">Create ({collection.name})</h3>
+<h3 class="m-b-sm">创建({collection.name})</h3>
 <div class="content txt-lg m-b-sm">
-    <p>Create a new <strong>{collection.name}</strong> record.</p>
+    <p>创建一个新的<strong>{collection.name}</strong>记录。</p>
     <p>
-        Body parameters could be sent as <code>application/json</code> or
-        <code>multipart/form-data</code>.
+        请求体参数可以以<code>application/json</code>或
+        <code>multipart/form-data</code>格式发送。
     </p>
     <p>
-        File upload is supported only via <code>multipart/form-data</code>.
+        文件上传仅支持<code>multipart/form-data</code>格式。
         <br />
-        For more info and examples you could check the detailed
+        如需更多信息和示例，请查看详细的
         <a href={import.meta.env.PB_FILE_UPLOAD_DOCS} target="_blank" rel="noopener noreferrer">
-            Files upload and handling docs
-        </a>.
+            文件上传和处理文档
+        </a>。
     </p>
 </div>
 
@@ -94,13 +94,13 @@ const pb = new PocketBase('${backendAbsUrl}');
 
 ...
 
-// example create data
+// 示例创建数据
 const data = ${JSON.stringify(getPayload(collection), null, 4)};
 
 const record = await pb.collection('${collection?.name}').create(data);
 ` + (isAuth ?
 `
-// (optional) send an email verification request
+// (可选)发送邮箱验证请求
 await pb.collection('${collection?.name}').requestVerification('test@example.com');
 ` : ""
 )}
@@ -111,19 +111,19 @@ final pb = PocketBase('${backendAbsUrl}');
 
 ...
 
-// example create body
+// 示例创建请求体
 final body = <String, dynamic>${JSON.stringify(getPayload(collection), null, 2)};
 
 final record = await pb.collection('${collection?.name}').create(body: body);
 ` + (isAuth ?
 `
-// (optional) send an email verification request
+// (可选)发送邮箱验证请求
 await pb.collection('${collection?.name}').requestVerification('test@example.com');
 ` : ""
 )}
 />
 
-<h6 class="m-b-xs">API details</h6>
+<h6 class="m-b-xs">API详情</h6>
 <div class="alert alert-success">
     <strong class="label label-primary">POST</strong>
     <div class="content">
@@ -132,98 +132,98 @@ await pb.collection('${collection?.name}').requestVerification('test@example.com
         </p>
     </div>
     {#if superusersOnly}
-        <p class="txt-hint txt-sm txt-right">Requires superuser <code>Authorization:TOKEN</code> header</p>
+        <p class="txt-hint txt-sm txt-right">需要超级用户<code>Authorization:TOKEN</code>请求头</p>
     {/if}
 </div>
 
-<div class="section-title">Body Parameters</div>
+<div class="section-title">请求体参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="50%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="50%">描述</th>
         </tr>
     </thead>
     <tbody>
         {#if isAuth}
             <tr>
-                <td colspan="3" class="txt-hint txt-bold">Auth specific fields</td>
+                <td colspan="3" class="txt-hint txt-bold">认证专用字段</td>
             </tr>
             <tr>
                 <td>
                     <div class="inline-flex">
                         {#if collection?.fields?.find((f) => f.name == "email")?.required}
-                            <span class="label label-success">Required</span>
+                            <span class="label label-success">必填</span>
                         {:else}
-                            <span class="label label-warning">Optional</span>
+                            <span class="label label-warning">可选</span>
                         {/if}
                         <span>email</span>
                     </div>
                 </td>
                 <td>
-                    <span class="label">String</span>
+                    <span class="label">字符串</span>
                 </td>
-                <td>Auth record email address.</td>
+                <td>认证记录邮箱地址。</td>
             </tr>
             <tr>
                 <td>
                     <div class="inline-flex">
                         {#if collection?.fields?.find((f) => f.name == "emailVisibility")?.required}
-                            <span class="label label-success">Required</span>
+                            <span class="label label-success">必填</span>
                         {:else}
-                            <span class="label label-warning">Optional</span>
+                            <span class="label label-warning">可选</span>
                         {/if}
                         <span>emailVisibility</span>
                     </div>
                 </td>
                 <td>
-                    <span class="label">Boolean</span>
+                    <span class="label">布尔值</span>
                 </td>
-                <td>Whether to show/hide the auth record email when fetching the record data.</td>
+                <td>获取记录数据时是否显示/隐藏认证记录邮箱。</td>
             </tr>
             <tr>
                 <td>
                     <div class="inline-flex">
-                        <span class="label label-success">Required</span>
+                        <span class="label label-success">必填</span>
                         <span>password</span>
                     </div>
                 </td>
                 <td>
-                    <span class="label">String</span>
+                    <span class="label">字符串</span>
                 </td>
-                <td>Auth record password.</td>
+                <td>认证记录密码。</td>
             </tr>
             <tr>
                 <td>
                     <div class="inline-flex">
-                        <span class="label label-success">Required</span>
+                        <span class="label label-success">必填</span>
                         <span>passwordConfirm</span>
                     </div>
                 </td>
                 <td>
-                    <span class="label">String</span>
+                    <span class="label">字符串</span>
                 </td>
-                <td>Auth record password confirmation.</td>
+                <td>认证记录密码确认。</td>
             </tr>
             <tr>
                 <td>
                     <div class="inline-flex">
-                        <span class="label label-warning">Optional</span>
+                        <span class="label label-warning">可选</span>
                         <span>verified</span>
                     </div>
                 </td>
                 <td>
-                    <span class="label">Boolean</span>
+                    <span class="label">布尔值</span>
                 </td>
                 <td>
-                    Indicates whether the auth record is verified or not.
+                    表示认证记录是否已验证。
                     <br />
-                    This field can be set only by superusers or auth records with "Manage" access.
+                    此字段只能由超级用户或具有"管理"权限的认证记录设置。
                 </td>
             </tr>
             <tr>
-                <td colspan="3" class="txt-hint txt-bold">Other fields</td>
+                <td colspan="3" class="txt-hint txt-bold">其他字段</td>
             </tr>
         {/if}
 
@@ -232,9 +232,9 @@ await pb.collection('${collection?.name}').requestVerification('test@example.com
                 <td>
                     <div class="inline-flex">
                         {#if !field.required || (field.type == "text" && field.autogeneratePattern)}
-                            <span class="label label-warning">Optional</span>
+                            <span class="label label-warning">可选</span>
                         {:else}
-                            <span class="label label-success">Required</span>
+                            <span class="label label-success">必填</span>
                         {/if}
                         <span>{field.name}</span>
                     </div>
@@ -244,24 +244,23 @@ await pb.collection('${collection?.name}').requestVerification('test@example.com
                 </td>
                 <td>
                     {#if field.type === "text"}
-                        Plain text value.
+                        纯文本值。
                         {#if field.autogeneratePattern}
-                            It is autogenerated if not set.
+                            如果未设置则会自动生成。
                         {/if}
                     {:else if field.type === "number"}
-                        Number value.
+                        数字值。
                     {:else if field.type === "json"}
-                        JSON array or object.
+                        JSON数组或对象。
                     {:else if field.type === "email"}
-                        Email address.
+                        邮箱地址。
                     {:else if field.type === "url"}
-                        URL address.
+                        URL地址。
                     {:else if field.type === "file"}
-                        File object.<br />
-                        Set to empty value (<code>null</code>, <code>""</code> or <code>[]</code>) to delete
-                        already uploaded file(s).
+                        文件对象。<br />
+                        设置为空值(<code>null</code>、<code>""</code>或<code>[]</code>)以删除已上传的文件。
                     {:else if field.type === "relation"}
-                        Relation record {field.maxSelect === 1 ? "id" : "ids"}.
+                        关联记录{field.maxSelect === 1 ? "ID" : "IDs"}。
                     {/if}
                 </td>
             </tr>
@@ -269,36 +268,35 @@ await pb.collection('${collection?.name}').requestVerification('test@example.com
     </tbody>
 </table>
 
-<div class="section-title">Query parameters</div>
+<div class="section-title">查询参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="60%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="60%">描述</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>expand</td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
             <td>
-                Auto expand relations when returning the created record. Ex.:
+                返回创建记录时自动展开关联关系。例如：
                 <CodeBlock content={`?expand=relField1,relField2.subRelField`} />
-                Supports up to 6-levels depth nested relations expansion. <br />
-                The expanded relations will be appended to the record under the
-                <code>expand</code> property (eg. <code>{`"expand": {"relField1": {...}, ...}`}</code>).
+                支持最多6层深度的嵌套关联展开。<br />
+                展开的关联关系将被附加到记录的<code>expand</code>属性下(例如<code>{`"expand": {"relField1": {...}, ...}`}</code>)。
                 <br />
-                Only the relations to which the request user has permissions to <strong>view</strong> will be expanded.
+                只有请求用户有<strong>查看</strong>权限的关联关系才会被展开。
             </td>
         </tr>
         <FieldsQueryParam />
     </tbody>
 </table>
 
-<div class="section-title">Responses</div>
+<div class="section-title">响应</div>
 <div class="tabs">
     <div class="tabs-header compact combined left">
         {#each responses as response (response.code)}

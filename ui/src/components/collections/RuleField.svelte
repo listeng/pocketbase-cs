@@ -10,12 +10,12 @@
 
     export let collection = null;
     export let rule = null;
-    export let label = "Rule";
+    export let label = "规则";
     export let formKey = "rule";
     export let required = false;
     export let disabled = false;
     export let superuserToggle = true;
-    export let placeholder = "Leave empty to grant everyone access...";
+    export let placeholder = "留空表示允许所有人访问...";
 
     let editorRef = null;
     let tempValue = null;
@@ -67,7 +67,7 @@
         <div
             class="input-wrapper"
             use:tooltip={collection.system
-                ? { text: "System collection rule cannot be changed.", position: "top" }
+                ? { text: "系统集合规则不可更改。", position: "top" }
                 : undefined}
         >
             <label for={uniqueId}>
@@ -75,7 +75,7 @@
 
                 <span class="txt" class:txt-hint={isSuperuserOnly}>
                     {label}
-                    {isSuperuserOnly ? "- Superusers only" : ""}
+                    {isSuperuserOnly ? "- 仅限超级用户" : ""}
                 </span>
 
                 <slot name="afterLabel" {isSuperuserOnly} />
@@ -89,7 +89,7 @@
                         on:click={lock}
                     >
                         <i class="ri-lock-line" aria-hidden="true" />
-                        <span class="txt">Set Superusers only</span>
+                        <span class="txt">设为仅限超级用户</span>
                     </button>
                 {/if}
             </label>
@@ -114,7 +114,7 @@
                     on:click={unlock}
                 >
                     {#if !isDisabled}
-                        <small class="txt">Unlock and set custom rule</small>
+                        <small class="txt">解锁并设置自定义规则</small>
                     {/if}
                     <div class="icon" aria-hidden="true">
                         <i class="ri-lock-unlock-line" />

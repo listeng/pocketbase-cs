@@ -44,9 +44,9 @@
     }
 </script>
 
-<h3 class="m-b-sm">List auth methods ({collection.name})</h3>
+<h3 class="m-b-sm">列出认证方式 ({collection.name})</h3>
 <div class="content txt-lg m-b-sm">
-    <p>Returns a public list with all allowed <strong>{collection.name}</strong> authentication methods.</p>
+    <p>返回一个包含所有允许的<strong>{collection.name}</strong>认证方式的公开列表。</p>
 </div>
 
 <SdkTabs
@@ -70,7 +70,7 @@
     `}
 />
 
-<h6 class="m-b-xs">API details</h6>
+<h6 class="m-b-xs">API详情</h6>
 <div class="alert alert-info">
     <strong class="label label-primary">GET</strong>
     <div class="content">
@@ -80,13 +80,13 @@
     </div>
 </div>
 
-<div class="section-title">Query parameters</div>
+<div class="section-title">查询参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="50%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="50%">描述</th>
         </tr>
     </thead>
     <tbody>
@@ -94,7 +94,7 @@
     </tbody>
 </table>
 
-<div class="section-title">Responses</div>
+<div class="section-title">响应</div>
 <div class="tabs">
     <div class="tabs-header compact combined left">
         {#each responses as response (response.code)}

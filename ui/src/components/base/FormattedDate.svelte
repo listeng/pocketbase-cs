@@ -12,7 +12,7 @@
         // generate the tooltip text as getter to speed up the initial load
         // in case the component is used with large number of items
         get text() {
-            return CommonHelper.formatToLocalDate(date) + " Local";
+            return CommonHelper.formatToLocalDate(date) + " 本地时间";
         },
     };
 </script>
@@ -23,7 +23,7 @@
         <div class="time">{timeOnly} UTC</div>
     </div>
 {:else}
-    <span class="txt txt-hint">N/A</span>
+    <span class="txt txt-hint">无</span>
 {/if}
 
 <style>

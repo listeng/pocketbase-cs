@@ -10,7 +10,7 @@
     import CommonHelper from "@/utils/CommonHelper";
     import { tick } from "svelte";
 
-    $pageTitle = "Import collections";
+    $pageTitle = "导入集合";
 
     let fileInput;
     let importPopup;
@@ -22,7 +22,7 @@
     let deleteMissing = true;
     let collectionsToUpdate = [];
     let isLoadingOldCollections = false;
-    let mergeWithOldCollections = false; // an alternative to the default deleteMissing option
+    let mergeWithOldCollections = false; // 替代默认deleteMissing选项的另一种方式
 
     $: if (typeof schemas !== "undefined" && mergeWithOldCollections !== null) {
         loadNewCollections(schemas);
@@ -61,20 +61,20 @@
             CommonHelper.findByKey(oldCollections, "id", collection.id);
 
         if (!old) {
-            return false; // new
+            return false; // 新集合
         }
 
         if (old.id != collection.id) {
             return true;
         }
 
-        // check for matching schema fields
+        // 检查匹配的字段
         const oldFields = Array.isArray(old.fields) ? old.fields : [];
         const newFields = Array.isArray(collection.fields) ? collection.fields : [];
         for (const field of newFields) {
             const oldFieldById = CommonHelper.findByKey(oldFields, "id", field.id);
             if (oldFieldById) {
-                continue; // no need to do any replacements
+                continue; // 无需替换
             }
 
             const oldFieldByName = CommonHelper.findByKey(oldFields, "name", field.name);
@@ -94,11 +94,11 @@
         try {
             oldCollections = await ApiClient.collections.getFullList(200);
             for (let collection of oldCollections) {
-                // delete timestamps
+                // 删除时间戳
                 delete collection.created;
                 delete collection.updated;
 
-                // unset oauth2 providers
+                // 清空OAuth2提供者
                 delete collection.oauth2?.providers;
             }
         } catch (err) {
@@ -118,9 +118,9 @@
         for (let newCollection of newCollections) {
             const oldCollection = CommonHelper.findByKey(oldCollections, "id", newCollection.id);
             if (
-                // no old collection
+                // 没有旧集合
                 !oldCollection?.id ||
-                // no changes
+                // 没有变化
                 !CommonHelper.hasCollectionChanges(oldCollection, newCollection, deleteMissing)
             ) {
                 continue;
@@ -146,13 +146,13 @@
             newCollections = CommonHelper.filterDuplicatesByKey(newCollections);
         }
 
-        // normalizations
+        // 标准化
         for (let collection of newCollections) {
-            // delete timestamps
+            // 删除时间戳
             delete collection.created;
             delete collection.updated;
 
-            // merge fields with duplicated ids
+            // 合并重复字段
             collection.fields = CommonHelper.filterDuplicatesByKey(collection.fields);
         }
     }
@@ -171,7 +171,7 @@
             const replacedId = old.id;
             collection.id = replacedId;
 
-            // replace field ids
+            // 替换字段ID
             const oldFields = Array.isArray(old.fields) ? old.fields : [];
             const newFields = Array.isArray(collection.fields) ? collection.fields : [];
             for (const field of newFields) {
@@ -181,7 +181,7 @@
                 }
             }
 
-            // update references
+            // 更新引用
             for (let ref of newCollections) {
                 if (!Array.isArray(ref.fields)) {
                     continue;
@@ -193,7 +193,7 @@
                 }
             }
 
-            // update index names that contains the collection id
+            // 更新包含集合ID的索引名
             for (let i = 0; i < collection.indexes?.length; i++) {
                 collection.indexes[i] = collection.indexes[i].replace(
                     /create\s+(?:unique\s+)?\s*index\s*(?:if\s+not\s+exists\s+)?(\S*)\s+on/gim,
@@ -212,24 +212,24 @@
 
         reader.onload = async (event) => {
             isLoadingFile = false;
-            fileInput.value = ""; // reset
+            fileInput.value = ""; // 重置
 
             schemas = event.target.result;
 
             await tick();
 
             if (!newCollections.length) {
-                addErrorToast("Invalid collections configuration.");
+                addErrorToast("无效的集合配置。");
                 clear();
             }
         };
 
         reader.onerror = (err) => {
             console.warn(err);
-            addErrorToast("Failed to load the imported JSON.");
+            addErrorToast("加载JSON文件失败。");
 
             isLoadingFile = false;
-            fileInput.value = ""; // reset
+            fileInput.value = ""; // 重置
         };
 
         reader.readAsText(file);
@@ -255,7 +255,7 @@
 <PageWrapper>
     <header class="page-header">
         <nav class="breadcrumbs">
-            <div class="breadcrumb-item">Settings</div>
+            <div class="breadcrumb-item">设置</div>
             <div class="breadcrumb-item">{$pageTitle}</div>
         </nav>
     </header>
@@ -279,7 +279,7 @@
 
                 <div class="content txt-xl m-b-base">
                     <p>
-                        Paste below the collections configuration you want to import or
+                        在下方粘贴要导入的集合配置或
                         <button
                             class="btn btn-outline btn-sm m-l-5"
                             class:btn-loading={isLoadingFile}
@@ -287,13 +287,13 @@
                                 fileInput.click();
                             }}
                         >
-                            <span class="txt">Load from JSON file</span>
+                            <span class="txt">从JSON文件加载</span>
                         </button>
                     </p>
                 </div>
 
                 <Field class="form-field {!isValid ? 'field-error' : ''}" name="collections" let:uniqueId>
-                    <label for={uniqueId} class="p-b-10">Collections</label>
+                    <label for={uniqueId} class="p-b-10">集合</label>
                     <textarea
                         id={uniqueId}
                         class="code"
@@ -304,7 +304,7 @@
                     />
 
                     {#if !!schemas && !isValid}
-                        <div class="help-block help-block-error">Invalid collections configuration.</div>
+                        <div class="help-block help-block-error">无效的集合配置。</div>
                     {/if}
                 </Field>
 
@@ -316,12 +316,12 @@
                             bind:checked={mergeWithOldCollections}
                             disabled={!isValid}
                         />
-                        <label for={uniqueId}>Merge with the existing collections</label>
+                        <label for={uniqueId}>与现有集合合并</label>
                     </Field>
                 {/if}
 
                 {#if false}
-                    <!-- for now hide the explicit delete control and eventually enable/remove based on the users feedback -->
+                    <!-- 暂时隐藏显式删除控制，根据用户反馈决定是否启用/移除 -->
                     <Field class="form-field form-field-toggle" let:uniqueId>
                         <input
                             type="checkbox"
@@ -329,7 +329,7 @@
                             bind:checked={deleteMissing}
                             disabled={!isValid}
                         />
-                        <label for={uniqueId}>Delete missing collections and schema fields</label>
+                        <label for={uniqueId}>删除缺失的集合和字段</label>
                     </Field>
                 {/if}
 
@@ -339,19 +339,19 @@
                             <i class="ri-information-line" />
                         </div>
                         <div class="content">
-                            <string>Your collections configuration is already up-to-date!</string>
+                            <string>您的集合配置已是最新！</string>
                         </div>
                     </div>
                 {/if}
 
                 {#if isValid && newCollections.length && hasChanges}
-                    <h5 class="section-title">Detected changes</h5>
+                    <h5 class="section-title">检测到的变更</h5>
 
                     <div class="list">
                         {#if collectionsToDelete.length}
                             {#each collectionsToDelete as collection (collection.id)}
                                 <div class="list-item">
-                                    <span class="label label-danger list-label">Deleted</span>
+                                    <span class="label label-danger list-label">已删除</span>
                                     <div class="inline-flex flex-gap-5">
                                         <strong>{collection.name}</strong>
                                         {#if collection.id}
@@ -365,7 +365,7 @@
                         {#if collectionsToUpdate.length}
                             {#each collectionsToUpdate as pair (pair.old.id + pair.new.id)}
                                 <div class="list-item">
-                                    <span class="label label-warning list-label">Changed</span>
+                                    <span class="label label-warning list-label">已更改</span>
                                     <div class="inline-flex flex-gap-5">
                                         {#if pair.old.name !== pair.new.name}
                                             <strong class="txt-strikethrough txt-hint">
@@ -385,7 +385,7 @@
                         {#if collectionsToAdd.length}
                             {#each collectionsToAdd as collection (collection.id)}
                                 <div class="list-item">
-                                    <span class="label label-success list-label">Added</span>
+                                    <span class="label label-success list-label">已添加</span>
                                     <div class="inline-flex flex-gap-5">
                                         <strong>{collection.name}</strong>
                                         {#if collection.id}
@@ -405,9 +405,7 @@
                         </div>
                         <div class="content">
                             <string>
-                                Some of the imported collections share the same name and/or fields but are
-                                imported with different IDs. You can replace them in the import if you want
-                                to.
+                                部分导入的集合名称和/或字段相同但使用了不同的ID。您可以选择替换它们。
                             </string>
                         </div>
                         <button
@@ -415,7 +413,7 @@
                             class="btn btn-warning btn-sm btn-outline"
                             on:click={() => replaceIds()}
                         >
-                            <span class="txt">Replace with original ids</span>
+                            <span class="txt">替换为原始ID</span>
                         </button>
                     </div>
                 {/if}
@@ -423,7 +421,7 @@
                 <div class="flex m-t-base">
                     {#if !!schemas}
                         <button type="button" class="btn btn-transparent link-hint" on:click={() => clear()}>
-                            <span class="txt">Clear</span>
+                            <span class="txt">清空</span>
                         </button>
                     {/if}
                     <div class="flex-fill" />
@@ -433,7 +431,7 @@
                         disabled={!canImport}
                         on:click={review}
                     >
-                        <span class="txt">Review</span>
+                        <span class="txt">审核</span>
                     </button>
                 </div>
             {/if}

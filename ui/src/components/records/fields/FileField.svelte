@@ -151,7 +151,7 @@
                                 class="txt-ellipsis {isDeleted
                                     ? 'txt-strikethrough link-hint'
                                     : 'link-primary'}"
-                                title="Download"
+                                title="下载"
                                 on:auxclick={() => openInNewTab(filename)}
                                 on:click={() => openInNewTab(filename)}
                             >
@@ -166,13 +166,13 @@
                                     class="btn btn-sm btn-danger btn-transparent"
                                     on:click={() => restoreExistingFile(filename)}
                                 >
-                                    <span class="txt">Restore</span>
+                                    <span class="txt">恢复</span>
                                 </button>
                             {:else}
                                 <button
                                     type="button"
                                     class="btn btn-transparent btn-hint btn-sm btn-circle btn-remove"
-                                    use:tooltip={"Remove file"}
+                                    use:tooltip={"移除文件"}
                                     on:click={() => removeExistingFile(filename)}
                                 >
                                     <i class="ri-close-line" />
@@ -197,13 +197,13 @@
                             <UploadedFilePreview {file} />
                         </figure>
                         <div class="filename m-r-auto" title={file.name}>
-                            <small class="label label-success m-r-5">New</small>
+                            <small class="label label-success m-r-5">新增</small>
                             <span class="txt">{file.name}</span>
                         </div>
                         <button
                             type="button"
                             class="btn btn-transparent btn-hint btn-sm btn-circle btn-remove"
-                            use:tooltip={"Remove file"}
+                            use:tooltip={"移除文件"}
                             on:click={() => removeNewFile(i)}
                         >
                             <i class="ri-close-line" />
@@ -234,7 +234,7 @@
                     on:click={() => fileInput?.click()}
                 >
                     <i class="ri-upload-cloud-line" />
-                    <span class="txt">Upload new file</span>
+                    <span class="txt">上传新文件</span>
                 </button>
             </div>
         </div>

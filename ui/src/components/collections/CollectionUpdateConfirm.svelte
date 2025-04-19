@@ -60,7 +60,7 @@
         ) {
             panel?.show();
         } else {
-            // no changes to review -> confirm directly
+            // 没有需要审查的变更 -> 直接确认
             confirm();
         }
     }
@@ -93,7 +93,7 @@
                 continue;
             }
 
-            // check if there are existing externalAuths
+            // 检查是否存在现有的外部认证
             if (await haveExternalAuths(name)) {
                 conflictingOIDCs.push({ name, oldHost, newHost });
             }
@@ -121,7 +121,7 @@
     function detectRulesChange() {
         changedRules = [];
 
-        // for now enable only for "production"
+        // 目前仅对"生产"环境启用
         if (window.location.protocol != "https:") {
             return;
         }
@@ -149,7 +149,7 @@
 
 <OverlayPanel bind:this={panel} class="confirm-changes-panel" popup on:hide on:show>
     <svelte:fragment slot="header">
-        <h4>Confirm collection changes</h4>
+        <h4>确认集合变更</h4>
     </svelte:fragment>
 
     {#if isCollectionRenamed || deletedFields.length || renamedFields.length}
@@ -159,23 +159,23 @@
             </div>
             <div class="content txt-bold">
                 <p>
-                    If any of the collection changes is part of another collection rule, filter or view query,
-                    you'll have to update it manually!
+                    如果任何集合变更是其他集合规则、过滤器或视图查询的一部分，
+                    您需要手动更新它们！
                 </p>
                 {#if deletedFields.length}
-                    <p>All data associated with the removed fields will be permanently deleted!</p>
+                    <p>所有与被删除字段关联的数据将被永久删除！</p>
                 {/if}
             </div>
         </div>
     {/if}
 
     {#if showChanges}
-        <h6>Changes:</h6>
+        <h6>变更内容：</h6>
         <ul class="changes-list">
             {#if isCollectionRenamed}
                 <li>
                     <div class="inline-flex">
-                        Renamed collection
+                        重命名集合
                         <strong class="txt-strikethrough txt-hint">{oldCollection?.name}</strong>
                         <i class="ri-arrow-right-line txt-sm" />
                         <strong class="txt"> {newCollection?.name}</strong>
@@ -186,16 +186,15 @@
             {#if !isNewCollectionView}
                 {#each multipleToSingleFields as field}
                     <li>
-                        Multiple to single value conversion of field
-                        <strong>{field.name}</strong>
-                        <em class="txt-sm">(will keep only the last array item)</em>
+                        将字段 <strong>{field.name}</strong> 从多值转换为单值
+                        <em class="txt-sm">(将只保留最后一个数组项)</em>
                     </li>
                 {/each}
 
                 {#each renamedFields as field}
                     <li>
                         <div class="inline-flex">
-                            Renamed field
+                            重命名字段
                             <strong class="txt-strikethrough txt-hint">{field._originalName}</strong>
                             <i class="ri-arrow-right-line txt-sm" />
                             <strong class="txt">{field.name}</strong>
@@ -205,29 +204,29 @@
 
                 {#each deletedFields as field}
                     <li class="txt-danger">
-                        Removed field <span class="txt-bold">{field.name}</span>
+                        删除字段 <span class="txt-bold">{field.name}</span>
                     </li>
                 {/each}
             {/if}
 
             {#each changedRules as ruleChange}
                 <li>
-                    Changed API rule <code class="txt-sm">{ruleChange.prop}</code>:
+                    更改API规则 <code class="txt-sm">{ruleChange.prop}</code>:
                     <br />
                     <small class="txt-mono txt-hint">
-                        <strong>Old</strong>:
+                        <strong>旧值</strong>:
                         <span class="txt-preline">
                             {ruleChange.oldRule === null
-                                ? "null (superusers only)"
+                                ? "null (仅超级用户)"
                                 : ruleChange.oldRule || '""'}
                         </span>
                     </small>
                     <br />
                     <small class="txt-mono txt-success">
-                        <strong>New</strong>:
+                        <strong>新值</strong>:
                         <span class="txt-preline">
                             {ruleChange.newRule === null
-                                ? "null (superusers only)"
+                                ? "null (仅超级用户)"
                                 : ruleChange.newRule || '""'}
                         </span>
                     </small>
@@ -236,7 +235,7 @@
 
             {#each conflictingOIDCs as oidc}
                 <li>
-                    Changed <code>{oidc.name}</code> host
+                    更改 <code>{oidc.name}</code> 主机
                     <div class="inline-flex m-l-5">
                         <strong class="txt-strikethrough txt-hint">{oidc.oldHost}</strong>
                         <i class="ri-arrow-right-line txt-sm" />
@@ -244,11 +243,11 @@
                     </div>
                     <br />
                     <em class="txt-hint">
-                        If the old and new OIDC configuration is not for the same provider consider deleting
-                        all old <code class="txt-sm">_externalAuths</code> records associated to the current
-                        collection and provider, otherwise it may result in account linking errors.
+                        如果新旧OIDC配置不是针对同一提供者，请考虑删除
+                        当前集合和提供者关联的所有旧 <code class="txt-sm">_externalAuths</code> 记录，
+                        否则可能导致账户链接错误。
                         <a href={getExternalAuthsFilterLink(oidc.name)} target="_blank">
-                            Review existing <code class="txt-sm">_externalAuths</code> records
+                            查看现有的 <code class="txt-sm">_externalAuths</code> 记录
                             <i class="ri-external-link-line txt-sm"></i>
                         </a>.
                     </em>
@@ -260,10 +259,10 @@
     <svelte:fragment slot="footer">
         <!-- svelte-ignore a11y-autofocus -->
         <button autofocus type="button" class="btn btn-transparent" on:click={() => hide()}>
-            <span class="txt">Cancel</span>
+            <span class="txt">取消</span>
         </button>
         <button type="button" class="btn btn-expanded" on:click={() => confirm()}>
-            <span class="txt">Confirm</span>
+            <span class="txt">确认</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

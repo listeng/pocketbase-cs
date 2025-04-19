@@ -61,9 +61,9 @@
 
     {#if panel?.isActive()}
         {#if type === "image"}
-            <img src={url} alt="Preview {filename}" />
+            <img src={url} alt="预览 {filename}" />
         {:else}
-            <object title={filename} data={url}>Cannot preview the file.</object>
+            <object title={filename} data={url}>无法预览该文件。</object>
         {/if}
     {/if}
 
@@ -79,6 +79,6 @@
             <i class="ri-external-link-line" />
         </button>
         <div class="flex-fill" />
-        <button type="button" class="btn btn-transparent" on:click={hide}>Close</button>
+        <button type="button" class="btn btn-transparent" on:click={hide}>关闭</button>
     </svelte:fragment>
 </OverlayPanel>

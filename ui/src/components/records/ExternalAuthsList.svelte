@@ -50,13 +50,13 @@
         }
 
         confirm(
-            `Do you really want to unlink the ${getProviderTitle(externalAuth.provider)} provider?`,
+            `确定要解除${getProviderTitle(externalAuth.provider)}提供商的关联吗？`,
             () => {
                 return ApiClient.collection("_externalAuths")
                     .delete(externalAuth.id)
                     .then(() => {
                         addSuccessToast(
-                            `Successfully unlinked the ${getProviderTitle(externalAuth.provider)} provider.`,
+                            `成功解除${getProviderTitle(externalAuth.provider)}提供商的关联`,
                         );
                         dispatch("unlink", externalAuth.provider);
                         loadExternalAuths(); // reload list
@@ -82,7 +82,7 @@
                 <figure class="provider-logo">
                     <img
                         src="{import.meta.env.BASE_URL}images/oauth2/{getProviderConfig(auth.provider)?.logo}"
-                        alt="Provider logo"
+                        alt="提供商标志"
                     />
                 </figure>
                 <span class="txt">{getProviderTitle(auth.provider)}</span>
@@ -98,5 +98,5 @@
         {/each}
     </div>
 {:else}
-    <h6 class="txt-hint txt-center m-t-sm m-b-sm">No linked OAuth2 providers.</h6>
+    <h6 class="txt-hint txt-center m-t-sm m-b-sm">没有关联的OAuth2提供商。</h6>
 {/if}

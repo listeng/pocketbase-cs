@@ -54,7 +54,7 @@
 
             isSubmitting = false;
 
-            addSuccessToast("Successfully generated client secret.");
+            addSuccessToast("成功生成客户端密钥");
 
             dispatch("submit", result);
 
@@ -77,39 +77,39 @@
     on:hide
 >
     <svelte:fragment slot="header">
-        <h4 class="center txt-break">Generate Apple client secret</h4>
+        <h4 class="center txt-break">生成 Apple 客户端密钥</h4>
     </svelte:fragment>
 
     <form id={formId} autocomplete="off" on:submit|preventDefault={() => submit()}>
         <div class="grid">
             <div class="col-lg-6">
                 <Field class="form-field required" name="clientId" let:uniqueId>
-                    <label for={uniqueId}>Client ID</label>
+                    <label for={uniqueId}>客户端 ID</label>
                     <input type="text" id={uniqueId} bind:value={clientId} required />
                 </Field>
             </div>
             <div class="col-lg-6">
                 <Field class="form-field required" name="teamId" let:uniqueId>
-                    <label for={uniqueId}>Team ID</label>
+                    <label for={uniqueId}>团队 ID</label>
                     <input type="text" id={uniqueId} bind:value={teamId} required />
                 </Field>
             </div>
             <div class="col-lg-6">
                 <Field class="form-field required" name="keyId" let:uniqueId>
-                    <label for={uniqueId}>Key ID</label>
+                    <label for={uniqueId}>密钥 ID</label>
                     <input type="text" id={uniqueId} bind:value={keyId} required />
                 </Field>
             </div>
             <div class="col-lg-6">
                 <Field class="form-field required" name="duration" let:uniqueId>
                     <label for={uniqueId}>
-                        <span class="txt">Duration (in seconds)</span>
+                        <span class="txt">有效期（秒）</span>
                         <i
                             class="ri-information-line link-hint"
                             use:tooltip={{
-                                text: `Max ${maxDuration} seconds (~${
+                                text: `最长 ${maxDuration} 秒（约${
                                     (maxDuration / (60 * 60 * 24 * 30)) << 0
-                                } months).`,
+                                } 个月）`,
                                 position: "top",
                             }}
                         />
@@ -119,7 +119,7 @@
             </div>
 
             <Field class="form-field required" name="privateKey" let:uniqueId>
-                <label for={uniqueId}>Private key</label>
+                <label for={uniqueId}>私钥</label>
                 <textarea
                     id={uniqueId}
                     required
@@ -128,7 +128,7 @@
                     bind:value={privateKey}
                 />
                 <div class="help-block">
-                    The key is not stored on the server and it is used only for generating the signed JWT.
+                    该密钥不会存储在服务器上，仅用于生成签名的 JWT。
                 </div>
             </Field>
         </div>
@@ -136,7 +136,7 @@
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={hide} disabled={isSubmitting}
-            >Close</button
+            >关闭</button
         >
         <button
             type="submit"
@@ -146,7 +146,7 @@
             disabled={!canSubmit || isSubmitting}
         >
             <i class="ri-key-line" />
-            <span class="txt">Generate and set secret</span>
+            <span class="txt">生成并设置密钥</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

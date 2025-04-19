@@ -9,9 +9,9 @@
     const ON_CREATE_UPDATE = 3;
 
     const options = [
-        { label: "Create", value: ON_CREATE },
-        { label: "Update", value: ON_UPDATE },
-        { label: "Create/Update", value: ON_CREATE_UPDATE },
+        { label: "创建时", value: ON_CREATE },
+        { label: "更新时", value: ON_UPDATE },
+        { label: "创建/更新时", value: ON_CREATE_UPDATE },
     ];
 
     export let field;
@@ -62,7 +62,7 @@
             inlineError
             let:uniqueId
         >
-            <div use:tooltip={{ text: "Auto set on:", position: "top" }}>
+            <div use:tooltip={{ text: "自动设置于:", position: "top" }}>
                 <ObjectSelect
                     id={uniqueId}
                     items={options}

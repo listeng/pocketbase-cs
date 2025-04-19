@@ -48,6 +48,6 @@
 </script>
 
 <div class="inline-flex flex-gap-5 records-counter {classes}">
-    <span class="txt">Total found:</span>
+    <span class="txt">总计找到:</span>
     <span class="txt">{!isLoading ? totalCount : "..."}</span>
 </div>

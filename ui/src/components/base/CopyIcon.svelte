@@ -4,7 +4,7 @@
     import tooltipAction from "@/actions/tooltip";
 
     export let value = "";
-    export let tooltip = "Copy";
+    export let tooltip = "复制";
     export let idleClasses = "ri-file-copy-line txt-sm link-hint";
     export let successClasses = "ri-check-line txt-sm txt-success";
     export let successDuration = 500; // ms
@@ -39,7 +39,7 @@
     tabindex="-1"
     role="button"
     class={copyTimeout ? successClasses : idleClasses}
-    aria-label={"Copy to clipboard"}
+    aria-label={"复制到剪贴板"}
     use:tooltipAction={!copyTimeout ? tooltip : undefined}
     on:click|stopPropagation={copy}
 />

@@ -98,7 +98,7 @@
             } else if (err.status != 400) {
                 ApiClient.error(err);
             } else {
-                addErrorToast("Invalid login credentials.");
+                addErrorToast("无效的登录凭证。");
             }
         }
 
@@ -153,7 +153,7 @@
 <FullPage>
     <div class="content txt-center m-b-base">
         <h4>
-            Superuser login
+            超级用户登录
             {#if totalSteps > 1}
                 ({currentStep}/{totalSteps})
             {/if}
@@ -169,7 +169,7 @@
         <form class="block" on:submit|preventDefault={authWithPassword}>
             <Field class="form-field required" name="identity" let:uniqueId>
                 <label for={uniqueId}>
-                    {CommonHelper.sentenize(authMethods.password.identityFields.join(" or "), false)}
+                    {CommonHelper.sentenize(authMethods.password.identityFields.join(" 或 "), false)}
                 </label>
                 <!-- svelte-ignore a11y-autofocus -->
                 <input
@@ -188,10 +188,10 @@
             </Field>
 
             <Field class="form-field required" name="password" let:uniqueId>
-                <label for={uniqueId}>Password</label>
+                <label for={uniqueId}>密码</label>
                 <input type="password" id={uniqueId} bind:value={password} required />
                 <div class="help-block">
-                    <a href="/request-password-reset" class="link-hint" use:link>Forgotten password?</a>
+                    <a href="/request-password-reset" class="link-hint" use:link>忘记密码？</a>
                 </div>
             </Field>
 
@@ -201,7 +201,7 @@
                 class:btn-disabled={passwordAuthSubmitting}
                 class:btn-loading={passwordAuthSubmitting}
             >
-                <span class="txt">{totalSteps > 1 ? "Next" : "Login"}</span>
+                <span class="txt">{totalSteps > 1 ? "下一步" : "登录"}</span>
                 <i class="ri-arrow-right-line" />
             </button>
         </form>
@@ -210,7 +210,7 @@
             <!-- request otp -->
             <form class="block" on:submit|preventDefault={requestOTP}>
                 <Field class="form-field required" name="email" let:uniqueId>
-                    <label for={uniqueId}>Email</label>
+                    <label for={uniqueId}>邮箱</label>
                     <input type="email" id={uniqueId} bind:value={otpEmail} required />
                 </Field>
 
@@ -221,15 +221,14 @@
                     class:btn-loading={otpRequestSubmitting}
                 >
                     <i class="ri-mail-send-line" />
-                    <span class="txt">Send OTP</span>
+                    <span class="txt">发送OTP</span>
                 </button>
             </form>
         {:else}
             {#if otpEmail}
                 <div class="content txt-center m-b-sm">
                     <p>
-                        Check your <strong>{otpEmail}</strong> inbox and enter in the input below the received
-                        One-time password (OTP).
+                        请检查您的 <strong>{otpEmail}</strong> 邮箱，并在下方输入收到的一次性密码(OTP)。
                     </p>
                 </div>
             {/if}
@@ -237,7 +236,7 @@
             <!-- auth with otp -->
             <form class="block" on:submit|preventDefault={authWithOTP}>
                 <Field class="form-field required" name="otpId" let:uniqueId>
-                    <label for={uniqueId}>Id</label>
+                    <label for={uniqueId}>ID</label>
                     <input
                         type="text"
                         id={uniqueId}
@@ -252,7 +251,7 @@
                 </Field>
 
                 <Field class="form-field required" name="password" let:uniqueId>
-                    <label for={uniqueId}>One-time password</label>
+                    <label for={uniqueId}>一次性密码</label>
                     <!-- svelte-ignore a11y-autofocus -->
                     <input type="password" id={uniqueId} bind:value={otpPassword} required autofocus />
                 </Field>
@@ -263,7 +262,7 @@
                     class:btn-disabled={otpAuthSubmitting}
                     class:btn-loading={otpAuthSubmitting}
                 >
-                    <span class="txt">Login</span>
+                    <span class="txt">登录</span>
                     <i class="ri-arrow-right-line" />
                 </button>
             </form>
@@ -277,7 +276,7 @@
                         otpId = "";
                     }}
                 >
-                    Request another OTP
+                    重新请求OTP
                 </button>
             </div>
         {/if}

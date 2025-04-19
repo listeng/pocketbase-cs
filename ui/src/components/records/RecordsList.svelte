@@ -257,9 +257,7 @@
     }
 
     function deleteSelectedConfirm() {
-        const msg = `Do you really want to delete the selected ${
-            totalBulkSelected === 1 ? "record" : "records"
-        }?`;
+        const msg = `确定要删除选中的${totalBulkSelected === 1 ? "记录" : "记录"}吗？`;
 
         confirm(msg, deleteSelected);
     }
@@ -279,7 +277,7 @@
         return Promise.all(promises)
             .then(() => {
                 addSuccessToast(
-                    `Successfully deleted the selected ${totalBulkSelected === 1 ? "record" : "records"}.`,
+                    `成功删除选中的${totalBulkSelected === 1 ? "记录" : "记录"}。`,
                 );
 
                 dispatch("delete", bulkSelected);
@@ -305,7 +303,7 @@
                 class="dropdown dropdown-right dropdown-nowrap columns-dropdown"
                 trigger={columnsTrigger}
             >
-                <div class="txt-hint txt-sm p-5 m-b-5">Toggle columns</div>
+                <div class="txt-hint txt-sm p-5 m-b-5">切换列</div>
                 {#each collumnsToHide as column (column.id + column.name)}
                     <Field class="form-field form-field-sm form-field-toggle m-0 p-5" let:uniqueId>
                         <input
@@ -372,7 +370,7 @@
                         <button
                             bind:this={columnsTrigger}
                             type="button"
-                            aria-label="Toggle columns"
+                            aria-label="切换列"
                             class="btn btn-sm btn-transparent p-0"
                         >
                             <i class="ri-more-line" />
@@ -430,14 +428,14 @@
                 {:else}
                     <tr>
                         <td colspan="99" class="txt-center txt-hint p-xs">
-                            <h6>No records found.</h6>
+                            <h6>未找到记录。</h6>
                             {#if filter?.length}
                                 <button
                                     type="button"
                                     class="btn btn-hint btn-expanded m-t-sm"
                                     on:click={() => (filter = "")}
                                 >
-                                    <span class="txt">Clear filters</span>
+                                    <span class="txt">清除筛选</span>
                                 </button>
                             {:else if !isView}
                                 <button
@@ -446,7 +444,7 @@
                                     on:click={() => dispatch("new")}
                                 >
                                     <i class="ri-add-line" />
-                                    <span class="txt">New record</span>
+                                    <span class="txt">新建记录</span>
                                 </button>
                             {/if}
                         </td>
@@ -463,7 +461,7 @@
                             class:btn-loading={isLoading}
                             on:click|preventDefault={() => load(currentPage + 1)}
                         >
-                            <span class="txt">Load more</span>
+                            <span class="txt">加载更多</span>
                         </button>
                     </td>
                 </tr>
@@ -475,8 +473,8 @@
 {#if totalBulkSelected}
     <div class="bulkbar" transition:fly={{ duration: 150, y: 5 }}>
         <div class="txt">
-            Selected <strong>{totalBulkSelected}</strong>
-            {totalBulkSelected === 1 ? "record" : "records"}
+            已选中 <strong>{totalBulkSelected}</strong>
+            {totalBulkSelected === 1 ? "条记录" : "条记录"}
         </div>
         <button
             type="button"
@@ -484,7 +482,7 @@
             class:btn-disabled={isDeleting}
             on:click={() => deselectAllRecords()}
         >
-            <span class="txt">Reset</span>
+            <span class="txt">重置</span>
         </button>
         <div class="flex-fill" />
         <button
@@ -494,7 +492,7 @@
             class:btn-disabled={isDeleting}
             on:click={() => deleteSelectedConfirm()}
         >
-            <span class="txt">Delete selected</span>
+            <span class="txt">删除选中</span>
         </button>
     </div>
 {/if}

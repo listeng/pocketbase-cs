@@ -20,7 +20,7 @@
         <button
             type="button"
             class="btn btn-transparent btn-circle"
-            use:tooltip={{ position: "left", text: "Set new value" }}
+            use:tooltip={{ position: "left", text: "设置新值" }}
             on:click|preventDefault={unlock}
         >
             <i class="ri-key-line" />

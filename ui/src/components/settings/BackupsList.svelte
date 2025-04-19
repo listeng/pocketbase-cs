@@ -26,7 +26,7 @@
         try {
             backups = await ApiClient.backups.getFullList();
 
-            // sort backups DESC by their modified date
+            // 按修改日期降序排序备份
             backups.sort((a, b) => {
                 if (a.modified < b.modified) {
                     return 1;
@@ -69,7 +69,7 @@
     }
 
     function deleteConfirm(name) {
-        confirm(`Do you really want to delete ${name}?`, () => deleteBackup(name));
+        confirm(`确定要删除 ${name} 吗？`, () => deleteBackup(name));
     }
 
     async function deleteBackup(name) {
@@ -83,7 +83,7 @@
             await ApiClient.backups.delete(name);
             CommonHelper.removeByKey(backups, "name", name);
             loadBackups();
-            addSuccessToast(`Successfully deleted ${name}.`);
+            addSuccessToast(`成功删除 ${name}。`);
         } catch (err) {
             if (!err.isAbort) {
                 ApiClient.error(err);
@@ -100,7 +100,7 @@
             const oldCanBackup = canBackup;
             canBackup = health?.data?.canBackup || false;
 
-            // reload backups list
+            // 重新加载备份列表
             if (oldCanBackup != canBackup && canBackup) {
                 loadBackups();
             }
@@ -142,8 +142,8 @@
                             class="btn btn-sm btn-circle btn-hint btn-transparent"
                             class:btn-loading={isDownloading[backup.key]}
                             disabled={isDeleting[backup.key] || isDownloading[backup.key]}
-                            aria-label="Download"
-                            use:tooltip={"Download"}
+                            aria-label="下载"
+                            use:tooltip={"下载"}
                             on:click|preventDefault={() => download(backup.key)}
                         >
                             <i class="ri-download-line" />
@@ -152,8 +152,8 @@
                             type="button"
                             class="btn btn-sm btn-circle btn-hint btn-transparent"
                             disabled={isDeleting[backup.key]}
-                            aria-label="Restore"
-                            use:tooltip={"Restore"}
+                            aria-label="恢复"
+                            use:tooltip={"恢复"}
                             on:click|preventDefault={() => restorePanel.show(backup.key)}
                         >
                             <i class="ri-restart-line" />
@@ -163,8 +163,8 @@
                             class="btn btn-sm btn-circle btn-hint btn-transparent"
                             class:btn-loading={isDeleting[backup.key]}
                             disabled={isDeleting[backup.key]}
-                            aria-label="Delete"
-                            use:tooltip={"Delete"}
+                            aria-label="删除"
+                            use:tooltip={"删除"}
                             on:click|preventDefault={() => deleteConfirm(backup.key)}
                         >
                             <i class="ri-delete-bin-7-line" />
@@ -173,7 +173,7 @@
                 </div>
             {:else}
                 <div class="list-item list-item-placeholder">
-                    <span class="txt">No backups yet.</span>
+                    <span class="txt">暂无备份</span>
                 </div>
             {/each}
         {/if}
@@ -188,10 +188,10 @@
         >
             {#if canBackup}
                 <i class="ri-play-circle-line" />
-                <span class="txt">Initialize new backup</span>
+                <span class="txt">创建新备份</span>
             {:else}
                 <span class="loader loader-sm" />
-                <span class="txt">Backup/restore operation is in process</span>
+                <span class="txt">备份/恢复操作正在进行中</span>
             {/if}
         </button>
     </div>

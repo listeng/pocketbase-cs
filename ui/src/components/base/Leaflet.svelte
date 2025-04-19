@@ -63,7 +63,7 @@
             autoPan: true,
         }).addTo(map);
 
-        marker.bindTooltip("drag or right click anywhere on the map to move");
+        marker.bindTooltip("拖动或在地图上任意位置右键点击来移动");
 
         marker.on("moveend", (e) => {
             if (e.sourceTarget?._latlng) {
@@ -172,7 +172,7 @@
                     </button>
                 </div>
             {/if}
-            <input type="text" placeholder="Search address..." bind:value={searchTerm} />
+            <input type="text" placeholder="搜索地址..." bind:value={searchTerm} />
         </div>
         {#if searchTerm.length && searchResults.length}
             <div class="dropdown dropdown-sm dropdown-block">
@@ -180,7 +180,7 @@
                     <button
                         type="button"
                         class="dropdown-item"
-                        use:tooltip={"Select address coordinates"}
+                        use:tooltip={"选择地址坐标"}
                         on:click={() => select(result.lat, result.lon)}
                     >
                         {result.name}

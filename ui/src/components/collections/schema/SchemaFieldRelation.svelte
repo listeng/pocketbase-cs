@@ -10,13 +10,13 @@
     export let key = "";
 
     const isSingleOptions = [
-        { label: "Single", value: true },
-        { label: "Multiple", value: false },
+        { label: "单选", value: true },
+        { label: "多选", value: false },
     ];
 
     const defaultOptions = [
-        { label: "False", value: false },
-        { label: "True", value: true },
+        { label: "否", value: false },
+        { label: "是", value: true },
     ];
 
     let upsertPanel = null;
@@ -64,8 +64,8 @@
             <ObjectSelect
                 id={uniqueId}
                 searchable={selectCollections.length > 5}
-                selectPlaceholder={"Select collection *"}
-                noOptionsText="No collections found"
+                selectPlaceholder={"选择集合 *"}
+                noOptionsText="未找到集合"
                 selectionKey="id"
                 items={selectCollections}
                 readonly={!interactive || field.id}
@@ -79,7 +79,7 @@
                         on:click={() => upsertPanel?.show()}
                     >
                         <i class="ri-add-line" />
-                        <span class="txt">New collection</span>
+                        <span class="txt">新建集合</span>
                     </button>
                 </svelte:fragment>
             </ObjectSelect>
@@ -108,13 +108,13 @@
             {#if !isSingle}
                 <div class="col-sm-6">
                     <Field class="form-field" name="fields.{key}.minSelect" let:uniqueId>
-                        <label for={uniqueId}>Min select</label>
+                        <label for={uniqueId}>最小选择数</label>
                         <input
                             type="number"
                             id={uniqueId}
                             step="1"
                             min="0"
-                            placeholder="No min limit"
+                            placeholder="无最小限制"
                             value={field.minSelect || ""}
                             on:input={(e) => (field.minSelect = e.target.value << 0)}
                         />
@@ -122,12 +122,12 @@
                 </div>
                 <div class="col-sm-6">
                     <Field class="form-field" name="fields.{key}.maxSelect" let:uniqueId>
-                        <label for={uniqueId}>Max select</label>
+                        <label for={uniqueId}>最大选择数</label>
                         <input
                             type="number"
                             id={uniqueId}
                             step="1"
-                            placeholder="Default to single"
+                            placeholder="默认为单选"
                             min={field.minSelect || 1}
                             bind:value={field.maxSelect}
                         />
@@ -138,14 +138,14 @@
             <div class="col-sm-12">
                 <Field class="form-field" name="fields.{key}.cascadeDelete" let:uniqueId>
                     <label for={uniqueId}>
-                        <span class="txt">Cascade delete</span>
+                        <span class="txt">级联删除</span>
                         <!-- prettier-ignore -->
                         <i
                             class="ri-information-line link-hint"
                             use:tooltip={{
                                 text: [
-                                    `Whether on ${selectedColection?.name || "relation"} record deletion to delete also the current corresponding collection record(s).`,
-                                    !isSingle ? `For "Multiple" relation fields the cascade delete is triggered only when all ${selectedColection?.name || "relation"} ids are removed from the corresponding record.` : null
+                                    `当${selectedColection?.name || "关联"}记录被删除时，是否同时删除当前对应的集合记录。`,
+                                    !isSingle ? `对于"多选"关系字段，仅当从对应记录中移除所有${selectedColection?.name || "关联"}ID时才会触发级联删除。` : null
                                 ].filter(Boolean).join("\n\n"),
                                 position: "top",
                             }}

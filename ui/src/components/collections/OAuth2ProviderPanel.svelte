@@ -47,7 +47,7 @@
 
     async function remove() {
         confirm(
-            `Do you really want to remove the "${uiOptions.title}" OAuth2 provider from the collection?`,
+            `确定要从集合中移除"${uiOptions.title}" OAuth2 提供商吗？`,
             () => {
                 dispatch("remove", { uiOptions });
                 hide();
@@ -62,7 +62,7 @@
             {#if uiOptions.logo}
                 <img
                     src="{import.meta.env.BASE_URL}images/oauth2/{uiOptions.logo}"
-                    alt="{uiOptions.title} logo"
+                    alt="{uiOptions.title} 标志"
                 />
             {:else}
                 <i class="ri-puzzle-line txt-sm txt-hint"></i>
@@ -73,12 +73,12 @@
 
     <form id={formId} autocomplete="off" on:submit|preventDefault={() => submit()}>
         <Field class="form-field required" name="{errPrefix}.clientId" let:uniqueId>
-            <label for={uniqueId}>Client ID</label>
+            <label for={uniqueId}>客户端ID</label>
             <input type="text" id={uniqueId} bind:value={config.clientId} />
         </Field>
 
         <Field class="form-field required" name="{errPrefix}.clientSecret" let:uniqueId>
-            <label for={uniqueId}>Client secret</label>
+            <label for={uniqueId}>客户端密钥</label>
             <RedactedPasswordInput id={uniqueId} bind:mask={maskSecret} bind:value={config.clientSecret} />
         </Field>
 
@@ -99,17 +99,17 @@
             <button
                 type="button"
                 class="btn btn-transparent btn-circle btn-hint btn-sm"
-                aria-label="Remove provider"
-                use:tooltip={{ text: "Remove provider", position: "right" }}
+                aria-label="移除提供商"
+                use:tooltip={{ text: "移除提供商", position: "right" }}
                 on:click={remove}
             >
                 <i class="ri-delete-bin-7-line" aria-hidden="true" />
             </button>
             <div class="flex-fill"></div>
         {/if}
-        <button type="button" class="btn btn-transparent" on:click={hide}>Cancel</button>
+        <button type="button" class="btn btn-transparent" on:click={hide}>取消</button>
         <button type="submit" form={formId} class="btn btn-expanded" disabled={!hasChanges}>
-            <span class="txt">Set provider config</span>
+            <span class="txt">设置提供商配置</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

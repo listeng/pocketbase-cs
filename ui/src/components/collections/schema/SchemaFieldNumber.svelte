@@ -12,14 +12,14 @@
         <div class="grid grid-sm">
             <div class="col-sm-6">
                 <Field class="form-field" name="fields.{key}.min" let:uniqueId>
-                    <label for={uniqueId}>Min</label>
+                    <label for={uniqueId}>最小值</label>
                     <input type="number" id={uniqueId} bind:value={field.min} />
                 </Field>
             </div>
 
             <div class="col-sm-6">
                 <Field class="form-field" name="fields.{key}.max" let:uniqueId>
-                    <label for={uniqueId}>Max</label>
+                    <label for={uniqueId}>最大值</label>
                     <input type="number" id={uniqueId} min={field.min} bind:value={field.max} />
                 </Field>
             </div>
@@ -30,11 +30,11 @@
         <Field class="form-field form-field-toggle" name="fields.{key}.onlyInt" let:uniqueId>
             <input type="checkbox" id={uniqueId} bind:checked={field.onlyInt} />
             <label for={uniqueId}>
-                <span class="txt">No decimals</span>
+                <span class="txt">仅整数</span>
                 <i
                     class="ri-information-line link-hint"
                     use:tooltip={{
-                        text: `Existing decimal numbers will not be affected.`,
+                        text: `已有小数不会受到影响。`,
                     }}
                 />
             </label>

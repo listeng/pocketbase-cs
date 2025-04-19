@@ -48,7 +48,7 @@
     <FieldLabel {uniqueId} {field}>
         <span
             class="json-state"
-            use:tooltip={{ position: "left", text: isValid ? "Valid JSON" : "Invalid JSON" }}
+            use:tooltip={{ position: "left", text: isValid ? "有效的JSON" : "无效的JSON" }}
         >
             {#if isValid}
                 <i class="ri-checkbox-circle-fill txt-success" />
@@ -71,7 +71,7 @@
             }}
         />
     {:else}
-        <input type="text" class="txt-mono" value="Loading..." disabled />
+        <input type="text" class="txt-mono" value="加载中..." disabled />
     {/if}
 </Field>
 

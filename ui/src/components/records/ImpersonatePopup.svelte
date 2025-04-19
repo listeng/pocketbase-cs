@@ -68,7 +68,7 @@
     on:hide
 >
     <svelte:fragment slot="header">
-        <h4>Impersonate auth token</h4>
+        <h4>模拟身份验证令牌</h4>
     </svelte:fragment>
 
     <div class="clearfix"></div>
@@ -106,17 +106,16 @@
         <form id={formId} on:submit|preventDefault={submit}>
             <div class="content">
                 <p>
-                    Generate a non-refreshable auth token for
-                    <strong>{CommonHelper.displayValue(record)}:</strong>
+                    为 <strong>{CommonHelper.displayValue(record)}:</strong> 生成不可刷新的身份验证令牌
                 </p>
             </div>
 
             <Field class="form-field m-b-xs m-t-sm" name="duration" let:uniqueId>
-                <label for={uniqueId}>Token duration (in seconds)</label>
+                <label for={uniqueId}>令牌有效期（秒）</label>
                 <input
                     type="number"
                     id={uniqueId}
-                    placeholder="Default to the collection setting ({collection?.authToken?.duration || 0}s)"
+                    placeholder="默认为集合设置 ({collection?.authToken?.duration || 0}秒)"
                     min="0"
                     step="1"
                     value={duration || ""}
@@ -128,7 +127,7 @@
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={hide} disabled={isSubmitting}>
-            <span class="txt">Close</span>
+            <span class="txt">关闭</span>
         </button>
         {#if impersonateClient?.authStore?.token}
             <button
@@ -137,7 +136,7 @@
                 disabled={isSubmitting}
                 on:click={() => reset()}
             >
-                <span class="txt">Generate a new one</span>
+                <span class="txt">生成新令牌</span>
             </button>
         {:else}
             <button
@@ -148,7 +147,7 @@
                 disabled={isSubmitting}
                 on:click={() => submit()}
             >
-                <span class="txt">Generate token</span>
+                <span class="txt">生成令牌</span>
             </button>
         {/if}
     </svelte:fragment>

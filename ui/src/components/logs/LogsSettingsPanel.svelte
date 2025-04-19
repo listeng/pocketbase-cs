@@ -67,7 +67,7 @@
 
             hide();
 
-            addSuccessToast("Successfully saved logs settings.");
+            addSuccessToast("日志设置已成功保存");
 
             dispatch("save", settings);
         } catch (err) {
@@ -87,7 +87,7 @@
 
 <OverlayPanel bind:this={panel} popup class="superuser-panel" beforeHide={() => !isSaving} on:hide on:show>
     <svelte:fragment slot="header">
-        <h4>Logs settings</h4>
+        <h4>日志设置</h4>
     </svelte:fragment>
 
     {#if isLoading}
@@ -97,37 +97,37 @@
     {:else}
         <form id={formId} class="grid" autocomplete="off" on:submit|preventDefault={save}>
             <Field class="form-field required" name="logs.maxDays" let:uniqueId>
-                <label for={uniqueId}>Max days retention</label>
+                <label for={uniqueId}>最大保留天数</label>
                 <input type="number" id={uniqueId} required bind:value={formSettings.logs.maxDays} />
                 <div class="help-block">
-                    Set to <code>0</code> to disable logs persistence.
+                    设置为 <code>0</code> 禁用日志持久化
                 </div>
             </Field>
 
             <Field class="form-field" name="logs.minLevel" let:uniqueId>
-                <label for={uniqueId}>Min log level</label>
+                <label for={uniqueId}>最低日志级别</label>
                 <input type="number" required bind:value={formSettings.logs.minLevel} min="-100" max="100" />
                 <div class="help-block">
-                    <p>Logs with level below the minimum will be ignored.</p>
+                    <p>低于最低级别的日志将被忽略</p>
                     <LogsLevelsInfo />
                 </div>
             </Field>
 
             <Field class="form-field form-field-toggle" name="logs.logIP" let:uniqueId>
                 <input type="checkbox" id={uniqueId} bind:checked={formSettings.logs.logIP} />
-                <label for={uniqueId}>Enable IP logging</label>
+                <label for={uniqueId}>启用IP记录</label>
             </Field>
 
             <Field class="form-field form-field-toggle" name="logs.logAuthId" let:uniqueId>
                 <input type="checkbox" id={uniqueId} bind:checked={formSettings.logs.logAuthId} />
-                <label for={uniqueId}>Enable Auth Id logging</label>
+                <label for={uniqueId}>启用认证ID记录</label>
             </Field>
         </form>
     {/if}
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" disabled={isSaving} on:click={hide}>
-            <span class="txt">Cancel</span>
+            <span class="txt">取消</span>
         </button>
         <button
             type="submit"
@@ -136,7 +136,7 @@
             class:btn-loading={isSaving}
             disabled={!hasChanges || isSaving}
         >
-            <span class="txt">Save changes</span>
+            <span class="txt">保存更改</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

@@ -18,17 +18,17 @@
 <div class="block m-b-sm handle">
     <div class="flex txt-sm txt-hint m-b-5">
         <p>
-            All rules follow the
+            所有规则遵循
             <a href={import.meta.env.PB_RULES_SYNTAX_DOCS} target="_blank" rel="noopener noreferrer">
-                PocketBase filter syntax and operators
-            </a>.
+                PocketBase过滤语法和操作符
+            </a>。
         </p>
         <button
             type="button"
             class="expand-handle txt-sm txt-bold txt-nowrap link-hint"
             on:click={() => (showFiltersInfo = !showFiltersInfo)}
         >
-            {showFiltersInfo ? "Hide available fields" : "Show available fields"}
+            {showFiltersInfo ? "隐藏可用字段" : "显示可用字段"}
         </button>
     </div>
 
@@ -36,7 +36,7 @@
         <div transition:slide={{ duration: 150 }}>
             <div class="alert alert-warning m-0">
                 <div class="content">
-                    <p class="m-b-0">The following record fields are available:</p>
+                    <p class="m-b-0">以下记录字段可用：</p>
                     <div class="inline-flex flex-gap-5">
                         {#each fieldNames as name}
                             {#if !hiddenFieldNames.includes(name)}
@@ -48,7 +48,7 @@
                     <hr class="m-t-10 m-b-5" />
 
                     <p class="m-b-0">
-                        The request fields could be accessed with the special <em>@request</em> filter:
+                        请求字段可以通过特殊的 <em>@request</em> 过滤器访问：
                     </p>
                     <div class="inline-flex flex-gap-5">
                         <code>@request.headers.*</code>
@@ -60,8 +60,7 @@
                     <hr class="m-t-10 m-b-5" />
 
                     <p class="m-b-0">
-                        You could also add constraints and query other collections using the
-                        <em>@collection</em> filter:
+                        您还可以使用 <em>@collection</em> 过滤器添加约束和查询其他集合：
                     </p>
                     <div class="inline-flex flex-gap-5">
                         <code>@collection.ANY_COLLECTION_NAME.*</code>
@@ -70,7 +69,7 @@
                     <hr class="m-t-10 m-b-5" />
 
                     <p>
-                        Example rule:
+                        示例规则：
                         <br />
                         <code>@request.auth.id != "" && created > "2022-01-01 00:00:00"</code>
                     </p>
@@ -80,18 +79,18 @@
     {/if}
 </div>
 
-<RuleField label="List/Search rule" formKey="listRule" {collection} bind:rule={collection.listRule} />
+<RuleField label="列表/搜索规则" formKey="listRule" {collection} bind:rule={collection.listRule} />
 
-<RuleField label="View rule" formKey="viewRule" {collection} bind:rule={collection.viewRule} />
+<RuleField label="查看规则" formKey="viewRule" {collection} bind:rule={collection.viewRule} />
 
 {#if collection?.type !== "view"}
-    <RuleField label="Create rule" formKey="createRule" {collection} bind:rule={collection.createRule}>
+    <RuleField label="创建规则" formKey="createRule" {collection} bind:rule={collection.createRule}>
         <svelte:fragment slot="afterLabel" let:isSuperuserOnly>
             {#if !isSuperuserOnly}
                 <i
                     class="ri-information-line link-hint"
                     use:tooltip={{
-                        text: `The main record fields hold the values that are going to be inserted in the database.`,
+                        text: `主记录字段包含将要插入数据库的值。`,
                         position: "top",
                     }}
                 />
@@ -99,13 +98,13 @@
         </svelte:fragment>
     </RuleField>
 
-    <RuleField label="Update rule" formKey="updateRule" {collection} bind:rule={collection.updateRule}>
+    <RuleField label="更新规则" formKey="updateRule" {collection} bind:rule={collection.updateRule}>
         <svelte:fragment slot="afterLabel" let:isSuperuserOnly>
             {#if !isSuperuserOnly}
                 <i
                     class="ri-information-line link-hint"
                     use:tooltip={{
-                        text: `The main record fields represent the old/existing record field values.\nTo target the newly submitted ones you can use @request.body.*`,
+                        text: `主记录字段代表旧的/现有的记录字段值。\n要针对新提交的值，可以使用 @request.body.*`,
                         position: "top",
                     }}
                 />
@@ -113,7 +112,7 @@
         </svelte:fragment>
     </RuleField>
 
-    <RuleField label="Delete rule" formKey="deleteRule" {collection} bind:rule={collection.deleteRule} />
+    <RuleField label="删除规则" formKey="deleteRule" {collection} bind:rule={collection.deleteRule} />
 {/if}
 
 {#if collection?.type === "auth"}
@@ -126,7 +125,7 @@
             showExtraRules = !showExtraRules;
         }}
     >
-        <strong class="txt">Additional auth collection rules</strong>
+        <strong class="txt">额外的认证集合规则</strong>
         {#if showExtraRules}
             <i class="ri-arrow-up-s-line txt-sm" />
         {:else}
@@ -137,7 +136,7 @@
     {#if showExtraRules}
         <div class="block" transition:slide={{ duration: 150 }}>
             <RuleField
-                label="Authentication rule"
+                label="认证规则"
                 formKey="authRule"
                 placeholder=""
                 {collection}
@@ -145,20 +144,18 @@
             >
                 <svelte:fragment>
                     <p>
-                        This rule is executed every time before authentication allowing you to restrict who
-                        can authenticate.
+                        此规则在每次认证前执行，允许您限制谁可以进行认证。
                     </p>
                     <p>
-                        For example, to allow only verified users you can set it to
-                        <code>verified = true</code>.
+                        例如，仅允许已验证用户，可以设置为 <code>verified = true</code>。
                     </p>
-                    <p>Leave it empty to allow anyone with an account to authenticate.</p>
-                    <p>To disable authentication entirely you can change it to "Set superusers only".</p>
+                    <p>留空则允许任何有账户的用户认证。</p>
+                    <p>要完全禁用认证，可以改为"仅限超级用户"。</p>
                 </svelte:fragment>
             </RuleField>
 
             <RuleField
-                label="Manage rule"
+                label="管理规则"
                 formKey="manageRule"
                 placeholder=""
                 required={collection.manageRule !== null}
@@ -167,13 +164,10 @@
             >
                 <svelte:fragment>
                     <p>
-                        This rule is executed in addition to the <code>create</code> and <code>update</code> API
-                        rules.
+                        此规则在 <code>create</code> 和 <code>update</code> API 规则之外额外执行。
                     </p>
                     <p>
-                        It enables superuser-like permissions to allow fully managing the auth record(s), eg.
-                        changing the password without requiring to enter the old one, directly updating the
-                        verified state or email, etc.
+                        它提供类似超级用户的权限，允许完全管理认证记录，例如无需输入旧密码即可更改密码、直接更新验证状态或电子邮件等。
                     </p>
                 </svelte:fragment>
             </RuleField>

@@ -56,22 +56,22 @@
     <svelte:fragment slot="header">
         <div class="inline-flex">
             <i class="ri-lock-password-line"></i>
-            <span class="txt">Identity/Password</span>
+            <span class="txt">身份认证/密码</span>
         </div>
 
         <div class="flex-fill" />
 
         {#if collection.passwordAuth.enabled}
-            <span class="label label-success">Enabled</span>
+            <span class="label label-success">已启用</span>
         {:else}
-            <span class="label">Disabled</span>
+            <span class="label">已禁用</span>
         {/if}
 
         {#if hasErrors}
             <i
                 class="ri-error-warning-fill txt-danger"
                 transition:scale={{ duration: 150, start: 0.7 }}
-                use:tooltip={{ text: "Has errors", position: "left" }}
+                use:tooltip={{ text: "存在错误", position: "left" }}
             />
         {/if}
     </svelte:fragment>
@@ -83,12 +83,12 @@
             bind:checked={collection.passwordAuth.enabled}
             disabled={isSuperusers}
         />
-        <label for={uniqueId}>Enable</label>
+        <label for={uniqueId}>启用</label>
         {#if isSuperusers}
             <i
                 class="ri-information-line link-hint"
                 use:tooltip={{
-                    text: "Superusers are required to have password auth enabled.",
+                    text: "超级用户必须启用密码认证。",
                     position: "right",
                 }}
             />
@@ -97,7 +97,7 @@
 
     <Field class="form-field required m-0" name="passwordAuth.identityFields" let:uniqueId>
         <label for={uniqueId}>
-            <span class="txt">Unique identity fields</span>
+            <span class="txt">唯一身份字段</span>
         </label>
         <ObjectSelect
             items={identityFieldsOptions}

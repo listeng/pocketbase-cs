@@ -51,14 +51,14 @@
 
 <OverlayPanel bind:this={panel} on:show on:hide btnClose={false}>
     <svelte:fragment slot="header">
-        <h4 class="center txt-break">Add OAuth2 provider</h4>
+        <h4 class="center txt-break">添加 OAuth2 提供商</h4>
     </svelte:fragment>
 
     <Field class="searchbar m-b-sm" let:uniqueId>
         <label for={uniqueId} class="m-l-10 txt-xl">
             <i class="ri-search-line" />
         </label>
-        <input id={uniqueId} type="text" placeholder="Search provider" bind:value={searchTerm} />
+        <input id={uniqueId} type="text" placeholder="搜索提供商" bind:value={searchTerm} />
         {#if searchTerm != ""}
             <button
                 type="button"
@@ -66,7 +66,7 @@
                 transition:fly={{ duration: 150, x: 5 }}
                 on:click={() => (searchTerm = "")}
             >
-                <span class="txt">Clear</span>
+                <span class="txt">清除</span>
             </button>
         {/if}
     </Field>
@@ -91,10 +91,10 @@
             </div>
         {:else}
             <div class="flex inline-flex">
-                <span class="txt-hint">No providers to select.</span>
+                <span class="txt-hint">没有可选的提供商。</span>
                 {#if searchTerm != ""}
                     <button type="button" class="btn btn-sm btn-secondary" on:click={clearSearch}>
-                        Clear filter
+                        清除筛选
                     </button>
                 {/if}
             </div>
@@ -102,6 +102,6 @@
     </div>
 
     <svelte:fragment slot="footer">
-        <button type="button" class="btn btn-transparent" on:click={hide}>Cancel</button>
+        <button type="button" class="btn btn-transparent" on:click={hide}>取消</button>
     </svelte:fragment>
 </OverlayPanel>

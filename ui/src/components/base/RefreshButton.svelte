@@ -4,7 +4,7 @@
 
     const dispatch = createEventDispatcher();
 
-    let tooltipData = { text: "Refresh", position: "right" };
+    let tooltipData = { text: "刷新", position: "right" };
     export { tooltipData as tooltip };
 
     let classes = "";
@@ -33,7 +33,7 @@
 
 <button
     type="button"
-    aria-label="Refresh"
+    aria-label="刷新"
     class="btn btn-transparent btn-circle {classes}"
     class:refreshing={refreshTimeoutId}
     use:tooltip={tooltipData}

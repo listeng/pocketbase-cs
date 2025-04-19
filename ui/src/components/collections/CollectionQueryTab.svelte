@@ -61,16 +61,16 @@
 
 <Field class="form-field required {fieldsErrors.length ? 'error' : ''}" name="viewQuery" let:uniqueId>
     <label for={uniqueId}>
-        <span class="txt">Select query</span>
+        <span class="txt">选择查询</span>
     </label>
 
     {#if isCodeEditorComponentLoading}
-        <textarea disabled rows="7" placeholder="Loading..." />
+        <textarea disabled rows="7" placeholder="加载中..." />
     {:else}
         <svelte:component
             this={codeEditorComponent}
             id={uniqueId}
-            placeholder="eg. SELECT id, name from posts"
+            placeholder="例如：SELECT id, name from posts"
             language="sql-select"
             minHeight="150"
             on:change={() => {
@@ -84,20 +84,20 @@
 
     <div class="help-block">
         <ul>
-            <li>Wildcard columns (<code>*</code>) are not supported.</li>
+            <li>不支持通配符列 (<code>*</code>)。</li>
             <li>
-                The query must have a unique <code>id</code> column.
+                查询必须包含唯一的 <code>id</code> 列。
                 <br />
-                If your query doesn't have a suitable one, you can use the universal
-                <code>(ROW_NUMBER() OVER()) as id</code>.
+                如果您的查询没有合适的列，可以使用通用表达式
+                <code>(ROW_NUMBER() OVER()) as id</code>。
             </li>
             <li>
-                Expressions must be aliased with a valid formatted field name, e.g.
-                <code>MAX(balance) as maxBalance</code>.
+                表达式必须使用有效格式的字段名作为别名，例如
+                <code>MAX(balance) as maxBalance</code>。
             </li>
             <li>
-                Combined/multi-spaced expressions must be wrapped in parenthesis, e.g.
-                <code>(MAX(balance) + 1) as maxBalance</code>.
+                组合/多空格表达式必须用括号括起来，例如
+                <code>(MAX(balance) + 1) as maxBalance</code>。
             </li>
         </ul>
     </div>

@@ -5,27 +5,27 @@
 </script>
 
 <tr>
-    <td id="query-page">fields</td>
+    <td id="query-page">字段</td>
     <td>
-        <span class="label">String</span>
+        <span class="label">字符串</span>
     </td>
     <td>
         <p>
-            Comma separated string of the fields to return in the JSON response
-            <em>(by default returns all fields)</em>. Ex.:
+            以逗号分隔的字段字符串，用于指定JSON响应中返回的字段
+            <em>(默认返回所有字段)</em>。例如：
             <CodeBlock content="?fields=*,{prefix}expand.relField.name" />
         </p>
         <p>
-            <code>*</code> targets all keys from the specific depth level.
+            <code>*</code> 表示获取特定层级的所有键。
         </p>
-        <p>In addition, the following field modifiers are also supported:</p>
+        <p>此外，还支持以下字段修饰符：</p>
         <ul>
             <li>
                 <code>:excerpt(maxLength, withEllipsis?)</code>
                 <br />
-                Returns a short plain text version of the field string value.
+                返回字段字符串值的简短纯文本版本。
                 <br />
-                Ex.:
+                例如：
                 <code>?fields=*,{prefix}description:excerpt(200,true)</code>
             </li>
         </ul>

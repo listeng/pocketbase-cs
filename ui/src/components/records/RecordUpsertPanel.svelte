@@ -140,7 +140,7 @@
                 if (!err.isAbort) {
                     forceHide();
                     console.warn("resolveModel:", err);
-                    addErrorToast(`Unable to load record with id "${id}"`);
+                    addErrorToast(`无法加载ID为"${id}"的记录`);
                 }
             }
         }
@@ -281,7 +281,7 @@
                 result = await ApiClient.collection(collection.id).update(record.id, data);
             }
 
-            addSuccessToast(isNew ? "Successfully created record." : "Successfully updated record.");
+            addSuccessToast(isNew ? "记录创建成功。" : "记录更新成功。");
 
             deleteDraft();
 
@@ -316,12 +316,12 @@
             return; // nothing to delete
         }
 
-        confirm(`Do you really want to delete the selected record?`, () => {
+        confirm(`确定要删除选中的记录吗？`, () => {
             return ApiClient.collection(original.collectionId)
                 .delete(original.id)
                 .then(() => {
                     forceHide();
-                    addSuccessToast("Successfully deleted record.");
+                    addSuccessToast("记录删除成功。");
                     dispatch("delete", original);
                 })
                 .catch((err) => {
@@ -415,11 +415,11 @@
             return;
         }
 
-        confirm(`Do you really want to sent verification email to ${original.email}?`, () => {
+        confirm(`确定要发送验证邮件到 ${original.email} 吗？`, () => {
             return ApiClient.collection(collection.id)
                 .requestVerification(original.email)
                 .then(() => {
-                    addSuccessToast(`Successfully sent verification email to ${original.email}.`);
+                    addSuccessToast(`验证邮件已成功发送到 ${original.email}。`);
                 })
                 .catch((err) => {
                     ApiClient.error(err);
@@ -432,11 +432,11 @@
             return;
         }
 
-        confirm(`Do you really want to sent password reset email to ${original.email}?`, () => {
+        confirm(`确定要发送密码重置邮件到 ${original.email} 吗？`, () => {
             return ApiClient.collection(collection.id)
                 .requestPasswordReset(original.email)
                 .then(() => {
-                    addSuccessToast(`Successfully sent password reset email to ${original.email}.`);
+                    addSuccessToast(`密码重置邮件已成功发送到 ${original.email}。`);
                 })
                 .catch((err) => {
                     ApiClient.error(err);
@@ -446,7 +446,7 @@
 
     function duplicateConfirm() {
         if (hasChanges) {
-            confirm("You have unsaved changes. Do you really want to discard them?", () => {
+            confirm("您有未保存的更改。确定要丢弃这些更改吗？", () => {
                 duplicate();
             });
         } else {
@@ -488,7 +488,7 @@
 
     function copyJSON() {
         CommonHelper.copyToClipboard(JSON.stringify(original, null, 2));
-        addInfoToast("The record JSON was copied to your clipboard!", 3000);
+        addInfoToast("记录JSON已复制到剪贴板！", 3000);
     }
 </script>
 
@@ -504,7 +504,7 @@
     overlayClose={!isLoading}
     beforeHide={() => {
         if (hasChanges && confirmHide) {
-            confirm("You have unsaved changes. Do you really want to close the panel?", () => {
+            confirm("您有未保存的更改。确定要关闭面板吗？", () => {
                 forceHide();
             });
 
@@ -522,11 +522,11 @@
     <svelte:fragment slot="header">
         {#if isLoading}
             <span class="loader loader-sm" />
-            <h4 class="panel-title txt-hint">Loading...</h4>
+            <h4 class="panel-title txt-hint">加载中...</h4>
         {:else}
             <h4 class="panel-title">
-                {isNew ? "New" : "Edit"}
-                <strong>{collection?.name}</strong> record
+                {isNew ? "新建" : "编辑"}
+                <strong>{collection?.name}</strong> 记录
             </h4>
 
             {#if !isNew}
@@ -534,7 +534,7 @@
                 <div
                     tabindex="0"
                     role="button"
-                    aria-label="More record options"
+                    aria-label="更多记录选项"
                     class="btn btn-sm btn-circle btn-transparent flex-gap-0"
                 >
                     <i class="ri-more-line" aria-hidden="true" />
@@ -547,7 +547,7 @@
                                 on:click={() => sendVerificationEmail()}
                             >
                                 <i class="ri-mail-check-line" aria-hidden="true" />
-                                <span class="txt">Send verification email</span>
+                                <span class="txt">发送验证邮件</span>
                             </button>
                         {/if}
                         {#if isAuthCollection && original.email}
@@ -558,7 +558,7 @@
                                 on:click={() => sendPasswordResetEmail()}
                             >
                                 <i class="ri-mail-lock-line" aria-hidden="true" />
-                                <span class="txt">Send password reset email</span>
+                                <span class="txt">发送密码重置邮件</span>
                             </button>
                         {/if}
                         {#if isAuthCollection}
@@ -569,7 +569,7 @@
                                 on:click={() => impersonatePopup?.show()}
                             >
                                 <i class="ri-id-card-line" aria-hidden="true" />
-                                <span class="txt">Impersonate</span>
+                                <span class="txt">模拟登录</span>
                             </button>
                         {/if}
                         <button
@@ -579,7 +579,7 @@
                             on:click={() => copyJSON()}
                         >
                             <i class="ri-braces-line" aria-hidden="true" />
-                            <span class="txt">Copy raw JSON</span>
+                            <span class="txt">复制原始JSON</span>
                         </button>
                         <button
                             type="button"
@@ -588,7 +588,7 @@
                             on:click={() => duplicateConfirm()}
                         >
                             <i class="ri-file-copy-line" aria-hidden="true" />
-                            <span class="txt">Duplicate</span>
+                            <span class="txt">复制记录</span>
                         </button>
                         <hr />
                         <button
@@ -598,7 +598,7 @@
                             on:click|preventDefault|stopPropagation={() => deleteConfirm()}
                         >
                             <i class="ri-delete-bin-7-line" aria-hidden="true" />
-                            <span class="txt">Delete</span>
+                            <span class="txt">删除</span>
                         </button>
                     </Toggler>
                 </div>
@@ -613,7 +613,7 @@
                     class:active={activeTab === tabFormKey}
                     on:click={() => (activeTab = tabFormKey)}
                 >
-                    Account
+                    账户
                 </button>
                 <button
                     type="button"
@@ -621,7 +621,7 @@
                     class:active={activeTab === tabProviderKey}
                     on:click={() => (activeTab = tabProviderKey)}
                 >
-                    Authorized providers
+                    授权提供商
                 </button>
             </div>
         {/if}
@@ -644,20 +644,20 @@
                             <i class="ri-information-line" />
                         </div>
                         <div class="flex flex-gap-xs">
-                            The record has previous unsaved changes.
+                            该记录有之前未保存的更改。
                             <button
                                 type="button"
                                 class="btn btn-sm btn-secondary"
                                 on:click={() => restoreDraft()}
                             >
-                                Restore draft
+                                恢复草稿
                             </button>
                         </div>
                         <button
                             type="button"
                             class="close"
-                            aria-label="Discard draft"
-                            use:tooltip={"Discard draft"}
+                            aria-label="丢弃草稿"
+                            use:tooltip={"丢弃草稿"}
                             on:click|preventDefault={() => deleteDraft()}
                         >
                             <i class="ri-close-line" />
@@ -670,7 +670,7 @@
             <Field class="form-field {!isNew ? 'readonly' : ''}" name="id" let:uniqueId>
                 <label for={uniqueId}>
                     <i class={CommonHelper.getFieldTypeIcon("primary")} />
-                    <span class="txt">id</span>
+                    <span class="txt">ID</span>
                     <span class="flex-fill" />
                 </label>
                 {#if !isNew}
@@ -682,7 +682,7 @@
                     type="text"
                     id={uniqueId}
                     placeholder={!isLoading && !CommonHelper.isEmpty(idField?.autogeneratePattern)
-                        ? "Leave empty to auto generate..."
+                        ? "留空自动生成..."
                         : ""}
                     minlength={idField?.min || null}
                     maxlength={idField?.max || null}
@@ -751,21 +751,21 @@
             disabled={isSaving || isLoading}
             on:click={() => hide()}
         >
-            <span class="txt">Cancel</span>
+            <span class="txt">取消</span>
         </button>
 
         <div class="btns-group no-gap">
             <button
                 type="submit"
                 form={formId}
-                title="Save and close"
+                title="保存并关闭"
                 class="btn"
                 class:btn-expanded={isNew}
                 class:btn-expanded-sm={!isNew}
                 class:btn-loading={isSaving || isLoading}
                 disabled={!canSave || isSaving}
             >
-                <span class="txt">{isNew ? "Create" : "Save changes"}</span>
+                <span class="txt">{isNew ? "创建" : "保存更改"}</span>
             </button>
 
             {#if !isNew}
@@ -779,7 +779,7 @@
                             role="menuitem"
                             on:click={() => save(false)}
                         >
-                            <span class="txt">Save and continue</span>
+                            <span class="txt">保存并继续</span>
                         </button>
                     </Toggler>
                 </button>

@@ -18,7 +18,7 @@
                 })
                 .catch((err) => {
                     previewUrl = "";
-                    console.warn("Unable to generate thumb: ", err);
+                    console.warn("无法生成缩略图: ", err);
                 });
         } else {
             previewUrl = "";

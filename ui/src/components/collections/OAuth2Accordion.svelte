@@ -73,26 +73,26 @@
         {#if collection.oauth2.enabled}
             <span class="label" class:label-warning={!totalProviders} class:label-info={totalProviders > 0}>
                 {totalProviders}
-                {totalProviders == 1 ? "provider" : "providers"}
+                {totalProviders == 1 ? "提供商" : "提供商"}
             </span>
 
-            <span class="label label-success">Enabled</span>
+            <span class="label label-success">已启用</span>
         {:else}
-            <span class="label">Disabled</span>
+            <span class="label">已禁用</span>
         {/if}
 
         {#if hasErrors}
             <i
                 class="ri-error-warning-fill txt-danger"
                 transition:scale={{ duration: 150, start: 0.7 }}
-                use:tooltip={{ text: "Has errors", position: "left" }}
+                use:tooltip={{ text: "存在错误", position: "left" }}
             />
         {/if}
     </svelte:fragment>
 
     <Field class="form-field form-field-toggle" name="oauth2.enabled" let:uniqueId>
         <input type="checkbox" id={uniqueId} bind:checked={collection.oauth2.enabled} />
-        <label for={uniqueId}>Enable</label>
+        <label for={uniqueId}>启用</label>
     </Field>
 
     <div class="grid grid-sm">
@@ -115,15 +115,15 @@
                         {/if}
                     </figure>
                     <div class="content">
-                        <div class="title">{providerConfig.displayName || uiOptions?.title || "Custom"}</div>
+                        <div class="title">{providerConfig.displayName || uiOptions?.title || "自定义"}</div>
                         <em class="txt-hint txt-sm m-r-auto">{providerConfig.name}</em>
                     </div>
                     {#if uiOptions}
                         <button
                             type="button"
                             class="btn btn-circle btn-hint btn-transparent"
-                            aria-label="Provider settings"
-                            use:tooltip={{ text: "Edit config", position: "left" }}
+                            aria-label="提供商设置"
+                            use:tooltip={{ text: "编辑配置", position: "left" }}
                             on:click={() => {
                                 providerPanel?.show(uiOptions, providerConfig, i);
                             }}
@@ -140,7 +140,7 @@
                 on:click={() => providersListPanel?.show()}
             >
                 <i class="ri-add-line"></i>
-                <span class="txt">Add provider</span>
+                <span class="txt">添加提供商</span>
             </button>
         </div>
     </div>
@@ -150,7 +150,7 @@
         class="m-t-25 btn btn-sm {showMappedFields ? 'btn-secondary' : 'btn-hint btn-transparent'}"
         on:click={() => (showMappedFields = !showMappedFields)}
     >
-        <strong class="txt">Optional {collection.name} create fields map</strong>
+        <strong class="txt">可选的{collection.name}创建字段映射</strong>
         {#if showMappedFields}
             <i class="ri-arrow-up-s-line txt-sm" />
         {:else}
@@ -162,13 +162,13 @@
             <div class="grid grid-sm p-t-xs">
                 <div class="col-sm-6">
                     <Field class="form-field form-field-toggle" name="oauth2.mappedFields.name" let:uniqueId>
-                        <label for={uniqueId}>OAuth2 full name</label>
+                        <label for={uniqueId}>OAuth2全名</label>
                         <Select
                             id={uniqueId}
                             items={regularFieldOptions}
                             toggle={true}
                             zeroFunc={() => ""}
-                            selectPlaceholder={"Select field"}
+                            selectPlaceholder={"选择字段"}
                             bind:selected={collection.oauth2.mappedFields.name}
                         />
                     </Field>
@@ -179,26 +179,26 @@
                         name="oauth2.mappedFields.avatarURL"
                         let:uniqueId
                     >
-                        <label for={uniqueId}>OAuth2 avatar</label>
+                        <label for={uniqueId}>OAuth2头像</label>
                         <Select
                             id={uniqueId}
                             items={regularAndFileFieldOptions}
                             toggle={true}
                             zeroFunc={() => ""}
-                            selectPlaceholder={"Select field"}
+                            selectPlaceholder={"选择字段"}
                             bind:selected={collection.oauth2.mappedFields.avatarURL}
                         />
                     </Field>
                 </div>
                 <div class="col-sm-6">
                     <Field class="form-field form-field-toggle" name="oauth2.mappedFields.id" let:uniqueId>
-                        <label for={uniqueId}>OAuth2 id</label>
+                        <label for={uniqueId}>OAuth2 ID</label>
                         <Select
                             id={uniqueId}
                             items={regularFieldOptions}
                             toggle={true}
                             zeroFunc={() => ""}
-                            selectPlaceholder={"Select field"}
+                            selectPlaceholder={"选择字段"}
                             bind:selected={collection.oauth2.mappedFields.id}
                         />
                     </Field>
@@ -209,13 +209,13 @@
                         name="oauth2.mappedFields.username"
                         let:uniqueId
                     >
-                        <label for={uniqueId}>OAuth2 username</label>
+                        <label for={uniqueId}>OAuth2用户名</label>
                         <Select
                             id={uniqueId}
                             items={regularFieldOptions}
                             toggle={true}
                             zeroFunc={() => ""}
-                            selectPlaceholder={"Select field"}
+                            selectPlaceholder={"选择字段"}
                             bind:selected={collection.oauth2.mappedFields.username}
                         />
                     </Field>

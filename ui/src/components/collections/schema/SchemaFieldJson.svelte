@@ -12,7 +12,7 @@
 <SchemaField bind:field {key} on:rename on:remove on:duplicate {...$$restProps}>
     <svelte:fragment slot="options">
         <Field class="form-field m-b-sm" name="fields.{key}.maxSize" let:uniqueId>
-            <label for={uniqueId}>Max size <small>(bytes)</small></label>
+            <label for={uniqueId}>最大大小 <small>(字节)</small></label>
             <input
                 type="number"
                 id={uniqueId}
@@ -21,7 +21,7 @@
                 max={Number.MAX_SAFE_INTEGER}
                 value={field.maxSize || ""}
                 on:input={(e) => (field.maxSize = parseInt(e.target.value, 10))}
-                placeholder="Default to max ~5MB"
+                placeholder="默认约5MB"
             />
         </Field>
 
@@ -32,7 +32,7 @@
                 showInfo = !showInfo;
             }}
         >
-            <strong class="txt">String value normalizations</strong>
+            <strong class="txt">字符串值规范化</strong>
             {#if showInfo}
                 <i class="ri-arrow-up-s-line txt-sm" />
             {:else}
@@ -43,25 +43,23 @@
             <div class="block" transition:slide={{ duration: 150 }}>
                 <div class="alert alert-warning m-b-0 m-t-10">
                     <div class="content">
-                        In order to support seamlessly both <code>application/json</code> and
+                        为了同时无缝支持<code>application/json</code>和
                         <code>multipart/form-data</code>
-                        requests, the following normalization rules are applied if the <code>json</code> field
-                        is a
-                        <strong>plain string</strong>:
+                        请求，当<code>json</code>字段是
+                        <strong>纯字符串</strong>时，会应用以下规范化规则：
                         <ul>
-                            <li>"true" is converted to the json <code>true</code></li>
-                            <li>"false" is converted to the json <code>false</code></li>
-                            <li>"null" is converted to the json <code>null</code></li>
-                            <li>"[1,2,3]" is converted to the json <code>[1,2,3]</code></li>
+                            <li>"true"会被转换为json的<code>true</code></li>
+                            <li>"false"会被转换为json的<code>false</code></li>
+                            <li>"null"会被转换为json的<code>null</code></li>
+                            <li>"[1,2,3]"会被转换为json的<code>[1,2,3]</code></li>
                             <li>
-                                {'"{"a":1,"b":2}"'} is converted to the json <code>{'{"a":1,"b":2}'}</code>
+                                {'"{"a":1,"b":2}"'}会被转换为json的<code>{'{"a":1,"b":2}'}</code>
                             </li>
-                            <li>numeric strings are converted to json number</li>
-                            <li>double quoted strings are left as they are (aka. without normalizations)</li>
-                            <li>any other string (empty string too) is double quoted</li>
+                            <li>数字字符串会被转换为json数字</li>
+                            <li>双引号字符串会保持原样（即不进行规范化）</li>
+                            <li>任何其他字符串（包括空字符串）都会被加上双引号</li>
                         </ul>
-                        Alternatively, if you want to avoid the string value normalizations, you can wrap your
-                        data inside an object, eg.<code>{'{"data": anything}'}</code>
+                        或者，如果你想避免字符串值规范化，可以将数据包装在对象中，例如<code>{'{"data": 任意内容}'}</code>
                     </div>
                 </div>
             </div>

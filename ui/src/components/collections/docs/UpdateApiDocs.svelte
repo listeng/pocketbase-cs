@@ -80,27 +80,25 @@
     }
 </script>
 
-<h3 class="m-b-sm">Update ({collection.name})</h3>
+<h3 class="m-b-sm">更新 ({collection.name})</h3>
 <div class="content txt-lg m-b-sm">
-    <p>Update a single <strong>{collection.name}</strong> record.</p>
+    <p>更新单条 <strong>{collection.name}</strong> 记录。</p>
     <p>
-        Body parameters could be sent as <code>application/json</code> or
-        <code>multipart/form-data</code>.
+        请求体参数可以以 <code>application/json</code> 或
+        <code>multipart/form-data</code> 格式发送。
     </p>
     <p>
-        File upload is supported only via <code>multipart/form-data</code>.
+        仅支持通过 <code>multipart/form-data</code> 上传文件。
         <br />
-        For more info and examples you could check the detailed
+        更多信息和示例可查看详细的
         <a href={import.meta.env.PB_FILE_UPLOAD_DOCS} target="_blank" rel="noopener noreferrer">
-            Files upload and handling docs
-        </a>.
+            文件上传和处理文档
+        </a>。
     </p>
     {#if isAuth}
         <p>
             <em>
-                Note that in case of a password change all previously issued tokens for the current record
-                will be automatically invalidated and if you want your user to remain signed in you need to
-                reauthenticate manually after the update call.
+                注意：如果更改密码，当前记录之前颁发的所有令牌将自动失效，如果您希望用户保持登录状态，需要在更新调用后手动重新认证。
             </em>
         </p>
     {/if}
@@ -115,7 +113,7 @@ const pb = new PocketBase('${backendAbsUrl}');
 
 ...
 
-// example update data
+// 示例更新数据
 const data = ${JSON.stringify(getPayload(collection), null, 4)};
 
 const record = await pb.collection('${collection?.name}').update('RECORD_ID', data);
@@ -127,14 +125,14 @@ final pb = PocketBase('${backendAbsUrl}');
 
 ...
 
-// example update body
+// 示例更新请求体
 final body = <String, dynamic>${JSON.stringify(getPayload(collection), null, 2)};
 
 final record = await pb.collection('${collection?.name}').update('RECORD_ID', body: body);
     `}
 />
 
-<h6 class="m-b-xs">API details</h6>
+<h6 class="m-b-xs">API 详情</h6>
 <div class="alert alert-warning">
     <strong class="label label-primary">PATCH</strong>
     <div class="content">
@@ -143,137 +141,136 @@ final record = await pb.collection('${collection?.name}').update('RECORD_ID', bo
         </p>
     </div>
     {#if superusersOnly}
-        <p class="txt-hint txt-sm txt-right">Requires superuser <code>Authorization:TOKEN</code> header</p>
+        <p class="txt-hint txt-sm txt-right">需要超级用户 <code>Authorization:TOKEN</code> 请求头</p>
     {/if}
 </div>
 
-<div class="section-title">Path parameters</div>
+<div class="section-title">路径参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="60%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="60%">描述</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>id</td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
-            <td>ID of the record to update.</td>
+            <td>要更新的记录ID。</td>
         </tr>
     </tbody>
 </table>
 
-<div class="section-title">Body Parameters</div>
+<div class="section-title">请求体参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="50%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="50%">描述</th>
         </tr>
     </thead>
     <tbody>
         {#if isAuth}
             <tr>
-                <td colspan="3" class="txt-hint txt-bold">Auth specific fields</td>
+                <td colspan="3" class="txt-hint txt-bold">认证特定字段</td>
             </tr>
             <tr>
                 <td>
                     <div class="inline-flex">
-                        <span class="label label-warning">Optional</span>
+                        <span class="label label-warning">可选</span>
                         <span>email</span>
                     </div>
                 </td>
                 <td>
-                    <span class="label">String</span>
+                    <span class="label">字符串</span>
                 </td>
                 <td>
-                    The auth record email address.
+                    认证记录的邮箱地址。
                     <br />
-                    This field can be updated only by superusers or auth records with "Manage" access.
+                    此字段只能由超级用户或具有"管理"权限的认证记录更新。
                     <br />
-                    Regular accounts can update their email by calling "Request email change".
+                    普通账户可以通过调用"请求更改邮箱"来更新邮箱。
                 </td>
             </tr>
             <tr>
                 <td>
                     <div class="inline-flex">
                         {#if collection?.fields?.find((f) => f.name == "emailVisibility")?.required}
-                            <span class="label label-success">Required</span>
+                            <span class="label label-success">必填</span>
                         {:else}
-                            <span class="label label-warning">Optional</span>
+                            <span class="label label-warning">可选</span>
                         {/if}
                         <span>emailVisibility</span>
                     </div>
                 </td>
                 <td>
-                    <span class="label">Boolean</span>
+                    <span class="label">布尔值</span>
                 </td>
-                <td>Whether to show/hide the auth record email when fetching the record data.</td>
+                <td>获取记录数据时是否显示/隐藏认证记录的邮箱。</td>
             </tr>
             <tr>
                 <td>
                     <div class="inline-flex">
-                        <span class="label label-warning">Optional</span>
+                        <span class="label label-warning">可选</span>
                         <span>oldPassword</span>
                     </div>
                 </td>
                 <td>
-                    <span class="label">String</span>
+                    <span class="label">字符串</span>
                 </td>
                 <td>
-                    Old auth record password.
+                    旧认证记录密码。
                     <br />
-                    This field is required only when changing the record password. Superusers and auth records
-                    with "Manage" access can skip this field.
+                    仅在更改记录密码时需要此字段。超级用户和具有"管理"权限的认证记录可以跳过此字段。
                 </td>
             </tr>
             <tr>
                 <td>
                     <div class="inline-flex">
-                        <span class="label label-warning">Optional</span>
+                        <span class="label label-warning">可选</span>
                         <span>password</span>
                     </div>
                 </td>
                 <td>
-                    <span class="label">String</span>
+                    <span class="label">字符串</span>
                 </td>
-                <td>New auth record password.</td>
+                <td>新认证记录密码。</td>
             </tr>
             <tr>
                 <td>
                     <div class="inline-flex">
-                        <span class="label label-warning">Optional</span>
+                        <span class="label label-warning">可选</span>
                         <span>passwordConfirm</span>
                     </div>
                 </td>
                 <td>
-                    <span class="label">String</span>
+                    <span class="label">字符串</span>
                 </td>
-                <td>New auth record password confirmation.</td>
+                <td>新认证记录密码确认。</td>
             </tr>
             <tr>
                 <td>
                     <div class="inline-flex">
-                        <span class="label label-warning">Optional</span>
+                        <span class="label label-warning">可选</span>
                         <span>verified</span>
                     </div>
                 </td>
                 <td>
-                    <span class="label">Boolean</span>
+                    <span class="label">布尔值</span>
                 </td>
                 <td>
-                    Indicates whether the auth record is verified or not.
+                    表示认证记录是否已验证。
                     <br />
-                    This field can be set only by superusers or auth records with "Manage" access.
+                    此字段只能由超级用户或具有"管理"权限的认证记录设置。
                 </td>
             </tr>
             <tr>
-                <td colspan="3" class="txt-hint txt-bold">Other fields</td>
+                <td colspan="3" class="txt-hint txt-bold">其他字段</td>
             </tr>
         {/if}
 
@@ -282,9 +279,9 @@ final record = await pb.collection('${collection?.name}').update('RECORD_ID', bo
                 <td>
                     <div class="inline-flex">
                         {#if field.required}
-                            <span class="label label-success">Required</span>
+                            <span class="label label-success">必填</span>
                         {:else}
-                            <span class="label label-warning">Optional</span>
+                            <span class="label label-warning">可选</span>
                         {/if}
                         <span>{field.name}</span>
                     </div>
@@ -294,20 +291,20 @@ final record = await pb.collection('${collection?.name}').update('RECORD_ID', bo
                 </td>
                 <td>
                     {#if field.type === "text"}
-                        Plain text value.
+                        纯文本值。
                     {:else if field.type === "number"}
-                        Number value.
+                        数字值。
                     {:else if field.type === "json"}
-                        JSON array or object.
+                        JSON数组或对象。
                     {:else if field.type === "email"}
-                        Email address.
+                        邮箱地址。
                     {:else if field.type === "url"}
-                        URL address.
+                        URL地址。
                     {:else if field.type === "file"}
-                        File object.<br />
-                        Set to <code>null</code> to delete already uploaded file(s).
+                        文件对象。<br />
+                        设置为 <code>null</code> 可删除已上传的文件。
                     {:else if field.type === "relation"}
-                        Relation record {field.maxSelect == 1 ? "id" : "ids"}.
+                        关联记录 {field.maxSelect == 1 ? "ID" : "IDs"}。
                     {/if}
                 </td>
             </tr>
@@ -315,35 +312,33 @@ final record = await pb.collection('${collection?.name}').update('RECORD_ID', bo
     </tbody>
 </table>
 
-<div class="section-title">Query parameters</div>
+<div class="section-title">查询参数</div>
 <table class="table-compact table-border m-b-lg">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="60%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="60%">描述</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>expand</td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
             <td>
-                Auto expand relations when returning the updated record. Ex.:
+                返回更新记录时自动展开关联。例如：
                 <CodeBlock content={`?expand=relField1,relField2.subRelField21`} />
-                Supports up to 6-levels depth nested relations expansion. <br />
-                The expanded relations will be appended to the record under the
-                <code>expand</code> property (eg. <code>{`"expand": {"relField1": {...}, ...}`}</code>). Only
-                the relations that the user has permissions to <strong>view</strong> will be expanded.
+                支持最多6层深度的嵌套关联展开。<br />
+                展开的关联将附加到记录的 <code>expand</code> 属性下（例如 <code>{`"expand": {"relField1": {...}, ...}`}</code>）。只有用户有<strong>查看</strong>权限的关联才会被展开。
             </td>
         </tr>
         <FieldsQueryParam />
     </tbody>
 </table>
 
-<div class="section-title">Responses</div>
+<div class="section-title">响应</div>
 <div class="tabs">
     <div class="tabs-header compact combined left">
         {#each responses as response (response.code)}

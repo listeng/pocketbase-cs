@@ -38,32 +38,32 @@
     </div>
 </div>
 
-<div class="section-title">Body Parameters</div>
+<div class="section-title">请求参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="50%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="50%">描述</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>
                 <div class="inline-flex">
-                    <span class="label label-success">Required</span>
+                    <span class="label label-success">必填</span>
                     <span>email</span>
                 </div>
             </td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
-            <td>The auth record email address to send the password reset request (if exists).</td>
+            <td>要发送密码重置请求的认证记录邮箱地址（如果存在）。</td>
         </tr>
     </tbody>
 </table>
 
-<div class="section-title">Responses</div>
+<div class="section-title">响应</div>
 <div class="tabs">
     <div class="tabs-header compact combined left">
         {#each responses as response (response.code)}

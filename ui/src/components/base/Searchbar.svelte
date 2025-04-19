@@ -7,9 +7,9 @@
     const uniqueId = "search_" + CommonHelper.randomString(7);
 
     export let value = "";
-    export let placeholder = 'Search term or filter like created > "2022-01-01"...';
+    export let placeholder = '搜索词或筛选条件如创建时间 > "2022-01-01"...';
 
-    // autocomplete filter component fields
+    // 自动完成筛选组件字段
     export let autocompleteCollection = null;
     export let extraAutocompleteKeys = [];
 
@@ -38,7 +38,7 @@
 
     async function loadFilterComponent() {
         if (filterComponent || isFilterComponentLoading) {
-            return; // already loaded or in the process
+            return; // 已加载或正在加载中
         }
 
         isFilterComponentLoading = true;
@@ -89,7 +89,7 @@
             class="btn btn-expanded-sm btn-sm btn-warning"
             transition:fly={{ duration: 150, x: 5 }}
         >
-            <span class="txt">Search</span>
+            <span class="txt">搜索</span>
         </button>
     {/if}
 
@@ -103,7 +103,7 @@
                 submit();
             }}
         >
-            <span class="txt">Clear</span>
+            <span class="txt">清除</span>
         </button>
     {/if}
 </form>

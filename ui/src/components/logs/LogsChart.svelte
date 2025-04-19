@@ -65,7 +65,7 @@
                 if (!err?.isAbort) {
                     resetData();
                     console.warn(err);
-                    ApiClient.error(err, !normalizedFilter || err?.status != 400); // silence filter errors
+                    ApiClient.error(err, !normalizedFilter || err?.status != 400); // 静默处理过滤器错误
                 }
             })
             .finally(() => {
@@ -91,7 +91,7 @@
             data: {
                 datasets: [
                     {
-                        label: "Total requests",
+                        label: "总请求数",
                         data: chartData,
                         borderColor: "#e34562",
                         pointBackgroundColor: "#e34562",
@@ -173,10 +173,10 @@
                                 isZoomedOrPanned = chart.isZoomedOrPanned();
                                 if (!isZoomedOrPanned) {
                                     if (zoom.min || zoom.max) {
-                                        zoom = {}; // reset
+                                        zoom = {}; // 重置
                                     }
                                 } else {
-                                    // trim minutes and seconds since the statistic is hourly based
+                                    // 由于统计数据是按小时计算的，所以去掉分钟和秒
                                     zoom.min =
                                         CommonHelper.formatToUTCDate(chart.scales.x.min, "yyyy-MM-dd HH") +
                                         ":00:00.000Z";
@@ -197,8 +197,8 @@
 
 <div class="chart-wrapper" class:loading={isLoading}>
     <div class="total-logs entrance-right" class:hidden={isLoading}>
-        Found {totalLogs}
-        {totalLogs == 1 ? "log" : "logs"}
+        共找到 {totalLogs}
+        {totalLogs == 1 ? "条日志" : "条日志"}
     </div>
 
     {#if isLoading}
@@ -209,7 +209,7 @@
 
     {#if isZoomedOrPanned}
         <button type="button" class="btn btn-secondary btn-sm btn-chart-zoom" on:click={resetZoom}>
-            Reset zoom
+            重置缩放
         </button>
     {/if}
 </div>

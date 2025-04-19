@@ -28,31 +28,31 @@
     // predefined email template configs
     $: resetPasswordTemplate = {
         key: "resetPasswordTemplate",
-        label: "Default Password reset email template",
+        label: "默认密码重置邮件模板",
         placeholders: ["APP_NAME", "APP_URL", "RECORD:*", "TOKEN"],
         config: collection.resetPasswordTemplate,
     };
     $: verificationTemplate = {
         key: "verificationTemplate",
-        label: "Default Verification email template",
+        label: "默认验证邮件模板",
         placeholders: ["APP_NAME", "APP_URL", "RECORD:*", "TOKEN"],
         config: collection.verificationTemplate,
     };
     $: confirmEmailChangeTemplate = {
         key: "confirmEmailChangeTemplate",
-        label: "Default Confirm email change email template",
+        label: "默认邮箱变更确认邮件模板",
         placeholders: ["APP_NAME", "APP_URL", "RECORD:*", "TOKEN"],
         config: collection.confirmEmailChangeTemplate,
     };
     $: otpTemplate = {
         key: "otp.emailTemplate",
-        label: "Default OTP email template",
+        label: "默认OTP邮件模板",
         placeholders: ["APP_NAME", "APP_URL", "RECORD:*", "OTP", "OTP_ID"],
         config: collection.otp.emailTemplate,
     };
     $: authAlertTemplate = {
         key: "authAlert.emailTemplate",
-        label: "Default Login alert email template",
+        label: "默认登录提醒邮件模板",
         placeholders: ["APP_NAME", "APP_URL", "RECORD:*"],
         config: collection.authAlert.emailTemplate,
     };
@@ -69,7 +69,7 @@
 
 <h4 class="section-title">
     <div class="flex">
-        <span class="txt">Auth methods</span>
+        <span class="txt">认证方式</span>
         <div class="m-l-auto handle">
             <Field
                 class="form-field form-field-sm form-field-toggle m-0"
@@ -78,7 +78,7 @@
                 let:uniqueId
             >
                 <input type="checkbox" id={uniqueId} bind:checked={collection.authAlert.enabled} />
-                <label for={uniqueId}>Send email alert for new logins</label>
+                <label for={uniqueId}>发送新登录邮件提醒</label>
             </Field>
         </div>
     </div>
@@ -96,13 +96,13 @@
 </div>
 
 <h4 class="section-title">
-    <span class="txt">Mail templates</span>
+    <span class="txt">邮件模板</span>
     <button
         type="button"
         class="btn btn-xs m-l-auto btn-secondary"
         on:click={() => emailTestPopup?.show(collection.id)}
     >
-        Send test email
+        发送测试邮件
     </button>
 </h4>
 <div class="accordions m-b-35">
@@ -119,7 +119,7 @@
     </div>
 </div>
 
-<h4 class="section-title">Other</h4>
+<h4 class="section-title">其他</h4>
 <div class="accordions m-b-base">
     <TokenOptionsAccordion bind:collection />
 </div>

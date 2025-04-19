@@ -8,8 +8,8 @@
     export let collection;
 
     const apiTabs = [
-        { title: "Request email change", component: EmailChangeApiRequestDocs },
-        { title: "Confirm email change", component: EmailChangeApiConfirmDocs },
+        { title: "请求更改邮箱", component: EmailChangeApiRequestDocs },
+        { title: "确认邮箱更改", component: EmailChangeApiConfirmDocs },
     ];
 
     let activeApiTab = 0;
@@ -17,12 +17,11 @@
     $: backendAbsUrl = CommonHelper.getApiExampleUrl(ApiClient.baseURL);
 </script>
 
-<h3 class="m-b-sm">Email change ({collection.name})</h3>
+<h3 class="m-b-sm">邮箱更改 ({collection.name})</h3>
 <div class="content txt-lg m-b-sm">
-    <p>Sends <strong>{collection.name}</strong> email change request.</p>
+    <p>发送 <strong>{collection.name}</strong> 邮箱更改请求。</p>
     <p>
-        On successful email change all previously issued auth tokens for the specific record will be
-        automatically invalidated.
+        成功更改邮箱后，该记录之前颁发的所有认证令牌将自动失效。
     </p>
 </div>
 
@@ -39,10 +38,10 @@
         await pb.collection('${collection?.name}').requestEmailChange('new@example.com');
 
         // ---
-        // (optional) in your custom confirmation page:
+        // (可选) 在您的自定义确认页面中:
         // ---
 
-        // note: after this call all previously issued auth tokens are invalidated
+        // 注意: 此调用后，之前颁发的所有认证令牌将失效
         await pb.collection('${collection?.name}').confirmEmailChange(
             'EMAIL_CHANGE_TOKEN',
             'YOUR_PASSWORD',
@@ -62,10 +61,10 @@
         ...
 
         // ---
-        // (optional) in your custom confirmation page:
+        // (可选) 在您的自定义确认页面中:
         // ---
 
-        // note: after this call all previously issued auth tokens are invalidated
+        // 注意: 此调用后，之前颁发的所有认证令牌将失效
         await pb.collection('${collection?.name}').confirmEmailChange(
           'EMAIL_CHANGE_TOKEN',
           'YOUR_PASSWORD',
@@ -73,7 +72,7 @@
     `}
 />
 
-<h6 class="m-b-xs">API details</h6>
+<h6 class="m-b-xs">API 详情</h6>
 <div class="tabs">
     <div class="tabs-header compact">
         {#each apiTabs as tab, i}

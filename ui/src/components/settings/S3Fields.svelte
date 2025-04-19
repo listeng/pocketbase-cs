@@ -12,7 +12,7 @@
     export let originalConfig = {};
     export let config = {};
     export let configKey = "s3";
-    export let toggleLabel = "Enable S3";
+    export let toggleLabel = "启用S3";
     export let testFilesystem = "storage"; // storage or backups
     export let testError = null;
     export let isTesting = false;
@@ -56,7 +56,7 @@
         clearTimeout(testTimeoutId);
         testTimeoutId = setTimeout(() => {
             ApiClient.cancelRequest(testRequestKey);
-            testError = new Error("S3 test connection timeout.");
+            testError = new Error("S3连接测试超时。");
             isTesting = false;
         }, 30000);
 
@@ -100,31 +100,31 @@
     <div class="grid" transition:slide={{ duration: 150 }}>
         <div class="col-lg-6">
             <Field class="form-field required" name="{configKey}.endpoint" let:uniqueId>
-                <label for={uniqueId}>Endpoint</label>
+                <label for={uniqueId}>端点</label>
                 <input type="text" id={uniqueId} required bind:value={config.endpoint} />
             </Field>
         </div>
         <div class="col-lg-3">
             <Field class="form-field required" name="{configKey}.bucket" let:uniqueId>
-                <label for={uniqueId}>Bucket</label>
+                <label for={uniqueId}>存储桶</label>
                 <input type="text" id={uniqueId} required bind:value={config.bucket} />
             </Field>
         </div>
         <div class="col-lg-3">
             <Field class="form-field required" name="{configKey}.region" let:uniqueId>
-                <label for={uniqueId}>Region</label>
+                <label for={uniqueId}>区域</label>
                 <input type="text" id={uniqueId} required bind:value={config.region} />
             </Field>
         </div>
         <div class="col-lg-6">
             <Field class="form-field required" name="{configKey}.accessKey" let:uniqueId>
-                <label for={uniqueId}>Access key</label>
+                <label for={uniqueId}>访问密钥</label>
                 <input type="text" id={uniqueId} required bind:value={config.accessKey} />
             </Field>
         </div>
         <div class="col-lg-6">
             <Field class="form-field required" name="{configKey}.secret" let:uniqueId>
-                <label for={uniqueId}>Secret</label>
+                <label for={uniqueId}>密钥</label>
                 <RedactedPasswordInput
                     required
                     id={uniqueId}
@@ -137,11 +137,11 @@
             <Field class="form-field" name="{configKey}.forcePathStyle" let:uniqueId>
                 <input type="checkbox" id={uniqueId} bind:checked={config.forcePathStyle} />
                 <label for={uniqueId}>
-                    <span class="txt">Force path-style addressing</span>
+                    <span class="txt">强制路径样式寻址</span>
                     <i
                         class="ri-information-line link-hint"
                         use:tooltip={{
-                            text: 'Forces the request to use path-style addressing, eg. "https://s3.amazonaws.com/BUCKET/KEY" instead of the default "https://BUCKET.s3.amazonaws.com/KEY".',
+                            text: '强制请求使用路径样式寻址，例如"https://s3.amazonaws.com/BUCKET/KEY"而不是默认的"https://BUCKET.s3.amazonaws.com/KEY"。',
                             position: "top",
                         }}
                     />

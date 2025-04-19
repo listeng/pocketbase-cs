@@ -55,7 +55,7 @@
     function copy(param) {
         param = param.replace("*", ""); // strip wildcard
         CommonHelper.copyToClipboard(param);
-        addInfoToast(`Copied ${param} to clipboard`, 2000);
+        addInfoToast(`已复制 ${param} 到剪贴板`, 2000);
     }
 
     loadEditorComponent();
@@ -74,17 +74,17 @@
             <i
                 class="ri-error-warning-fill txt-danger"
                 transition:scale={{ duration: 150, start: 0.7 }}
-                use:tooltip={{ text: "Has errors", position: "left" }}
+                use:tooltip={{ text: "存在错误", position: "left" }}
             />
         {/if}
     </svelte:fragment>
 
     <Field class="form-field required" name="{key}.subject" let:uniqueId>
-        <label for={uniqueId}>Subject</label>
+        <label for={uniqueId}>主题</label>
         <input type="text" id={uniqueId} bind:value={config.subject} spellcheck="false" required />
         {#if placeholders?.length > 0}
             <div class="help-block">
-                Available placeholder parameters:
+                可用占位符参数:
                 {#each placeholders as placeholder}
                     <button
                         type="button"
@@ -99,7 +99,7 @@
     </Field>
 
     <Field class="form-field m-0 required" name="{key}.body" let:uniqueId>
-        <label for={uniqueId}>Body (HTML)</label>
+        <label for={uniqueId}>正文 (HTML)</label>
 
         {#if editorComponent && !isEditorComponentLoading}
             <svelte:component this={editorComponent} id={uniqueId} language="html" bind:value={config.body} />
@@ -116,7 +116,7 @@
 
         {#if placeholders?.length > 0}
             <div class="help-block">
-                Available placeholder parameters:
+                可用占位符参数:
                 {#each placeholders as placeholder}
                     <button
                         type="button"

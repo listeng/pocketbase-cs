@@ -13,10 +13,10 @@
             <div class="col-sm-6">
                 <Field class="form-field" name="fields.{key}.min" let:uniqueId>
                     <label for={uniqueId}>
-                        <span class="txt">Min length</span>
+                        <span class="txt">最小长度</span>
                         <i
                             class="ri-information-line link-hint"
-                            use:tooltip={"Clear the field or set it to 0 for no limit."}
+                            use:tooltip={"清空字段或设置为0表示无限制。"}
                         />
                     </label>
                     <input
@@ -25,7 +25,7 @@
                         step="1"
                         min="0"
                         max={Number.MAX_SAFE_INTEGER}
-                        placeholder="No min limit"
+                        placeholder="无最小限制"
                         value={field.min || ""}
                         on:input={(e) => (field.min = parseInt(e.target.value, 10))}
                     />
@@ -35,17 +35,17 @@
             <div class="col-sm-6">
                 <Field class="form-field" name="fields.{key}.max" let:uniqueId>
                     <label for={uniqueId}>
-                        <span class="txt">Max length</span>
+                        <span class="txt">最大长度</span>
                         <i
                             class="ri-information-line link-hint"
-                            use:tooltip={"Clear the field or set it to 0 to fallback to the default limit."}
+                            use:tooltip={"清空字段或设置为0将回退到默认限制。"}
                         />
                     </label>
                     <input
                         type="number"
                         id={uniqueId}
                         step="1"
-                        placeholder="Default to max 5000 characters"
+                        placeholder="默认最多5000字符"
                         min={field.min || 0}
                         max={Number.MAX_SAFE_INTEGER}
                         value={field.max || ""}
@@ -56,10 +56,10 @@
 
             <div class="col-sm-6">
                 <Field class="form-field" name="fields.{key}.pattern" let:uniqueId>
-                    <label for={uniqueId}>Validation pattern</label>
+                    <label for={uniqueId}>验证规则</label>
                     <input type="text" id={uniqueId} bind:value={field.pattern} />
                     <div class="help-block">
-                        <p>Ex. <code>{"^[a-z0-9]+$"}</code></p>
+                        <p>例如 <code>{"^[a-z0-9]+$"}</code></p>
                     </div>
                 </Field>
             </div>
@@ -67,15 +67,15 @@
             <div class="col-sm-6">
                 <Field class="form-field" name="fields.{key}.autogeneratePattern" let:uniqueId>
                     <label for={uniqueId}>
-                        <span class="txt">Autogenerate pattern</span>
+                        <span class="txt">自动生成规则</span>
                         <i
                             class="ri-information-line link-hint"
-                            use:tooltip={"Set and autogenerate text matching the pattern on missing record create value."}
+                            use:tooltip={"设置并在记录创建时自动生成符合规则的文本。"}
                         />
                     </label>
                     <input type="text" id={uniqueId} bind:value={field.autogeneratePattern} />
                     <div class="help-block">
-                        <p>Ex. <code>{"[a-z0-9]{30}"}</code></p>
+                        <p>例如 <code>{"[a-z0-9]{30}"}</code></p>
                     </div>
                 </Field>
             </div>

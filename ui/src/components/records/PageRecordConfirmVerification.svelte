@@ -65,36 +65,36 @@
     {#if isConfirming}
         <div class="txt-center">
             <div class="loader loader-lg">
-                <em>Please wait...</em>
+                <em>请稍候...</em>
             </div>
         </div>
     {:else if successConfirm}
         <div class="alert alert-success">
             <div class="icon"><i class="ri-checkbox-circle-line" /></div>
             <div class="content txt-bold">
-                <p>Successfully verified email address.</p>
+                <p>邮箱地址验证成功。</p>
             </div>
         </div>
 
         <button type="button" class="btn btn-transparent btn-block" on:click={() => window.close()}>
-            Close
+            关闭
         </button>
     {:else if successResend}
         <div class="alert alert-success">
             <div class="icon"><i class="ri-checkbox-circle-line" /></div>
             <div class="content txt-bold">
-                <p>Please check your email for the new verification link.</p>
+                <p>请检查您的邮箱获取新的验证链接。</p>
             </div>
         </div>
 
         <button type="button" class="btn btn-transparent btn-block" on:click={() => window.close()}>
-            Close
+            关闭
         </button>
     {:else}
         <div class="alert alert-danger">
             <div class="icon"><i class="ri-error-warning-line" /></div>
             <div class="content txt-bold">
-                <p>Invalid or expired verification token.</p>
+                <p>验证令牌无效或已过期。</p>
             </div>
         </div>
 
@@ -106,11 +106,11 @@
                 disabled={isResending}
                 on:click={resend}
             >
-                <span class="txt">Resend</span>
+                <span class="txt">重新发送</span>
             </button>
         {:else}
             <button type="button" class="btn btn-transparent btn-block" on:click={() => window.close()}>
-                Close
+                关闭
             </button>
         {/if}
     {/if}

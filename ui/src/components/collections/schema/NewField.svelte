@@ -10,57 +10,57 @@
 
     const types = [
         {
-            label: "Plain text",
+            label: "纯文本",
             value: "text",
             icon: CommonHelper.getFieldTypeIcon("text"),
         },
         {
-            label: "Rich editor",
+            label: "富文本编辑器",
             value: "editor",
             icon: CommonHelper.getFieldTypeIcon("editor"),
         },
         {
-            label: "Number",
+            label: "数字",
             value: "number",
             icon: CommonHelper.getFieldTypeIcon("number"),
         },
         {
-            label: "Bool",
+            label: "布尔值",
             value: "bool",
             icon: CommonHelper.getFieldTypeIcon("bool"),
         },
         {
-            label: "Email",
+            label: "邮箱",
             value: "email",
             icon: CommonHelper.getFieldTypeIcon("email"),
         },
         {
-            label: "URL",
+            label: "网址",
             value: "url",
             icon: CommonHelper.getFieldTypeIcon("url"),
         },
         {
-            label: "Datetime",
+            label: "日期时间",
             value: "date",
             icon: CommonHelper.getFieldTypeIcon("date"),
         },
         {
-            label: "Autodate",
+            label: "自动日期",
             value: "autodate",
             icon: CommonHelper.getFieldTypeIcon("autodate"),
         },
         {
-            label: "Select",
+            label: "下拉选择",
             value: "select",
             icon: CommonHelper.getFieldTypeIcon("select"),
         },
         {
-            label: "File",
+            label: "文件",
             value: "file",
             icon: CommonHelper.getFieldTypeIcon("file"),
         },
         {
-            label: "Relation",
+            label: "关联关系",
             value: "relation",
             icon: CommonHelper.getFieldTypeIcon("relation"),
         },
@@ -70,12 +70,12 @@
             icon: CommonHelper.getFieldTypeIcon("json"),
         },
         {
-            label: "Geo Point",
+            label: "地理位置",
             value: "geoPoint",
             icon: CommonHelper.getFieldTypeIcon("geoPoint"),
         },
         // {
-        //     label: "Password",
+        //     label: "密码",
         //     value: "password",
         //     icon: CommonHelper.getFieldTypeIcon("password"),
         // },
@@ -88,7 +88,7 @@
 
 <div tabindex="0" role="button" class="field-types-btn {classes}">
     <i class="ri-add-line" aria-hidden="true" />
-    <div class="txt">New field</div>
+    <div class="txt">新建字段</div>
     <Toggler class="dropdown field-types-dropdown">
         {#each types as item}
             <button type="button" role="menuitem" class="dropdown-item" on:click={() => select(item.value)}>

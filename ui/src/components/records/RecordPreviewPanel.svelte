@@ -44,7 +44,7 @@
                 if (!err.isAbort) {
                     hide();
                     console.warn("resolveModel:", err);
-                    addErrorToast(`Unable to load record with id "${model}"`);
+                    addErrorToast(`无法加载ID为"${model}"的记录`);
                 }
             }
 
@@ -62,7 +62,7 @@
     on:show
 >
     <svelte:fragment slot="header">
-        <h4><strong>{collection?.name}</strong> record preview</h4>
+        <h4><strong>{collection?.name}</strong> 记录预览</h4>
     </svelte:fragment>
 
     <table class="table-border preview-table" class:table-loading={isLoading}>
@@ -80,7 +80,7 @@
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={() => hide()}>
-            <span class="txt">Close</span>
+            <span class="txt">关闭</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

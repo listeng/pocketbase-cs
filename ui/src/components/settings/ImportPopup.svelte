@@ -85,7 +85,7 @@
 
         if (deletedFieldNames.length) {
             confirm(
-                `Do you really want to delete the following collection fields and their related records data:\n- ${deletedFieldNames.join(
+                `你确定要删除以下集合字段及其相关记录数据吗:\n- ${deletedFieldNames.join(
                     "\n- ",
                 )}`,
                 () => {
@@ -106,7 +106,7 @@
 
         try {
             await ApiClient.collections.import(newCollections, deleteMissing);
-            addSuccessToast("Successfully imported collections configuration.");
+            addSuccessToast("成功导入集合配置");
             dispatch("submit");
         } catch (err) {
             ApiClient.error(err);
@@ -129,7 +129,7 @@
     on:hide
 >
     <svelte:fragment slot="header">
-        <h4 class="center txt-break">Side-by-side diff</h4>
+        <h4 class="center txt-break">并排对比</h4>
     </svelte:fragment>
 
     {#each pairs as pair}
@@ -137,7 +137,7 @@
     {/each}
 
     <svelte:fragment slot="footer">
-        <button type="button" class="btn btn-transparent" on:click={hide} disabled={isImporting}>Close</button
+        <button type="button" class="btn btn-transparent" on:click={hide} disabled={isImporting}>关闭</button
         >
         <button
             type="button"
@@ -146,7 +146,7 @@
             disabled={isImporting}
             on:click={() => submitConfirm()}
         >
-            <span class="txt">Confirm and import</span>
+            <span class="txt">确认并导入</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

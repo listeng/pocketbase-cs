@@ -5,9 +5,9 @@
     import CommonHelper from "@/utils/CommonHelper";
 
     export let id = "";
-    export let noOptionsText = "No options found";
-    export let selectPlaceholder = "- Select -";
-    export let searchPlaceholder = "Search...";
+    export let noOptionsText = "未找到选项";
+    export let selectPlaceholder = "- 请选择 -";
+    export let searchPlaceholder = "搜索...";
     export let items = [];
     export let multiple = false;
     export let disabled = false;
@@ -15,19 +15,19 @@
     export let upside = false;
     export let zeroFunc = () => (multiple ? [] : undefined);
     export let selected = zeroFunc();
-    export let toggle = multiple; // toggle option on click
-    export let closable = true; // close the dropdown on option select/deselect
-    export let labelComponent = undefined; // custom component to use for each selected option label
-    export let labelComponentProps = {}; // props to pass to the custom option component
-    export let optionComponent = undefined; // custom component to use for each dropdown option item
-    export let optionComponentProps = {}; // props to pass to the custom option component
-    export let searchable = false; // whether to show the dropdown options search input
-    export let searchFunc = undefined; // custom search option filter: `function(item, searchTerm):boolean`
+    export let toggle = multiple; // 点击时切换选项
+    export let closable = true; // 选择/取消选择选项时关闭下拉框
+    export let labelComponent = undefined; // 用于每个选中选项标签的自定义组件
+    export let labelComponentProps = {}; // 传递给自定义选项组件的属性
+    export let optionComponent = undefined; // 用于每个下拉选项项的自定义组件
+    export let optionComponentProps = {}; // 传递给自定义选项组件的属性
+    export let searchable = false; // 是否显示下拉选项搜索输入框
+    export let searchFunc = undefined; // 自定义搜索选项过滤器: `function(item, searchTerm):boolean`
 
     const dispatch = createEventDispatcher();
 
     let classes = "";
-    export { classes as class }; // export reserved keyword
+    export { classes as class }; // 导出保留关键字
 
     let toggler;
     let searchTerm = "";
@@ -47,11 +47,11 @@
         return CommonHelper.inArray(normalized, item);
     };
 
-    // Selection handlers
+    // 选择处理函数
     // ---------------------------------------------------------------
     export function deselectItem(item) {
         if (CommonHelper.isEmpty(selected)) {
-            return; // nothing to deselect
+            return; // 没有可取消选择的项
         }
 
         let normalized = CommonHelper.toArray(selected);
@@ -62,7 +62,7 @@
 
         dispatch("change", { selected });
 
-        // emulate native change event
+        // 模拟原生change事件
         container?.dispatchEvent(new CustomEvent("change", { detail: selected, bubbles: true }));
     }
 
@@ -78,7 +78,7 @@
 
         dispatch("change", { selected });
 
-        // emulate native change event
+        // 模拟原生change事件
         container?.dispatchEvent(new CustomEvent("change", { detail: selected, bubbles: true }));
     }
 
@@ -91,7 +91,7 @@
 
         dispatch("change", { selected });
 
-        // emulate native change event
+        // 模拟原生change事件
         container?.dispatchEvent(new CustomEvent("change", { detail: selected, bubbles: true }));
     }
 
@@ -105,20 +105,20 @@
 
     function ensureSelectedExist() {
         if (CommonHelper.isEmpty(selected) || CommonHelper.isEmpty(items)) {
-            return; // nothing to check
+            return; // 无需检查
         }
 
         let selectedArray = CommonHelper.toArray(selected);
         let unselectedArray = [];
 
-        // find missing
+        // 查找缺失项
         for (const selectedItem of selectedArray) {
             if (!CommonHelper.inArray(items, selectedItem)) {
                 unselectedArray.push(selectedItem);
             }
         }
 
-        // trigger reactivity
+        // 触发响应性
         if (unselectedArray.length) {
             for (const item of unselectedArray) {
                 CommonHelper.removeByValue(selectedArray, item);
@@ -128,7 +128,7 @@
         }
     }
 
-    // Search handlers
+    // 搜索处理函数
     // ---------------------------------------------------------------
     function defaultSearchFunc(item, search) {
         let normalizedSearch = ("" + search).replace(/\s+/g, "").toLowerCase();
@@ -155,7 +155,7 @@
         return items.filter((item) => filterFunc(item, search)) || [];
     }
 
-    // Option actions
+    // 选项操作
     // ---------------------------------------------------------------
     function handleOptionSelect(e, item) {
         e.preventDefault();
@@ -179,7 +179,7 @@
     function onDropdownShow() {
         resetSearch();
 
-        // ensure that the first selected option is visible
+        // 确保第一个选中的选项可见
         setTimeout(() => {
             const selected = container?.querySelector(".dropdown-item.option.selected");
             if (selected) {
@@ -189,7 +189,7 @@
         }, 0);
     }
 
-    // Label(s) activation
+    // 标签激活
     // ---------------------------------------------------------------
     function onLabelClick(e) {
         e.stopPropagation();
@@ -235,7 +235,7 @@
                     <!-- svelte-ignore a11y-no-static-element-interactions -->
                     <span
                         class="clear"
-                        use:tooltip={"Clear"}
+                        use:tooltip={"清除"}
                         on:click|preventDefault|stopPropagation={() => deselectItem(item)}
                     >
                         <i class="ri-close-line" />

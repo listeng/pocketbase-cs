@@ -30,10 +30,10 @@
 
     $: if (needLoad(list, value)) {
         isLoading = true;
-        // Move the load function to the end of the execution queue.
+        // 将加载函数移到执行队列末尾
         //
-        // It helps reducing the layout shifts (the relation field has fixed height skeleton loader)
-        // and allows the other form fields to load sooner.
+        // 这有助于减少布局偏移（关系字段有固定高度的骨架加载器）
+        // 并允许其他表单字段更快加载
         clearTimeout(loadTimeoutId);
         loadTimeoutId = setTimeout(load, 0);
     }
@@ -53,7 +53,7 @@
     async function load() {
         const ids = CommonHelper.toArray(value);
 
-        // reset
+        // 重置
         list = [];
         invalidIds = [];
 
@@ -72,7 +72,7 @@
             expands = expands.concat(CommonHelper.getExpandPresentableRelFields(field, $collections, 2));
         }
 
-        // batch load all selected records to avoid parser stack overflow errors
+        // 批量加载所有选中的记录以避免解析器堆栈溢出错误
         const filterIds = ids.slice();
         const loadPromises = [];
         while (filterIds.length > 0) {
@@ -97,7 +97,7 @@
                 loadedItems = loadedItems.concat(...values);
             });
 
-            // preserve selected order
+            // 保持选中顺序
             for (const id of ids) {
                 const rel = CommonHelper.findByKey(loadedItems, "id", id);
                 if (rel) {
@@ -109,8 +109,8 @@
 
             list = list;
 
-            // ensure that any record that was deleted during the request
-            // is also removed from the relation value
+            // 确保在请求期间被删除的任何记录
+            // 也会从关系值中移除
             listToValue();
         } catch (err) {
             ApiClient.error(err);
@@ -152,7 +152,7 @@
                 use:tooltip={{
                     position: "left",
                     text:
-                        "The following relation ids were removed from the list because they are missing or invalid: " +
+                        "以下关联ID因缺失或无效已从列表中移除: " +
                         invalidIds.join(", "),
                 }}
             />
@@ -181,7 +181,7 @@
                             <button
                                 type="button"
                                 class="btn btn-transparent btn-hint btn-sm btn-circle btn-remove"
-                                use:tooltip={"Remove"}
+                                use:tooltip={"移除"}
                                 on:click={() => remove(record)}
                             >
                                 <i class="ri-close-line" />
@@ -208,7 +208,7 @@
             >
                 <i class="ri-magic-line" />
                 <!-- <i class="ri-layout-line" /> -->
-                <span class="txt">Open picker</span>
+                <span class="txt">打开选择器</span>
             </button>
         </div>
     </div>
@@ -227,7 +227,7 @@
 <style lang="scss">
     .relations-list {
         max-height: 300px;
-        overflow: auto; /* fallback */
+        overflow: auto; /* 回退 */
         overflow: overlay;
     }
 </style>

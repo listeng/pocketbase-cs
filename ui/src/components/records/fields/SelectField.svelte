@@ -35,6 +35,6 @@
         bind:selected={value}
     />
     {#if isMultiple}
-        <div class="help-block">Select up to {maxSelect} items.</div>
+        <div class="help-block">最多选择 {maxSelect} 项。</div>
     {/if}
 </Field>

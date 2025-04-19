@@ -86,7 +86,7 @@
             <a href="/" class="logo logo-sm" use:link>
                 <img
                     src="{import.meta.env.BASE_URL}images/logo.svg"
-                    alt="PocketBase logo"
+                    alt="PocketBase 标志"
                     width="40"
                     height="40"
                 />
@@ -96,30 +96,30 @@
                 <a
                     href="/collections"
                     class="menu-item"
-                    aria-label="Collections"
+                    aria-label="集合"
                     use:link
                     use:active={{ path: "/collections/?.*", className: "current-route" }}
-                    use:tooltip={{ text: "Collections", position: "right" }}
+                    use:tooltip={{ text: "集合", position: "right" }}
                 >
                     <i class="ri-database-2-line" />
                 </a>
                 <a
                     href="/logs"
                     class="menu-item"
-                    aria-label="Logs"
+                    aria-label="日志"
                     use:link
                     use:active={{ path: "/logs/?.*", className: "current-route" }}
-                    use:tooltip={{ text: "Logs", position: "right" }}
+                    use:tooltip={{ text: "日志", position: "right" }}
                 >
                     <i class="ri-line-chart-line" />
                 </a>
                 <a
                     href="/settings"
                     class="menu-item"
-                    aria-label="Settings"
+                    aria-label="设置"
                     use:link
                     use:active={{ path: "/settings/?.*", className: "current-route" }}
-                    use:tooltip={{ text: "Settings", position: "right" }}
+                    use:tooltip={{ text: "设置", position: "right" }}
                 >
                     <i class="ri-tools-line" />
                 </a>
@@ -128,7 +128,7 @@
             <div
                 tabindex="0"
                 role="button"
-                aria-label="Logged superuser menu"
+                aria-label="已登录超级用户菜单"
                 class="thumb thumb-circle link-hint"
                 title={$superuser.email}
             >
@@ -145,11 +145,11 @@
                         use:link
                     >
                         <i class="ri-shield-user-line" aria-hidden="true" />
-                        <span class="txt">Manage superusers</span>
+                        <span class="txt">管理超级用户</span>
                     </a>
                     <button type="button" class="dropdown-item closable" role="menuitem" on:click={logout}>
                         <i class="ri-logout-circle-line" aria-hidden="true" />
-                        <span class="txt">Logout</span>
+                        <span class="txt">退出登录</span>
                     </button>
                 </Toggler>
             </div>

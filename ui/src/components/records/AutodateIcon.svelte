@@ -29,7 +29,7 @@
                 field.name +
                     ": " +
                     CommonHelper.formatToLocalDate(record[field.name], detailedDateFormat) +
-                    " Local",
+                    " 本地时间",
             );
         }
     }

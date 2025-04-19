@@ -6,8 +6,8 @@
     export let id = null;
     export let items = [];
     export let disabled = false;
-    export let emptyPlaceholder = "Add items";
-    export let newPlaceholder = "e.g. optionA";
+    export let emptyPlaceholder = "添加项目";
+    export let newPlaceholder = "例如: 选项A";
 
     let newInput;
     let newInputVal = "";
@@ -32,7 +32,7 @@
         items = items || [];
         CommonHelper.pushUnique(items, val);
 
-        // reset input
+        // 重置输入
         newInputVal = "";
     }
 </script>
@@ -71,7 +71,7 @@
                             <button
                                 type="button"
                                 class="btn btn-circle btn-transparent btn-hint btn-xs"
-                                title="Remove"
+                                title="移除"
                                 on:click|stopPropagation={() => remove(item)}
                             >
                                 <i class="ri-close-line" aria-hidden="true"></i>
@@ -102,7 +102,7 @@
                                 <button
                                     type="button"
                                     class="btn btn-transparent btn-xs btn-circle new-item-btn"
-                                    title="Add new"
+                                    title="添加"
                                     class:btn-disabled={!newInputVal.length}
                                     on:click={() => add(newInputVal)}
                                 >

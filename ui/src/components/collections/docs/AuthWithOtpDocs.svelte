@@ -8,8 +8,8 @@
     export let collection;
 
     const apiTabs = [
-        { title: "OTP Request", component: AuthWithOtpApiRequestDocs },
-        { title: "OTP Auth", component: AuthWithOtpApiAuthDocs },
+        { title: "OTP请求", component: AuthWithOtpApiRequestDocs },
+        { title: "OTP认证", component: AuthWithOtpApiAuthDocs },
     ];
 
     let activeApiTab = 0;
@@ -17,12 +17,11 @@
     $: backendAbsUrl = CommonHelper.getApiExampleUrl(ApiClient.baseURL);
 </script>
 
-<h3 class="m-b-sm">Auth with OTP ({collection.name})</h3>
+<h3 class="m-b-sm">使用OTP认证 ({collection.name})</h3>
 <div class="content txt-lg m-b-sm">
-    <p>Authenticate with an one-time password (OTP).</p>
+    <p>使用一次性密码(OTP)进行认证。</p>
     <p>
-        Note that when requesting an OTP we return an <code>otpId</code> even if a user with the provided email
-        doesn't exist as a very basic enumeration protection.
+        请注意，在请求OTP时，即使提供的邮箱不存在用户记录，我们也会返回一个<code>otpId</code>作为基本的枚举保护措施。
     </p>
 </div>
 
@@ -34,23 +33,23 @@
 
         ...
 
-        // send OTP email to the provided auth record
+        // 向指定认证记录发送OTP邮件
         const req = await pb.collection('${collection?.name}').requestOTP('test@example.com');
 
-        // ... show a screen/popup to enter the password from the email ...
+        // ... 显示一个界面/弹窗让用户输入邮件中的密码 ...
 
-        // authenticate with the requested OTP id and the email password
+        // 使用请求的OTP ID和邮件密码进行认证
         const authData = await pb.collection('${collection?.name}').authWithOTP(
             req.otpId,
-            "YOUR_OTP",
+            "你的OTP",
         );
 
-        // after the above you can also access the auth data from the authStore
+        // 认证后可以从authStore访问认证数据
         console.log(pb.authStore.isValid);
         console.log(pb.authStore.token);
         console.log(pb.authStore.record.id);
 
-        // "logout"
+        // "登出"
         pb.authStore.clear();
     `}
     dart={`
@@ -60,28 +59,28 @@
 
         ...
 
-        // send OTP email to the provided auth record
+        // 向指定认证记录发送OTP邮件
         final req = await pb.collection('${collection?.name}').requestOTP('test@example.com');
 
-        // ... show a screen/popup to enter the password from the email ...
+        // ... 显示一个界面/弹窗让用户输入邮件中的密码 ...
 
-        // authenticate with the requested OTP id and the email password
+        // 使用请求的OTP ID和邮件密码进行认证
         final authData = await pb.collection('${collection?.name}').authWithOTP(
             req.otpId,
-            "YOUR_OTP",
+            "你的OTP",
         );
 
-        // after the above you can also access the auth data from the authStore
+        // 认证后可以从authStore访问认证数据
         print(pb.authStore.isValid);
         print(pb.authStore.token);
         print(pb.authStore.record.id);
 
-        // "logout"
+        // "登出"
         pb.authStore.clear();
     `}
 />
 
-<h6 class="m-b-xs">API details</h6>
+<h6 class="m-b-xs">API详情</h6>
 <div class="tabs">
     <div class="tabs-header compact">
         {#each apiTabs as tab, i}

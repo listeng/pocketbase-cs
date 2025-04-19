@@ -15,14 +15,14 @@
     $: identityFields = collection?.passwordAuth?.identityFields || [];
 
     $: exampleIdentityLabel =
-        identityFields.length == 0 ? "NONE" : "YOUR_" + identityFields.join("_OR_").toUpperCase();
+        identityFields.length == 0 ? "无" : "您的_" + identityFields.join("_或_").toUpperCase();
 
     $: responses = [
         {
             code: 200,
             body: JSON.stringify(
                 {
-                    token: "JWT_TOKEN",
+                    token: "JWT令牌",
                     record: CommonHelper.dummyCollectionRecord(collection),
                 },
                 null,
@@ -34,11 +34,11 @@
             body: `
                 {
                   "status": 400,
-                  "message": "Failed to authenticate.",
+                  "message": "认证失败。",
                   "data": {
                     "identity": {
                       "code": "validation_required",
-                      "message": "Missing required value."
+                      "message": "缺少必填值。"
                     }
                   }
                 }
@@ -47,11 +47,10 @@
     ];
 </script>
 
-<h3 class="m-b-sm">Auth with password ({collection.name})</h3>
+<h3 class="m-b-sm">使用密码认证 ({collection.name})</h3>
 <div class="content txt-lg m-b-sm">
     <p>
-        Authenticate with combination of
-        <strong>{identityFields.join("/")}</strong> and <strong>password</strong>.
+        使用 <strong>{identityFields.join("/")}</strong> 和 <strong>密码</strong> 组合进行认证。
     </p>
 </div>
 
@@ -65,15 +64,15 @@
 
         const authData = await pb.collection('${collection?.name}').authWithPassword(
             '${exampleIdentityLabel}',
-            'YOUR_PASSWORD',
+            '您的密码',
         );
 
-        // after the above you can also access the auth data from the authStore
+        // 认证后，您还可以从authStore访问认证数据
         console.log(pb.authStore.isValid);
         console.log(pb.authStore.token);
         console.log(pb.authStore.record.id);
 
-        // "logout"
+        // "登出"
         pb.authStore.clear();
     `}
     dart={`
@@ -85,20 +84,20 @@
 
         final authData = await pb.collection('${collection?.name}').authWithPassword(
           '${exampleIdentityLabel}',
-          'YOUR_PASSWORD',
+          '您的密码',
         );
 
-        // after the above you can also access the auth data from the authStore
+        // 认证后，您还可以从authStore访问认证数据
         print(pb.authStore.isValid);
         print(pb.authStore.token);
         print(pb.authStore.record.id);
 
-        // "logout"
+        // "登出"
         pb.authStore.clear();
     `}
 />
 
-<h6 class="m-b-xs">API details</h6>
+<h6 class="m-b-xs">API详情</h6>
 <div class="alert alert-success">
     <strong class="label label-primary">POST</strong>
     <div class="content">
@@ -108,79 +107,78 @@
     </div>
 </div>
 
-<div class="section-title">Body Parameters</div>
+<div class="section-title">请求参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="50%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="50%">描述</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>
                 <div class="inline-flex">
-                    <span class="label label-success">Required</span>
+                    <span class="label label-success">必填</span>
                     <span>identity</span>
                 </div>
             </td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
             <td>
                 {#each identityFields as name, i}
-                    {#if i > 0}or{/if}
+                    {#if i > 0}或{/if}
                     <strong>{name}</strong>
                 {/each}
-                of the record to authenticate.
+                用于认证的记录字段。
             </td>
         </tr>
         <tr>
             <td>
                 <div class="inline-flex">
-                    <span class="label label-success">Required</span>
+                    <span class="label label-success">必填</span>
                     <span>password</span>
                 </div>
             </td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
-            <td>The auth record password.</td>
+            <td>认证记录的密码。</td>
         </tr>
     </tbody>
 </table>
 
-<div class="section-title">Query parameters</div>
+<div class="section-title">查询参数</div>
 <table class="table-compact table-border m-b-base">
     <thead>
         <tr>
-            <th>Param</th>
-            <th>Type</th>
-            <th width="60%">Description</th>
+            <th>参数</th>
+            <th>类型</th>
+            <th width="60%">描述</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>expand</td>
             <td>
-                <span class="label">String</span>
+                <span class="label">字符串</span>
             </td>
             <td>
-                Auto expand record relations. Ex.:
+                自动展开记录关联。例如：
                 <CodeBlock content={`?expand=relField1,relField2.subRelField`} />
-                Supports up to 6-levels depth nested relations expansion. <br />
-                The expanded relations will be appended to the record under the
-                <code>expand</code> property (eg. <code>{`"expand": {"relField1": {...}, ...}`}</code>).
+                支持最多6层深度的嵌套关联展开。<br />
+                展开的关联将被附加到记录的 <code>expand</code> 属性下（例如 <code>{`"expand": {"relField1": {...}, ...}`}</code>）。
                 <br />
-                Only the relations to which the request user has permissions to <strong>view</strong> will be expanded.
+                只有请求用户有<strong>查看</strong>权限的关联才会被展开。
             </td>
         </tr>
         <FieldsQueryParam prefix="record." />
     </tbody>
 </table>
 
-<div class="section-title">Responses</div>
+<div class="section-title">响应</div>
 <div class="tabs">
     <div class="tabs-header compact combined left">
         {#each responses as response (response.code)}

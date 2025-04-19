@@ -4,66 +4,66 @@
 
     const baseTabs = {
         list: {
-            label: "List/Search",
+            label: "列表/搜索",
             component: import("@/components/collections/docs/ListApiDocs.svelte"),
         },
         view: {
-            label: "View",
+            label: "查看",
             component: import("@/components/collections/docs/ViewApiDocs.svelte"),
         },
         create: {
-            label: "Create",
+            label: "创建",
             component: import("@/components/collections/docs/CreateApiDocs.svelte"),
         },
         update: {
-            label: "Update",
+            label: "更新",
             component: import("@/components/collections/docs/UpdateApiDocs.svelte"),
         },
         delete: {
-            label: "Delete",
+            label: "删除",
             component: import("@/components/collections/docs/DeleteApiDocs.svelte"),
         },
         realtime: {
-            label: "Realtime",
+            label: "实时",
             component: import("@/components/collections/docs/RealtimeApiDocs.svelte"),
         },
         batch: {
-            label: "Batch",
+            label: "批量",
             component: import("@/components/collections/docs/BatchApiDocs.svelte"),
         },
     };
 
     const authTabs = {
         "list-auth-methods": {
-            label: "List auth methods",
+            label: "列出认证方法",
             component: import("@/components/collections/docs/AuthMethodsDocs.svelte"),
         },
         "auth-with-password": {
-            label: "Auth with password",
+            label: "密码认证",
             component: import("@/components/collections/docs/AuthWithPasswordDocs.svelte"),
         },
         "auth-with-oauth2": {
-            label: "Auth with OAuth2",
+            label: "OAuth2认证",
             component: import("@/components/collections/docs/AuthWithOAuth2Docs.svelte"),
         },
         "auth-with-otp": {
-            label: "Auth with OTP",
+            label: "OTP认证",
             component: import("@/components/collections/docs/AuthWithOtpDocs.svelte"),
         },
         refresh: {
-            label: "Auth refresh",
+            label: "认证刷新",
             component: import("@/components/collections/docs/AuthRefreshDocs.svelte"),
         },
         verification: {
-            label: "Verification",
+            label: "验证",
             component: import("@/components/collections/docs/VerificationDocs.svelte"),
         },
         "password-reset": {
-            label: "Password reset",
+            label: "密码重置",
             component: import("@/components/collections/docs/PasswordResetDocs.svelte"),
         },
         "email-change": {
-            label: "Email change",
+            label: "邮箱变更",
             component: import("@/components/collections/docs/EmailChangeDocs.svelte"),
         },
     };
@@ -124,7 +124,7 @@
                     {#if tab.disabled}
                         <div
                             class="sidebar-item disabled"
-                            use:tooltip={{ position: "left", text: "Not enabled for the collection" }}
+                            use:tooltip={{ position: "left", text: "该集合未启用此功能" }}
                         >
                             {tab.label}
                         </div>
@@ -156,7 +156,7 @@
     <!-- visible only on small screens -->
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={() => hide()}>
-            <span class="txt">Close</span>
+            <span class="txt">关闭</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

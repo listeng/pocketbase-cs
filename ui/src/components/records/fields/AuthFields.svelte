@@ -32,7 +32,7 @@
         <Field class="form-field {emailField?.required ? 'required' : ''}" name="email" let:uniqueId>
             <label for={uniqueId}>
                 <i class={CommonHelper.getFieldTypeIcon("email")} />
-                <span class="txt">email</span>
+                <span class="txt">邮箱</span>
             </label>
 
             {#if !isSuperusers}
@@ -43,12 +43,12 @@
                             ? 'btn-success'
                             : 'btn-hint'}"
                         use:tooltip={{
-                            text: "Make email public or private",
+                            text: "设置邮箱公开或私有",
                             position: "top-right",
                         }}
                         on:click|preventDefault={() => (record.emailVisibility = !record.emailVisibility)}
                     >
-                        <span class="txt">Public: {record.emailVisibility ? "On" : "Off"}</span>
+                        <span class="txt">公开: {record.emailVisibility ? "开" : "关"}</span>
                     </button>
                 </div>
             {/if}
@@ -69,7 +69,7 @@
         {#if !isNew}
             <Field class="form-field form-field-toggle" name="verified" let:uniqueId>
                 <input type="checkbox" id={uniqueId} bind:checked={changePasswordToggle} />
-                <label for={uniqueId}>Change password</label>
+                <label for={uniqueId}>修改密码</label>
             </Field>
         {/if}
 
@@ -80,7 +80,7 @@
                         <Field class="form-field required" name="password" let:uniqueId>
                             <label for={uniqueId}>
                                 <i class="ri-lock-line" />
-                                <span class="txt">Password</span>
+                                <span class="txt">密码</span>
                             </label>
                             <input
                                 type="password"
@@ -98,7 +98,7 @@
                         <Field class="form-field required" name="passwordConfirm" let:uniqueId>
                             <label for={uniqueId}>
                                 <i class="ri-lock-line" />
-                                <span class="txt">Password confirm</span>
+                                <span class="txt">确认密码</span>
                             </label>
                             <input
                                 type="password"
@@ -126,7 +126,7 @@
                             return; // no confirmation required
                         }
                         confirm(
-                            `Do you really want to manually change the verified account state?`,
+                            `确定要手动更改账户验证状态吗？`,
                             () => {},
                             () => {
                                 record.verified = !e.target.checked;
@@ -134,7 +134,7 @@
                         );
                     }}
                 />
-                <label for={uniqueId}>Verified</label>
+                <label for={uniqueId}>已验证</label>
             </Field>
         </div>
     {/if}

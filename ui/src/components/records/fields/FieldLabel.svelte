@@ -18,7 +18,7 @@
     <span class="txt">{field.name}</span>
 
     {#if field.hidden}
-        <small class="label label-sm label-danger">Hidden</small>
+        <small class="label label-sm label-danger">隐藏</small>
     {/if}
 
     <slot />

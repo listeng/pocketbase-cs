@@ -13,7 +13,7 @@
     on:click={() => generatorPopup?.show({ clientId: config.clientId })}
 >
     <i class="ri-key-line" />
-    <span class="txt">Generate secret</span>
+    <span class="txt">生成密钥</span>
 </button>
 
 <AppleSecretPopup

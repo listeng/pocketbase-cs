@@ -242,21 +242,21 @@
                 <SortHeader disable class="col-field-level min-width" name="level" bind:sort>
                     <div class="col-header-content">
                         <i class="ri-bookmark-line" />
-                        <span class="txt">level</span>
+                        <span class="txt">级别</span>
                     </div>
                 </SortHeader>
 
                 <SortHeader disable class="col-type-text col-field-message" name="data" bind:sort>
                     <div class="col-header-content">
                         <i class="ri-file-list-2-line" />
-                        <span class="txt">message</span>
+                        <span class="txt">消息</span>
                     </div>
                 </SortHeader>
 
                 <SortHeader disable class="col-type-date col-field-created" name="created" bind:sort>
                     <div class="col-header-content">
                         <i class={CommonHelper.getFieldTypeIcon("date")} />
-                        <span class="txt">created</span>
+                        <span class="txt">创建时间</span>
                     </div>
                 </SortHeader>
 
@@ -305,11 +305,11 @@
                                 {#each previewKeys as keyItem}
                                     <span class="label label-sm {keyItem.label || ''}">
                                         {#if isRequest && keyItem.key == "execTime"}
-                                            {keyItem.key}: {log.data[keyItem.key]}ms
+                                            {keyItem.key}: {log.data[keyItem.key]}毫秒
                                         {:else}
                                             {keyItem.key}: {CommonHelper.stringifyValue(
                                                 log.data[keyItem.key],
-                                                "N/A",
+                                                "无",
                                                 80,
                                             )}
                                         {/if}
@@ -337,14 +337,14 @@
                 {:else}
                     <tr>
                         <td colspan="99" class="txt-center txt-hint p-xs">
-                            <h6>No logs found.</h6>
+                            <h6>未找到日志。</h6>
                             {#if filter?.length}
                                 <button
                                     type="button"
                                     class="btn btn-hint btn-expanded m-t-sm"
                                     on:click={() => (filter = "")}
                                 >
-                                    <span class="txt">Clear filters</span>
+                                    <span class="txt">清除筛选条件</span>
                                 </button>
                             {/if}
                         </td>
@@ -364,7 +364,7 @@
             class:btn-disabled={isLoading}
             on:click={() => load(currentPage + 1)}
         >
-            <span class="txt">Load more</span>
+            <span class="txt">加载更多</span>
         </button>
     </div>
 {/if}
@@ -372,19 +372,19 @@
 {#if totalBulkSelected}
     <div class="bulkbar" transition:fly={{ duration: 150, y: 5 }}>
         <div class="txt">
-            Selected <strong>{totalBulkSelected}</strong>
-            {totalBulkSelected === 1 ? "log" : "logs"}
+            已选择 <strong>{totalBulkSelected}</strong>
+            {totalBulkSelected === 1 ? "条日志" : "条日志"}
         </div>
         <button
             type="button"
             class="btn btn-xs btn-transparent btn-outline p-l-5 p-r-5"
             on:click={() => deselectAllLogs()}
         >
-            <span class="txt">Reset</span>
+            <span class="txt">重置</span>
         </button>
         <div class="flex-fill" />
         <button type="button" class="btn btn-sm" on:click={downloadSelected}>
-            <span class="txt">Download as JSON</span>
+            <span class="txt">下载为JSON</span>
         </button>
     </div>
 {/if}

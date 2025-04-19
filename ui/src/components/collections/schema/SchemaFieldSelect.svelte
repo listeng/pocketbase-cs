@@ -8,8 +8,8 @@
     export let key = "";
 
     const isSingleOptions = [
-        { label: "Single", value: true },
-        { label: "Multiple", value: false },
+        { label: "单选", value: true },
+        { label: "多选", value: false },
     ];
 
     let isSingle = field.maxSelect <= 1;
@@ -48,7 +48,7 @@
         >
             <DynamicOptionsSelect
                 id={uniqueId}
-                emptyPlaceholder={"Add choices *"}
+                emptyPlaceholder={"添加选项 *"}
                 bind:items={field.values}
             />
         </Field>
@@ -74,14 +74,14 @@
     <svelte:fragment slot="options">
         {#if !isSingle}
             <Field class="form-field" name="fields.{key}.maxSelect" let:uniqueId>
-                <label for={uniqueId}>Max select</label>
+                <label for={uniqueId}>最多选择</label>
                 <input
                     id={uniqueId}
                     type="number"
                     step="1"
                     min="2"
                     max={field.values.length}
-                    placeholder="Default to single"
+                    placeholder="默认为单选"
                     bind:value={field.maxSelect}
                 />
             </Field>

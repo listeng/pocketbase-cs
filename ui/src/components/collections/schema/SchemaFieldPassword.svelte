@@ -20,13 +20,13 @@
         <div class="grid grid-sm">
             <div class="col-sm-6">
                 <Field class="form-field" name="fields.{key}.min" let:uniqueId>
-                    <label for={uniqueId}>Min length</label>
+                    <label for={uniqueId}>最小长度</label>
                     <input
                         type="number"
                         id={uniqueId}
                         step="1"
                         min="0"
-                        placeholder="No min limit"
+                        placeholder="无最小限制"
                         value={field.min || ""}
                         on:input={(e) => (field.min = e.target.value << 0)}
                     />
@@ -35,12 +35,12 @@
 
             <div class="col-sm-6">
                 <Field class="form-field" name="fields.{key}.max" let:uniqueId>
-                    <label for={uniqueId}>Max length</label>
+                    <label for={uniqueId}>最大长度</label>
                     <input
                         type="number"
                         id={uniqueId}
                         step="1"
-                        placeholder="Up to 71 chars"
+                        placeholder="最多71个字符"
                         min={field.min || 0}
                         max="71"
                         value={field.max || ""}
@@ -51,11 +51,11 @@
 
             <div class="col-sm-6">
                 <Field class="form-field" name="fields.{key}.cost" let:uniqueId>
-                    <label for={uniqueId}>Bcrypt cost</label>
+                    <label for={uniqueId}>Bcrypt强度</label>
                     <input
                         type="number"
                         id={uniqueId}
-                        placeholder="Default to 10"
+                        placeholder="默认为10"
                         step="1"
                         min="6"
                         max="31"
@@ -67,8 +67,8 @@
 
             <div class="col-sm-6">
                 <Field class="form-field" name="fields.{key}.pattern" let:uniqueId>
-                    <label for={uniqueId}>Validation pattern</label>
-                    <input type="text" id={uniqueId} placeholder="ex. ^\w+$" bind:value={field.pattern} />
+                    <label for={uniqueId}>验证规则</label>
+                    <input type="text" id={uniqueId} placeholder="例如：^\w+$" bind:value={field.pattern} />
                 </Field>
             </div>
         </div>

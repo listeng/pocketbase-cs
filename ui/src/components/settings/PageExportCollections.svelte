@@ -7,7 +7,7 @@
     import Field from "@/components/base/Field.svelte";
     import SettingsSidebar from "@/components/settings/SettingsSidebar.svelte";
 
-    $pageTitle = "Export collections";
+    $pageTitle = "导出集合";
 
     const uniqueId = "export_" + CommonHelper.randomString(5);
 
@@ -58,7 +58,7 @@
 
     function copy() {
         CommonHelper.copyToClipboard(schema);
-        addInfoToast("The configuration was copied to your clipboard!", 3000);
+        addInfoToast("配置已复制到剪贴板!", 3000);
     }
 
     function toggleSelectAll() {
@@ -97,7 +97,7 @@
 <PageWrapper>
     <header class="page-header">
         <nav class="breadcrumbs">
-            <div class="breadcrumb-item">Settings</div>
+            <div class="breadcrumb-item">设置</div>
             <div class="breadcrumb-item">{$pageTitle}</div>
         </nav>
     </header>
@@ -109,8 +109,7 @@
             {:else}
                 <div class="content txt-xl m-b-base">
                     <p>
-                        Below you'll find your current collections configuration that you could import in
-                        another PocketBase environment.
+                        以下是您当前的集合配置，可以导入到另一个PocketBase环境中。
                     </p>
                 </div>
 
@@ -125,7 +124,7 @@
                                     checked={areAllSelected}
                                     on:change={() => toggleSelectAll()}
                                 />
-                                <label for={uniqueId}>Select all</label>
+                                <label for={uniqueId}>全选</label>
                             </Field>
                         </div>
                         {#each collections as collection (collection.id)}
@@ -167,7 +166,7 @@
                             disabled={!totalBulkSelected}
                             on:click={() => copy()}
                         >
-                            <span class="txt">Copy</span>
+                            <span class="txt">复制</span>
                         </button>
 
                         <pre class="code-wrapper">{schema}</pre>
@@ -183,7 +182,7 @@
                         on:click={() => download()}
                     >
                         <i class="ri-download-line" />
-                        <span class="txt">Download as JSON</span>
+                        <span class="txt">下载为JSON</span>
                     </button>
                 </div>
             {/if}

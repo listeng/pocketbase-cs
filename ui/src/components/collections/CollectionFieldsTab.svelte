@@ -70,7 +70,7 @@
         const clone = structuredClone(field);
         clone.id = "";
         clone.system = false;
-        clone.name = getUniqueFieldName(clone.name + "_copy");
+        clone.name = getUniqueFieldName(clone.name + "_副本");
         clone.onMountSelect = true;
 
         collection.fields.splice(fieldIndex + 1, 0, clone);

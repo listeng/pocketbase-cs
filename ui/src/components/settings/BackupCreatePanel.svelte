@@ -46,7 +46,7 @@
 
             hide();
             dispatch("submit");
-            addSuccessToast("Successfully generated new backup.");
+            addSuccessToast("成功生成新备份。");
         } catch (err) {
             if (!err.isAbort) {
                 ApiClient.error(err);
@@ -67,7 +67,7 @@
     class="backup-create-panel"
     beforeOpen={() => {
         if (isSubmitting) {
-            addInfoToast("A backup has already been started, please wait.");
+            addInfoToast("备份已开始，请稍候。");
             return false;
         }
 
@@ -76,7 +76,7 @@
     beforeHide={() => {
         if (isSubmitting) {
             addInfoToast(
-                "The backup was started but may take a while to complete. You can come back later.",
+                "备份已开始但可能需要一段时间完成。您可以稍后再回来查看。",
                 4500
             );
         }
@@ -88,7 +88,7 @@
     on:hide
 >
     <svelte:fragment slot="header">
-        <h4 class="center txt-break">Initialize new backup</h4>
+        <h4 class="center txt-break">创建新备份</h4>
     </svelte:fragment>
 
     <div class="alert alert-info">
@@ -97,33 +97,31 @@
         </div>
         <div class="content">
             <p>
-                Please note that during the backup other concurrent write requests may fail since the
-                database will be temporary "locked" (this usually happens only during the ZIP generation).
+                请注意，在备份过程中，其他并发写入请求可能会失败，因为数据库将被临时"锁定"（这通常仅在ZIP生成期间发生）。
             </p>
             <p class="txt-bold">
-                If you are using S3 storage for the collections file upload, you'll have to backup them
-                separately since they are not locally stored and will not be included in the final backup!
+                如果您使用S3存储来存储集合文件上传，您需要单独备份它们，因为它们不是本地存储的，不会包含在最终备份中！
             </p>
         </div>
     </div>
 
     <form id={formId} autocomplete="off" on:submit|preventDefault={submit}>
         <Field class="form-field m-0" name="name" let:uniqueId>
-            <label for={uniqueId}>Backup name</label>
+            <label for={uniqueId}>备份名称</label>
             <input
                 type="text"
                 id={uniqueId}
-                placeholder={"Leave empty to autogenerate"}
+                placeholder={"留空以自动生成"}
                 pattern="^[a-z0-9_-]+\.zip$"
                 bind:value={name}
             />
-            <em class="help-block">Must be in the format [a-z0-9_-].zip</em>
+            <em class="help-block">必须符合[a-z0-9_-].zip格式</em>
         </Field>
     </form>
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={hide} disabled={isSubmitting}>
-            <span class="txt">Cancel</span>
+            <span class="txt">取消</span>
         </button>
         <button
             type="submit"
@@ -132,7 +130,7 @@
             class:btn-loading={isSubmitting}
             disabled={isSubmitting}
         >
-            <span class="txt">Start backup</span>
+            <span class="txt">开始备份</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

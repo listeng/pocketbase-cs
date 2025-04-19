@@ -25,22 +25,22 @@
     <svelte:fragment slot="header">
         <div class="inline-flex">
             <i class="ri-time-line"></i>
-            <span class="txt">One-time password (OTP)</span>
+            <span class="txt">一次性密码(OTP)</span>
         </div>
 
         <div class="flex-fill" />
 
         {#if collection.otp.enabled}
-            <span class="label label-success">Enabled</span>
+            <span class="label label-success">已启用</span>
         {:else}
-            <span class="label">Disabled</span>
+            <span class="label">已禁用</span>
         {/if}
 
         {#if hasErrors}
             <i
                 class="ri-error-warning-fill txt-danger"
                 transition:scale={{ duration: 150, start: 0.7 }}
-                use:tooltip={{ text: "Has errors", position: "left" }}
+                use:tooltip={{ text: "存在错误", position: "left" }}
             />
         {/if}
     </svelte:fragment>
@@ -56,12 +56,12 @@
                 }
             }}
         />
-        <label for={uniqueId}>Enable</label>
+        <label for={uniqueId}>启用</label>
         {#if isSuperusers}
             <i
                 class="ri-information-line link-hint"
                 use:tooltip={{
-                    text: "Superusers can have OTP only as part of Two-factor authentication.",
+                    text: "超级用户只能将OTP作为双因素认证的一部分使用。",
                     position: "right",
                 }}
             />
@@ -71,7 +71,7 @@
     <div class="grid grid-sm">
         <div class="col-sm-6">
             <Field class="form-field form-field-toggle required" name="otp.duration" let:uniqueId>
-                <label for={uniqueId}>Duration (in seconds)</label>
+                <label for={uniqueId}>有效期(秒)</label>
                 <input
                     type="number"
                     min="0"
@@ -84,7 +84,7 @@
         </div>
         <div class="col-sm-6">
             <Field class="form-field form-field-toggle required" name="otp.length" let:uniqueId>
-                <label for={uniqueId}>Generated password length</label>
+                <label for={uniqueId}>生成密码长度</label>
                 <input
                     type="number"
                     min="0"

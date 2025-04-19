@@ -15,11 +15,11 @@
     const testRequestKey = "email_test_request";
 
     const templateOptions = [
-        { label: "Verification", value: "verification" },
-        { label: "Password reset", value: "password-reset" },
-        { label: "Confirm email change", value: "email-change" },
-        { label: "OTP", value: "otp" },
-        { label: "Login alert", value: "login-alert" },
+        { label: "验证邮件", value: "verification" },
+        { label: "密码重置", value: "password-reset" },
+        { label: "邮箱变更确认", value: "email-change" },
+        { label: "一次性密码", value: "otp" },
+        { label: "登录提醒", value: "login-alert" },
     ];
 
     let panel;
@@ -70,7 +70,7 @@
         clearTimeout(testTimeoutId);
         testTimeoutId = setTimeout(() => {
             ApiClient.cancelRequest(testRequestKey);
-            addErrorToast("Test email send timeout.");
+            addErrorToast("测试邮件发送超时");
         }, 30000);
 
         try {
@@ -78,7 +78,7 @@
                 $cancelKey: testRequestKey,
             });
 
-            addSuccessToast("Successfully sent test email.");
+            addSuccessToast("测试邮件发送成功");
             dispatch("submit");
             isSubmitting = false;
 
@@ -126,7 +126,7 @@
     on:hide
 >
     <svelte:fragment slot="header">
-        <h4 class="center txt-break">Send test email</h4>
+        <h4 class="center txt-break">发送测试邮件</h4>
     </svelte:fragment>
 
     <form id={formId} autocomplete="off" on:submit|preventDefault={() => submit()}>
@@ -147,13 +147,13 @@
 
         {#if showAuthCollections}
             <Field class="form-field required" name="collection" let:uniqueId>
-                <label for={uniqueId}>Auth collection</label>
+                <label for={uniqueId}>认证集合</label>
                 <ObjectSelect
                     id={uniqueId}
                     selectPlaceholder={isAuthCollectionsLoading
-                        ? "Loading auth collections..."
-                        : "Select auth collection"}
-                    noOptionsText={"No auth collections found"}
+                        ? "正在加载认证集合..."
+                        : "选择认证集合"}
+                    noOptionsText={"未找到认证集合"}
                     selectionKey="id"
                     items={authCollections}
                     bind:keyOfSelected={collectionIdOrName}
@@ -162,7 +162,7 @@
         {/if}
 
         <Field class="form-field required m-0" name="email" let:uniqueId>
-            <label for={uniqueId}>To email address</label>
+            <label for={uniqueId}>收件邮箱</label>
             <!-- svelte-ignore a11y-autofocus -->
             <input type="email" id={uniqueId} autofocus required bind:value={email} />
         </Field>
@@ -170,7 +170,7 @@
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent" on:click={hide} disabled={isSubmitting}
-            >Close</button
+            >关闭</button
         >
         <button
             type="submit"
@@ -180,7 +180,7 @@
             disabled={!canSubmit || isSubmitting}
         >
             <i class="ri-mail-send-line" />
-            <span class="txt">Send</span>
+            <span class="txt">发送</span>
         </button>
     </svelte:fragment>
 </OverlayPanel>

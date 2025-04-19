@@ -39,7 +39,7 @@
             });
         } catch (err) {
             if (!err?.isAbort) {
-                addErrorToast("The installer token is invalid or has expired.");
+                addErrorToast("安装令牌无效或已过期。");
 
                 replace("/");
             }
@@ -93,8 +93,8 @@
         }
 
         confirm(
-            `Note that we don't perform validations for the uploaded backup files. Proceed with caution and only if you trust the file source.\n\n` +
-                `Do you really want to upload and initialize "${file.name}"?`,
+            `请注意，我们不会对上传的备份文件进行验证。请谨慎操作，仅在上传可信文件源时继续。\n\n` +
+                `确定要上传并初始化"${file.name}"吗？`,
             () => {
                 uploadBackup(file);
             },
@@ -123,7 +123,7 @@
                 headers: { Authorization: params?.token },
             });
 
-            addInfoToast("Please wait while extracting the uploaded archive!");
+            addInfoToast("正在解压上传的存档文件，请稍候！");
 
             // optimistic restore completion
             await new Promise((r) => setTimeout(r, 2000));
@@ -142,11 +142,11 @@
 <FullPage>
     <form class="block" autocomplete="off" on:submit|preventDefault={submit}>
         <div class="content txt-center m-b-base">
-            <h4>Create your first superuser account in order to continue</h4>
+            <h4>创建您的第一个超级用户账户以继续</h4>
         </div>
 
         <Field class="form-field required" name="email" let:uniqueId>
-            <label for={uniqueId}>Email</label>
+            <label for={uniqueId}>邮箱</label>
             <input
                 bind:this={emailInput}
                 type="email"
@@ -159,7 +159,7 @@
         </Field>
 
         <Field class="form-field required" name="password" let:uniqueId>
-            <label for={uniqueId}>Password</label>
+            <label for={uniqueId}>密码</label>
             <input
                 type="password"
                 autocomplete="new-password"
@@ -169,11 +169,11 @@
                 bind:value={password}
                 required
             />
-            <div class="help-block">Recommended at least 10 characters.</div>
+            <div class="help-block">建议至少10个字符。</div>
         </Field>
 
         <Field class="form-field required" name="passwordConfirm" let:uniqueId>
-            <label for={uniqueId}>Password confirm</label>
+            <label for={uniqueId}>确认密码</label>
             <input
                 type="password"
                 minlength="10"
@@ -190,7 +190,7 @@
             class:btn-disabled={isBusy}
             class:btn-loading={isLoading}
         >
-            <span class="txt">Create superuser and login</span>
+            <span class="txt">创建超级用户并登录</span>
             <i class="ri-arrow-right-line" />
         </button>
     </form>
@@ -206,7 +206,7 @@
         class:btn-loading={isUploading}
     >
         <i class="ri-upload-cloud-line" />
-        <span class="txt">Or initialize from backup</span>
+        <span class="txt">或从备份初始化</span>
     </label>
     <input
         bind:this={backupFileInput}

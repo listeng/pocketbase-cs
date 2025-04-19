@@ -7,7 +7,7 @@
     import RefreshButton from "@/components/base/RefreshButton.svelte";
     import SettingsSidebar from "@/components/settings/SettingsSidebar.svelte";
 
-    $pageTitle = "Crons";
+    $pageTitle = "定时任务";
 
     let crons = [];
     let isLoading = false;
@@ -34,7 +34,7 @@
 
         try {
             await ApiClient.crons.run(jobId);
-            addSuccessToast(`Successfully triggered ${jobId}.`);
+            addSuccessToast(`成功触发 ${jobId}。`);
             isRunning[jobId] = false;
         } catch (err) {
             if (!err.isAbort) {
@@ -50,7 +50,7 @@
 <PageWrapper>
     <header class="page-header">
         <nav class="breadcrumbs">
-            <div class="breadcrumb-item">Settings</div>
+            <div class="breadcrumb-item">设置</div>
             <div class="breadcrumb-item">{$pageTitle}</div>
         </nav>
     </header>
@@ -58,8 +58,8 @@
     <div class="wrapper">
         <div class="panel" autocomplete="off">
             <div class="flex m-b-sm flex-gap-10">
-                <span class="txt-xl">Registered app cron jobs</span>
-                <RefreshButton class="btn-sm" tooltip={"Refresh"} on:refresh={loadCrons} />
+                <span class="txt-xl">已注册的应用定时任务</span>
+                <RefreshButton class="btn-sm" tooltip={"刷新"} on:refresh={loadCrons} />
             </div>
 
             <div class="list list-compact">
@@ -93,8 +93,8 @@
                                         class="btn btn-sm btn-circle btn-hint btn-transparent"
                                         class:btn-loading={isRunning[cron.id]}
                                         disabled={isRunning[cron.id]}
-                                        aria-label="Run"
-                                        use:tooltip={"Run"}
+                                        aria-label="运行"
+                                        use:tooltip={"运行"}
                                         on:click|preventDefault={() => cronRun(cron.id)}
                                     >
                                         <i class="ri-play-large-line"></i>
@@ -103,7 +103,7 @@
                             </div>
                         {:else}
                             <div class="list-item list-item-placeholder">
-                                <span class="txt">No app crons found.</span>
+                                <span class="txt">未找到应用定时任务。</span>
                             </div>
                         {/each}
                     {/if}
@@ -111,7 +111,7 @@
             </div>
 
             <p class="txt-hint m-t-xs">
-                App cron jobs can be registered only programmatically with
+                应用定时任务只能通过
                 <a
                     href="{import.meta.env.PB_DOCS_URL}/go-jobs-scheduling/"
                     target="_blank"
@@ -119,14 +119,15 @@
                 >
                     Go
                 </a>
-                or
+                或
                 <a
                     href="{import.meta.env.PB_DOCS_URL}/js-jobs-scheduling/"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
                     JavaScript
-                </a>.
+                </a>
+                编程方式注册。
             </p>
         </div>
     </div>

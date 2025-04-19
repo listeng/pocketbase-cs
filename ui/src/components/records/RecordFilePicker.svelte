@@ -15,8 +15,8 @@
     const uniqueId = "file_picker_" + CommonHelper.randomString(5);
     const batchSize = 50;
 
-    export let title = "Select a file";
-    export let submitText = "Insert";
+    export let title = "选择文件";
+    export let submitText = "插入";
     export let fileTypes = ["image", "document", "video", "audio", "file"];
 
     let pickerPanel;
@@ -166,10 +166,10 @@
         }
 
         // construct the dropdown options
-        sizeOptions = [{ label: "Original size", value: "" }];
+        sizeOptions = [{ label: "原始尺寸", value: "" }];
         for (const size of sizes) {
             sizeOptions.push({
-                label: `${size} thumb`,
+                label: `${size} 缩略图`,
                 value: size,
             });
         }
@@ -225,7 +225,7 @@
 
     {#if !fileCollections.length}
         <h6 class="txt-center txt-hint">
-            You currently don't have any collection with <code>file</code> field.
+            当前没有包含 <code>file</code> 字段的集合。
         </h6>
     {:else}
         <div class="file-picker">
@@ -248,7 +248,7 @@
                 <div class="flex m-b-base flex-gap-10">
                     <Searchbar
                         value={filter}
-                        placeholder="Record search term or filter..."
+                        placeholder="搜索记录或筛选条件..."
                         autocompleteCollection={selectedCollection}
                         on:submit={(e) => (filter = e.detail)}
                     />
@@ -257,7 +257,7 @@
                         class="btn btn-pill btn-transparent btn-hint p-l-xs p-r-xs"
                         on:click={() => upsertPanel?.show()}
                     >
-                        <div class="txt">New record</div>
+                        <div class="txt">新建记录</div>
                     </button>
                 </div>
                 <Scroller
@@ -276,7 +276,7 @@
                                 <button
                                     type="button"
                                     class="thumb handle"
-                                    use:tooltip={name + "\n(record: " + record.id + ")"}
+                                    use:tooltip={name + "\n(记录: " + record.id + ")"}
                                     class:thumb-warning={isSelected(record, name)}
                                     on:click|preventDefault={select(record, name)}
                                 >
@@ -294,14 +294,14 @@
                         {/each}
                     {:else if !isLoading}
                         <div class="inline-flex">
-                            <span class="txt txt-hint">No records with images found.</span>
+                            <span class="txt txt-hint">未找到包含图片的记录。</span>
                             {#if filter?.length}
                                 <button
                                     type="button"
                                     class="btn btn-hint btn-sm"
                                     on:click|preventDefault={clearFilter}
                                 >
-                                    <span class="txt">Clear filter</span>
+                                    <span class="txt">清除筛选</span>
                                 </button>
                             {/if}
                         </div>
@@ -319,7 +319,7 @@
 
     <svelte:fragment slot="footer">
         <button type="button" class="btn btn-transparent m-r-auto" disabled={isLoading} on:click={hide}>
-            <span class="txt">Cancel</span>
+            <span class="txt">取消</span>
         </button>
 
         {#if CommonHelper.hasImageExtension(selectedFile?.name)}
@@ -329,7 +329,7 @@
                     id={uniqueId}
                     items={sizeOptions}
                     disabled={!canSubmit}
-                    selectPlaceholder="Select size"
+                    selectPlaceholder="选择尺寸"
                     bind:keyOfSelected={selectedSize}
                 />
             </Field>

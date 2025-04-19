@@ -19,14 +19,14 @@
 
 <script>
     /**
-     * Example usage:
+     * 使用示例:
      * ```html
      * <OverlayPanel bind:active={popupActive} popup={false}>
-     *     <h5 slot="header">My title</h5>
-     *     <p>Lorem ipsum dolor sit amet...</p>
+     *     <h5 slot="header">我的标题</h5>
+     *     <p>这里是内容...</p>
      *     <svelte:fragment slot="footer">
-     *         <button class="btn btn-transparent">Cancel</button>
-     *         <button class="btn btn-expanded">Save</button>
+     *         <button class="btn btn-transparent">取消</button>
+     *         <button class="btn btn-expanded">保存</button>
      *     </svelte:fragment>
      * </OverlayPanel>
      * ```
@@ -43,8 +43,8 @@
     export let overlayClose = true;
     export let btnClose = true;
     export let escClose = true;
-    export let beforeOpen = undefined; // function callback called before open; if return false - no open
-    export let beforeHide = undefined; // function callback called before hide; if return false - no close
+    export let beforeOpen = undefined; // 打开前回调函数; 如果返回false则不打开
+    export let beforeHide = undefined; // 关闭前回调函数; 如果返回false则不关闭
 
     const dispatch = createEventDispatcher();
     const uniqueId = "op_" + CommonHelper.randomString(10);
@@ -148,7 +148,7 @@
             e.code == "Escape" &&
             !CommonHelper.isInput(e.target) &&
             wrapper &&
-            // it is the top most popup
+            // 是最顶层的弹窗
             wrapper.style.zIndex == highestZIndex()
         ) {
             e.preventDefault();
@@ -176,7 +176,7 @@
             contentScrollThrottle = null;
 
             if (!panel) {
-                return; // deleted during timeout
+                return; // 超时期间被删除
             }
 
             let heightDiff = panel.scrollHeight - panel.offsetHeight;
@@ -184,7 +184,7 @@
                 contentScrollClass = "scrollable";
             } else {
                 contentScrollClass = "";
-                return; // no scroll
+                return; // 不可滚动
             }
 
             if (panel.scrollTop == 0) {
@@ -196,7 +196,7 @@
     }
 
     onMount(() => {
-        // move outside of its current parent
+        // 移出当前父元素
         getHolder().appendChild(wrapper);
 
         let wrapperCopy = wrapper;
@@ -234,7 +234,7 @@
                     {#if btnClose && !popup}
                         <button
                             type="button"
-                            aria-label="Close"
+                            aria-label="关闭"
                             class="overlay-close"
                             transition:fade={{ duration: transitionSpeed }}
                             on:click|preventDefault={hide}
@@ -248,7 +248,7 @@
                     {#if btnClose && popup}
                         <button
                             type="button"
-                            aria-label="Close"
+                            aria-label="关闭"
                             class="btn btn-sm btn-circle btn-transparent btn-close m-l-auto"
                             on:click|preventDefault={hide}
                         >

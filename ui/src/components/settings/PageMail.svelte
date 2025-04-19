@@ -14,16 +14,16 @@
     import { slide } from "svelte/transition";
 
     const tlsOptions = [
-        { label: "Auto (StartTLS)", value: false },
-        { label: "Always", value: true },
+        { label: "自动 (StartTLS)", value: false },
+        { label: "始终", value: true },
     ];
 
     const authMethods = [
-        { label: "PLAIN (default)", value: "PLAIN" },
+        { label: "PLAIN (默认)", value: "PLAIN" },
         { label: "LOGIN", value: "LOGIN" },
     ];
 
-    $pageTitle = "Mail settings";
+    $pageTitle = "邮件设置";
 
     let testPopup;
     let originalFormSettings = {};
@@ -63,7 +63,7 @@
             const settings = await ApiClient.settings.update(CommonHelper.filterRedactedProps(formSettings));
             init(settings);
             setErrors({});
-            addSuccessToast("Successfully saved mail settings.");
+            addSuccessToast("邮件设置保存成功");
         } catch (err) {
             ApiClient.error(err);
         }
@@ -96,7 +96,7 @@
 <PageWrapper>
     <header class="page-header">
         <nav class="breadcrumbs">
-            <div class="breadcrumb-item">Settings</div>
+            <div class="breadcrumb-item">设置</div>
             <div class="breadcrumb-item">{$pageTitle}</div>
         </nav>
     </header>
@@ -104,7 +104,7 @@
     <div class="wrapper">
         <form class="panel" autocomplete="off" on:submit|preventDefault={() => save()}>
             <div class="content txt-xl m-b-base">
-                <p>Configure common settings for sending emails.</p>
+                <p>配置发送邮件的通用设置</p>
             </div>
 
             {#if isLoading}
@@ -113,7 +113,7 @@
                 <div class="grid m-b-base">
                     <div class="col-lg-6">
                         <Field class="form-field required" name="meta.senderName" let:uniqueId>
-                            <label for={uniqueId}>Sender name</label>
+                            <label for={uniqueId}>发件人名称</label>
                             <input
                                 type="text"
                                 id={uniqueId}
@@ -125,7 +125,7 @@
 
                     <div class="col-lg-6">
                         <Field class="form-field required" name="meta.senderAddress" let:uniqueId>
-                            <label for={uniqueId}>Sender address</label>
+                            <label for={uniqueId}>发件人地址</label>
                             <input
                                 type="email"
                                 id={uniqueId}
@@ -139,11 +139,11 @@
                 <Field class="form-field form-field-toggle m-b-sm" let:uniqueId>
                     <input type="checkbox" id={uniqueId} required bind:checked={formSettings.smtp.enabled} />
                     <label for={uniqueId}>
-                        <span class="txt">Use SMTP mail server <strong>(recommended)</strong></span>
+                        <span class="txt">使用SMTP邮件服务器 <strong>(推荐)</strong></span>
                         <i
                             class="ri-information-line link-hint"
                             use:tooltip={{
-                                text: 'By default PocketBase uses the unix "sendmail" command for sending emails. For better emails deliverability it is recommended to use a SMTP mail server.',
+                                text: '默认情况下PocketBase使用Unix的"sendmail"命令发送邮件。为了更好的邮件送达率，建议使用SMTP邮件服务器。',
                                 position: "top",
                             }}
                         />
@@ -155,7 +155,7 @@
                         <div class="grid">
                             <div class="col-lg-4">
                                 <Field class="form-field required" name="smtp.host" let:uniqueId>
-                                    <label for={uniqueId}>SMTP server host</label>
+                                    <label for={uniqueId}>SMTP服务器主机</label>
                                     <input
                                         type="text"
                                         id={uniqueId}
@@ -166,7 +166,7 @@
                             </div>
                             <div class="col-lg-2">
                                 <Field class="form-field required" name="smtp.port" let:uniqueId>
-                                    <label for={uniqueId}>Port</label>
+                                    <label for={uniqueId}>端口</label>
                                     <input
                                         type="number"
                                         id={uniqueId}
@@ -177,7 +177,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <Field class="form-field" name="smtp.username" let:uniqueId>
-                                    <label for={uniqueId}>Username</label>
+                                    <label for={uniqueId}>用户名</label>
                                     <input
                                         type="text"
                                         id={uniqueId}
@@ -187,7 +187,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <Field class="form-field" name="smtp.password" let:uniqueId>
-                                    <label for={uniqueId}>Password</label>
+                                    <label for={uniqueId}>密码</label>
                                     <RedactedPasswordInput
                                         id={uniqueId}
                                         bind:mask={maskPassword}
@@ -205,10 +205,10 @@
                             }}
                         >
                             {#if showMoreOptions}
-                                <span class="txt">Hide more options</span>
+                                <span class="txt">隐藏更多选项</span>
                                 <i class="ri-arrow-up-s-line" />
                             {:else}
-                                <span class="txt">Show more options</span>
+                                <span class="txt">显示更多选项</span>
                                 <i class="ri-arrow-down-s-line" />
                             {/if}
                         </button>
@@ -217,7 +217,7 @@
                             <div class="grid" transition:slide={{ duration: 150 }}>
                                 <div class="col-lg-3">
                                     <Field class="form-field" name="smtp.tls" let:uniqueId>
-                                        <label for={uniqueId}>TLS encryption</label>
+                                        <label for={uniqueId}>TLS加密</label>
                                         <ObjectSelect
                                             id={uniqueId}
                                             items={tlsOptions}
@@ -227,7 +227,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <Field class="form-field" name="smtp.authMethod" let:uniqueId>
-                                        <label for={uniqueId}>AUTH method</label>
+                                        <label for={uniqueId}>认证方法</label>
                                         <ObjectSelect
                                             id={uniqueId}
                                             items={authMethods}
@@ -238,11 +238,11 @@
                                 <div class="col-lg-6">
                                     <Field class="form-field" name="smtp.localName" let:uniqueId>
                                         <label for={uniqueId}>
-                                            <span class="txt">EHLO/HELO domain</span>
+                                            <span class="txt">EHLO/HELO域名</span>
                                             <i
                                                 class="ri-information-line link-hint"
                                                 use:tooltip={{
-                                                    text: "Some SMTP servers, such as the Gmail SMTP-relay, requires a proper domain name in the inital EHLO/HELO exchange and will reject attempts to use localhost.",
+                                                    text: "某些SMTP服务器（如Gmail SMTP中继）要求在初始EHLO/HELO交换中使用正确的域名，并会拒绝使用localhost的尝试。",
                                                     position: "top",
                                                 }}
                                             />
@@ -250,7 +250,7 @@
                                         <input
                                             type="text"
                                             id={uniqueId}
-                                            placeholder="Default to localhost"
+                                            placeholder="默认为localhost"
                                             bind:value={formSettings.smtp.localName}
                                         />
                                     </Field>
@@ -271,7 +271,7 @@
                             disabled={isSaving}
                             on:click={() => reset()}
                         >
-                            <span class="txt">Cancel</span>
+                            <span class="txt">取消</span>
                         </button>
                         <button
                             type="submit"
@@ -280,7 +280,7 @@
                             disabled={!hasChanges || isSaving}
                             on:click={() => save()}
                         >
-                            <span class="txt">Save changes</span>
+                            <span class="txt">保存更改</span>
                         </button>
                     {:else}
                         <button
@@ -289,7 +289,7 @@
                             on:click={() => testPopup?.show()}
                         >
                             <i class="ri-mail-check-line" />
-                            <span class="txt">Send test email</span>
+                            <span class="txt">发送测试邮件</span>
                         </button>
                     {/if}
                 </div>

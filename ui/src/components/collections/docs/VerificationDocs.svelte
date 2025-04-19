@@ -8,8 +8,8 @@
     export let collection;
 
     const apiTabs = [
-        { title: "Request verification", component: VerificationApiRequestDocs },
-        { title: "Confirm verification", component: VerificationApiConfirmDocs },
+        { title: "请求验证", component: VerificationApiRequestDocs },
+        { title: "确认验证", component: VerificationApiConfirmDocs },
     ];
 
     let activeApiTab = 0;
@@ -17,9 +17,9 @@
     $: backendAbsUrl = CommonHelper.getApiExampleUrl(ApiClient.baseURL);
 </script>
 
-<h3 class="m-b-sm">Account verification ({collection.name})</h3>
+<h3 class="m-b-sm">账户验证 ({collection.name})</h3>
 <div class="content txt-lg m-b-sm">
-    <p>Sends <strong>{collection.name}</strong> account verification request.</p>
+    <p>发送 <strong>{collection.name}</strong> 账户验证请求。</p>
 </div>
 
 <SdkTabs
@@ -33,7 +33,7 @@
         await pb.collection('${collection?.name}').requestVerification('test@example.com');
 
         // ---
-        // (optional) in your custom confirmation page:
+        // (可选) 在自定义确认页面:
         // ---
 
         await pb.collection('${collection?.name}').confirmVerification('VERIFICATION_TOKEN');
@@ -48,14 +48,14 @@
         await pb.collection('${collection?.name}').requestVerification('test@example.com');
 
         // ---
-        // (optional) in your custom confirmation page:
+        // (可选) 在自定义确认页面:
         // ---
 
         await pb.collection('${collection?.name}').confirmVerification('VERIFICATION_TOKEN');
     `}
 />
 
-<h6 class="m-b-xs">API details</h6>
+<h6 class="m-b-xs">API 详情</h6>
 <div class="tabs">
     <div class="tabs-header compact">
         {#each apiTabs as tab, i}

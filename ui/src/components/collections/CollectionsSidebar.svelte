@@ -87,7 +87,7 @@
             </div>
             <input
                 type="text"
-                placeholder="Search collections..."
+                placeholder="搜索集合..."
                 name="collections-search"
                 bind:value={searchTerm}
             />
@@ -102,7 +102,7 @@
         class:sidebar-content-compact={filtered.length > 20}
     >
         {#if pinnedCollections.length}
-            <div class="sidebar-title">Pinned</div>
+            <div class="sidebar-title">已置顶</div>
             {#each pinnedCollections as collection (collection.id)}
                 <CollectionSidebarItem {collection} bind:pinnedIds />
             {/each}
@@ -110,7 +110,7 @@
 
         {#if unpinnedRegularCollections.length}
             {#if pinnedCollections.length}
-                <div class="sidebar-title">Others</div>
+                <div class="sidebar-title">其他</div>
             {/if}
             {#each unpinnedRegularCollections as collection (collection.id)}
                 <CollectionSidebarItem {collection} bind:pinnedIds />
@@ -122,7 +122,7 @@
                 type="button"
                 class="sidebar-title m-b-xs"
                 class:link-hint={!normalizedSearch.length}
-                aria-label={showSystemSection ? "Expand system collections" : "Collapse system collections"}
+                aria-label={showSystemSection ? "展开系统集合" : "折叠系统集合"}
                 aria-expanded={showSystemSection || normalizedSearch.length}
                 disabled={normalizedSearch.length}
                 on:click={() => {
@@ -131,7 +131,7 @@
                     }
                 }}
             >
-                <span class="txt">System</span>
+                <span class="txt">系统</span>
                 {#if !normalizedSearch.length}
                     <i class="ri-arrow-{showSystemSection ? 'up' : 'down'}-s-line" aria-hidden="true" />
                 {/if}
@@ -144,7 +144,7 @@
         {/if}
 
         {#if normalizedSearch.length && !filtered.length}
-            <p class="txt-hint m-t-10 m-b-10 txt-center">No collections found.</p>
+            <p class="txt-hint m-t-10 m-b-10 txt-center">未找到集合。</p>
         {/if}
     </div>
 
@@ -152,7 +152,7 @@
         <footer class="sidebar-footer">
             <button type="button" class="btn btn-block btn-outline" on:click={() => collectionPanel?.show()}>
                 <i class="ri-add-line" />
-                <span class="txt">New collection</span>
+                <span class="txt">新建集合</span>
             </button>
         </footer>
     {/if}

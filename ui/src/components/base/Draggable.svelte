@@ -5,9 +5,9 @@
 
     export let index;
     export let list = [];
-    export let group = "default";
+    export let group = "默认";
     export let disabled = false;
-    export let dragHandleClass = ""; // by default the entire element
+    export let dragHandleClass = ""; // 默认整个元素都可拖动
 
     let dragging = false;
     let dragover = false;
@@ -18,7 +18,7 @@
         }
 
         if (dragHandleClass && !e.target.classList.contains(dragHandleClass)) {
-            // not the drag handle
+            // 不是拖动把手
             dragover = false;
             dragging = false;
             e.preventDefault();
@@ -27,8 +27,8 @@
 
         dragging = true;
 
-        e.dataTransfer.effectAllowed = "move";
-        e.dataTransfer.dropEffect = "move";
+        e.dataTransfer.effectAllowed = "移动";
+        e.dataTransfer.dropEffect = "移动";
         e.dataTransfer.setData(
             "text/plain",
             JSON.stringify({
@@ -48,7 +48,7 @@
             return;
         }
 
-        e.dataTransfer.dropEffect = "move";
+        e.dataTransfer.dropEffect = "移动";
 
         let dragData = {};
         try {
@@ -56,7 +56,7 @@
         } catch (_) {}
 
         if (dragData.group != group) {
-            return; // different draggable group
+            return; // 不同的可拖动组
         }
 
         const start = dragData.index << 0;
