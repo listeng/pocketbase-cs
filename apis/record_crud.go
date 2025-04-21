@@ -671,16 +671,21 @@ func extractUploadedFiles(re *core.RequestEvent, collection *core.Collection, pr
 			// prepend and append modifiers
 			"+" + baseKey,
 			baseKey + "+",
+			baseKey + "[]",
 		}
 
 		for _, k := range keys {
 			if prefix != "" {
 				k = prefix + "." + k
 			}
+
 			files, err := re.FindUploadedFiles(k)
 			if err != nil && !errors.Is(err, http.ErrMissingFile) {
 				return nil, err
 			}
+
+			k = strings.TrimSuffix(k, "[]")
+
 			if len(files) > 0 {
 				result[k] = files
 			}
