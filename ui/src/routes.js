@@ -9,6 +9,8 @@ import PageImportCollections from "@/components/settings/PageImportCollections.s
 import PageMail from "@/components/settings/PageMail.svelte";
 import PageStorage from "@/components/settings/PageStorage.svelte";
 import PageSuperuserLogin from "@/components/superusers/PageSuperuserLogin.svelte";
+import HookEditor from "@/components/settings/HookEditor.svelte";
+import CustomPage from "@/components/settings/CustomPage.svelte";
 import ApiClient from "@/utils/ApiClient";
 import { isTokenExpired } from "pocketbase";
 import { wrap } from "svelte-spa-router/wrap";
@@ -90,6 +92,18 @@ const routes = {
 
     "/settings/crons": wrap({
         component: PageCrons,
+        conditions: [(_) => ApiClient.authStore.isValid],
+        userData: { showAppSidebar: true },
+    }),
+
+    "/hooks": wrap({
+        component:  HookEditor,
+        conditions: [(_) => ApiClient.authStore.isValid],
+        userData: { showAppSidebar: true },
+    }),
+
+    "/pages": wrap({
+        component:  CustomPage,
         conditions: [(_) => ApiClient.authStore.isValid],
         userData: { showAppSidebar: true },
     }),

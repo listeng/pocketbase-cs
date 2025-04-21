@@ -70,7 +70,11 @@ func validateCASTicket(c *core.Collection, e *core.RequestEvent) (string, string
 		}
 	}
 
-	e.App.Logger().Info("cas login", slog.String("user", username), slog.String("utype", userType), slog.String("roles", roles))
+	e.App.Logger().Info("cas login",
+		slog.String("user", username),
+		slog.String("utype", userType),
+		slog.String("roles", roles),
+	)
 
 	return username, userType, roles, nil
 }
@@ -94,20 +98,21 @@ func recordAuthWithCAS(e *core.RequestEvent) error {
 	user, err := e.App.FindAuthRecordByEmail(collection, username+"@"+collection.CASAuth.Realm)
 	if err == sql.ErrNoRows {
 		if collection.CASAuth.CreateNewUser {
-			record := core.NewRecord(collection)
-			record.Set("email", username+"@"+collection.CASAuth.Realm)
-			record.SetTokenKey(security.RandomString(50))
+			user = core.NewRecord(collection)
+			user.Set("email", username+"@"+collection.CASAuth.Realm)
+			user.SetPassword(security.RandomString(50))
+			user.SetTokenKey(security.RandomString(50))
 
 			if collection.Fields.GetByName("username") != nil {
-				record.Set("username", username)
+				user.Set("username", username)
 			}
 
 			if collection.Fields.GetByName("name") != nil {
-				record.Set("name", username)
+				user.Set("name", username)
 			}
 
 			if collection.Fields.GetByName("verified") != nil {
-				record.Set("verified", true)
+				user.Set("verified", true)
 			}
 
 			if userType == "admin" || userType == "super" {
@@ -128,13 +133,22 @@ func recordAuthWithCAS(e *core.RequestEvent) error {
 				}
 			}
 
-			if err := e.App.Save(record); err != nil {
+			if err := e.App.Save(user); err != nil {
+				e.App.Logger().Info("CAS登录失败，用户无效[新用户创建失败]",
+					slog.String("err", err.Error()),
+				)
 				return e.UnauthorizedError("CAS登录失败，用户无效[新用户创建失败]", nil)
 			}
 		} else {
+			e.App.Logger().Info("CAS登录失败，用户无效",
+				slog.String("err", err.Error()),
+			)
 			return e.UnauthorizedError("CAS登录失败，用户无效", nil)
 		}
 	} else if err != nil {
+		e.App.Logger().Info("CAS登录失败，用户无效[未知错误]",
+			slog.String("err", err.Error()),
+		)
 		return e.UnauthorizedError("CAS登录失败，用户无效[未知错误]", nil)
 	}
 

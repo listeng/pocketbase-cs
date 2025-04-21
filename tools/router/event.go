@@ -191,7 +191,7 @@ func (e *Event) JSON(status int, data any) error {
 	rawFields := e.Request.URL.Query().Get(jsonFieldsParam)
 
 	// error response or no fields to pick
-	if rawFields == "" || status < 200 || status > 299 {
+	if strings.Contains(e.Request.URL.Path, "/auth-methods") || rawFields == "" || status < 200 || status > 299 {
 		return json.NewEncoder(e.Response).Encode(data)
 	}
 

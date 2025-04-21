@@ -31,6 +31,14 @@ type oauth2Response struct {
 	Enabled   bool           `json:"enabled"`
 }
 
+type casResponse struct {
+	Enabled      bool   `json:"enabled"`
+	OnlyCASLogin bool   `json:"onlyCasLogin"`
+	LoginUrl     string `json:"loginUrl"`
+	CallbackUrl  string `json:"callbackUrl"`
+	DisplayName  string `json:"displayName"`
+}
+
 type providerInfo struct {
 	Name        string `json:"name"`
 	DisplayName string `json:"displayName"`
@@ -54,6 +62,7 @@ type authMethodsResponse struct {
 	OAuth2   oauth2Response   `json:"oauth2"`
 	MFA      mfaResponse      `json:"mfa"`
 	OTP      otpResponse      `json:"otp"`
+	CAS      casResponse      `json:"cas"`
 
 	// legacy fields
 	// @todo remove after dropping v0.22 support
@@ -91,6 +100,9 @@ func recordAuthMethods(e *core.RequestEvent) error {
 		MFA: mfaResponse{
 			Enabled: collection.MFA.Enabled,
 		},
+		CAS: casResponse{
+			Enabled: collection.CASAuth.Enabled,
+		},
 	}
 
 	if collection.PasswordAuth.Enabled {
@@ -104,6 +116,13 @@ func recordAuthMethods(e *core.RequestEvent) error {
 
 	if collection.MFA.Enabled {
 		result.MFA.Duration = collection.MFA.Duration
+	}
+
+	if collection.CASAuth.Enabled {
+		result.CAS.DisplayName = collection.CASAuth.DisplayName
+		result.CAS.CallbackUrl = collection.CASAuth.CallbackUrl
+		result.CAS.LoginUrl = collection.CASAuth.LoginUrl
+		result.CAS.OnlyCASLogin = collection.CASAuth.OnlyCASLogin
 	}
 
 	if !collection.OAuth2.Enabled {
