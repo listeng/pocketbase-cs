@@ -11,6 +11,7 @@
     import SortHeader from "@/components/base/SortHeader.svelte";
     import Toggler from "@/components/base/Toggler.svelte";
     import RecordFieldValue from "@/components/records/RecordFieldValue.svelte";
+    import tooltip from "@/actions/tooltip";
 
     const dispatch = createEventDispatcher();
     const sortRegex = /^([\+\-])?(\w+)$/;
@@ -44,6 +45,8 @@
     $: isView = collection?.type === "view";
 
     $: isSuperusers = collection?.type === "auth" && collection.name === "_superusers";
+
+    $: isPage = collection?.name === "Page";
 
     // skip unused superusers fields
     $: fields = (collection?.fields || []).filter(
@@ -415,7 +418,23 @@
                     {/each}
 
                     <td class="col-type-action min-width">
-                        <i class="ri-arrow-right-line" />
+                        {#if isPage}
+                            <a
+                                type="button"
+                                aria-label="Edit Page"
+                                href="./libs/page/#/edit/{record.id}"
+                                target="_blank"
+                                class="btn btn-transparent btn-circle"
+                                use:tooltip={{ text: "编辑表单", position: "top" }}
+                                on:click|stopPropagation={() => {
+
+                                }}
+                            >
+                                <i class="ri-pages-line" />
+                            </a>
+                        {:else}
+                            <i class="ri-arrow-right-line" />
+                        {/if}
                     </td>
                 </tr>
             {:else}

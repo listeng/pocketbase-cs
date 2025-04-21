@@ -2,6 +2,7 @@
     import { superuser } from "@/stores/superuser";
 
     export let center = false;
+    export let showFooter = true;
 
     let classes = "";
     export { classes as class }; // export reserved keyword
@@ -12,6 +13,7 @@
         <slot />
     </main>
 
+    {#if showFooter}
     <footer class="page-footer">
         <slot name="footer" />
 
@@ -26,4 +28,5 @@
             </a>
         {/if}
     </footer>
+    {/if}
 </div>
