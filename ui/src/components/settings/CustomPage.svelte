@@ -32,7 +32,7 @@
     async function loadPageList() {
         const pageData = await ApiClient.collection("Page").getList(1, 100, {
             filter: "show=true",
-            fields: "id,name,remark,icon,ctype",
+            fields: "id,name,remark,icon,ctype,url",
             sort: "+sort",
         });
 
@@ -45,7 +45,12 @@
 
     async function selectPage(page) {
         selectedPage = page.name;
-        iframeUrl = "./libs/page/?_=" + Math.random() + "/#/page/" + page.id;
+
+        if (page.url !== '') {
+            iframeUrl = page.url;
+        } else {
+            iframeUrl = "./libs/page/?_=" + Math.random() + "/#/page/" + page.id;
+        }
     }
 </script>
 
