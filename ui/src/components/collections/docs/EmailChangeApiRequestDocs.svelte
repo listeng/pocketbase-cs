@@ -53,7 +53,7 @@
     <strong class="label label-primary">POST</strong>
     <div class="content">
         <p>
-            /api/collections/<strong>{collection.name}</strong>/request-email-change
+            /pb-proxy/api/collections/<strong>{collection.name}</strong>/request-email-change
         </p>
     </div>
     <p class="txt-hint txt-sm txt-right">需要 <code>Authorization:TOKEN</code></p>

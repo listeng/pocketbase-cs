@@ -97,7 +97,7 @@
 <div class="alert">
     <strong class="label label-primary">SSE</strong>
     <div class="content">
-        <p>/api/realtime</p>
+        <p>/pb-proxy/api/realtime</p>
     </div>
 </div>
 

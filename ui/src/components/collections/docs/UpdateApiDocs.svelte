@@ -137,7 +137,7 @@ final record = await pb.collection('${collection?.name}').update('RECORD_ID', bo
     <strong class="label label-primary">PATCH</strong>
     <div class="content">
         <p>
-            /api/collections/<strong>{collection.name}</strong>/records/<strong>:id</strong>
+            /pb-proxy/api/collections/<strong>{collection.name}</strong>/records/<strong>:id</strong>
         </p>
     </div>
     {#if superusersOnly}
@@ -300,6 +300,8 @@ final record = await pb.collection('${collection?.name}').update('RECORD_ID', bo
                         邮箱地址。
                     {:else if field.type === "url"}
                         URL地址。
+                    {:else if field.type === "geoPoint"}
+                        <code>{`{"lon":x,"lat":y}`}</code> object.
                     {:else if field.type === "file"}
                         文件对象。<br />
                         设置为 <code>null</code> 可删除已上传的文件。

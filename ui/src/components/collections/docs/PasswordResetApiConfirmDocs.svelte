@@ -33,7 +33,7 @@
     <strong class="label label-primary">POST</strong>
     <div class="content">
         <p>
-            /api/collections/<strong>{collection.name}</strong>/confirm-password-reset
+            /pb-proxy/api/collections/<strong>{collection.name}</strong>/confirm-password-reset
         </p>
     </div>
 </div>

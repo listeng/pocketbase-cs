@@ -50,7 +50,7 @@
     <strong class="label label-primary">POST</strong>
     <div class="content">
         <p>
-            /api/collections/<strong>{collection.name}</strong>/request-otp
+            /pb-proxy/api/collections/<strong>{collection.name}</strong>/request-otp
         </p>
     </div>
 </div>

@@ -128,7 +128,7 @@ await pb.collection('${collection?.name}').requestVerification('test@example.com
     <strong class="label label-primary">POST</strong>
     <div class="content">
         <p>
-            /api/collections/<strong>{collection.name}</strong>/records
+            /pb-proxy/api/collections/<strong>{collection.name}</strong>/records
         </p>
     </div>
     {#if superusersOnly}
@@ -256,6 +256,8 @@ await pb.collection('${collection?.name}').requestVerification('test@example.com
                         邮箱地址。
                     {:else if field.type === "url"}
                         URL地址。
+                    {:else if field.type === "geoPoint"}
+                        <code>{`{"lon":x,"lat":y}`}</code> object.
                     {:else if field.type === "file"}
                         文件对象。<br />
                         设置为空值(<code>null</code>、<code>""</code>或<code>[]</code>)以删除已上传的文件。

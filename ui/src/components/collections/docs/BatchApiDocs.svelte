@@ -133,7 +133,7 @@
 <h6 class="m-b-xs">API详情</h6>
 <div class="api-route alert alert-success">
     <strong class="label label-primary">POST</strong>
-    <div class="content">/api/batch</div>
+    <div class="content">/pb-proxy/api/batch</div>
 </div>
 
 <div class="section-title">请求体参数</div>
@@ -162,13 +162,13 @@
 
                 <p>支持的批量请求操作包括：</p>
                 <ul>
-                    <li>记录创建 - <code>POST /api/collections/{`{collection}`}/records</code></li>
+                    <li>记录创建 - <code>POST /pb-proxy/api/collections/{`{collection}`}/records</code></li>
                     <li>
                         记录更新 -
-                        <code>PATCH /api/collections/{`{collection}`}/records/{`{id}`}</code>
+                        <code>PATCH /pb-proxy/api/collections/{`{collection}`}/records/{`{id}`}</code>
                     </li>
                     <li>
-                        记录更新插入 - <code>PUT /api/collections/{`{collection}`}/records</code>
+                        记录更新插入 - <code>PUT /pb-proxy/api/collections/{`{collection}`}/records</code>
                         <br />
                         <small class="txt-hint">
                             (请求体必须包含<code class="txt-sm">id</code>字段)
@@ -176,7 +176,7 @@
                     </li>
                     <li>
                         记录删除 -
-                        <code>DELETE /api/collections/{`{collection}`}/records/{`{id}`}</code>
+                        <code>DELETE /pb-proxy/api/collections/{`{collection}`}/records/{`{id}`}</code>
                     </li>
                 </ul>
                 <p>每个批量请求元素具有以下属性：</p>
@@ -205,12 +205,12 @@
                                 requests: [
                                     {
                                         method: "POST",
-                                        url: "/api/collections/${collection.name}/records?fields=id",
+                                        url: "/pb-proxy/api/collections/${collection.name}/records?fields=id",
                                         body: { someField: "test1" }
                                     },
                                     {
                                         method: "PATCH",
-                                        url: "/api/collections/${collection.name}/records/RECORD_ID",
+                                        url: "/pb-proxy/api/collections/${collection.name}/records/RECORD_ID",
                                         body: { someField: "test2" }
                                     }
                                 ]

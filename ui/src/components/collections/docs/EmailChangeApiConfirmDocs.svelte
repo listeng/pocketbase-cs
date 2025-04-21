@@ -33,7 +33,7 @@
     <strong class="label label-primary">POST</strong>
     <div class="content">
         <p>
-            /api/collections/<strong>{collection.name}</strong>/confirm-email-change
+            /pb-proxy/api/collections/<strong>{collection.name}</strong>/confirm-email-change
         </p>
     </div>
 </div>

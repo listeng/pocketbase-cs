@@ -1127,6 +1127,8 @@ export default class CommonHelper {
                 if (field?.maxSelect != 1) {
                     val = [val];
                 }
+            } else if (field.type == "geoPoint") {
+                val = {"lon": 0, "lat": 0};
             } else {
                 val = "test";
             }
@@ -1205,20 +1207,22 @@ export default class CommonHelper {
      */
     static getFieldValueType(field) {
         switch (field?.type) {
-            case 'bool':
-                return 'Boolean';
-            case 'number':
-                return 'Number';
-            case 'file':
-                return 'File';
-            case 'select':
-            case 'relation':
+            case "bool":
+                return "Boolean";
+            case "number":
+                return "Number";
+            case "geoPoint":
+                return "Object";
+            case "file":
+                return "File";
+            case "select":
+            case "relation":
                 if (field?.maxSelect == 1) {
-                    return 'String';
+                    return "String";
                 }
-                return 'Array<String>';
+                return "Array<String>";
             default:
-                return 'String';
+                return "String";
         }
     }
 
@@ -1235,6 +1239,10 @@ export default class CommonHelper {
 
         if (field?.type === "bool") {
             return "false";
+        }
+
+        if (field?.type === "geoPoint") {
+            return '{"lon":0,"lat":0}';
         }
 
         if (field?.type === "json") {
